@@ -8,26 +8,31 @@ const Navbar = () => {
       <div className="bg-black flex justify-between items-center w-full h-18 px-10">
         {/* Logo Main */}
 
-          <Link href="/">
-            <LogoMeepoGear className="text-white w-36 h-auto" />
-          </Link>
-      
+        <Link href="/">
+          <LogoMeepoGear className="text-white w-36 h-auto" />
+        </Link>
+
         <div className="nav-con flex items-center gap-3">
           {/* Search */}
           <Search className="text-white w-6 h-6" />
 
-          {/* button Login */}
+          {/* button Login - Register */}
           <div className="flex gap-2">
-            <div className="bg-white w-[95px] h-[30px] rounded-full flex justify-center items-center">
-              <span className="text-sm text-black italic font-semibold">
-                Login
-              </span>
-            </div>
-            <div className="bg-white w-[95px] h-[30px] rounded-full flex justify-center items-center">
-              <span className="text-sm text-black italic font-semibold">
-                SignUp
-              </span>
-            </div>
+            <Link href={"/sign-in"}>
+              <div className="bg-[#9AE600] w-[95px] h-[30px] rounded-full flex justify-center items-center">
+                <span className="text-sm text-black italic font-semibold">
+                  Login
+                </span>
+              </div>
+            </Link>
+
+            <Link href={"/sign-up"}>
+              <div className="bg-white w-[95px] h-[30px] rounded-full flex justify-center items-center">
+                <span className="text-sm text-black italic font-semibold">
+                  SignUp
+                </span>
+              </div>
+            </Link>
           </div>
 
           {/* button Cart */}
