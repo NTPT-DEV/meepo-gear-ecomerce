@@ -9,7 +9,13 @@ React Icon
 
 Auth js
 prisna 
-mongoDB   user nuttaphong / password yY7340DhhOYXIG2T 
+mongoDB   user nuttaphong / password yY7340DhhOYXIG2T *** meepo gear project ***
+zod 
+
+React-hook-form
+
+
+------------------------------
 
 connect url ////    mongodb+srv://nuttaphong:<yY7340DhhOYXIG2T>@cluster0.fudjvae.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 

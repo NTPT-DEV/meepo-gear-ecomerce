@@ -18,7 +18,7 @@ const Navbar = () => {
 
           {/* button Login - Register */}
           <div className="flex gap-2">
-            <Link href={"/sign-in"}>
+            <Link href={"/auth/sign-in"}>
               <div className="bg-[#9AE600] w-[95px] h-[30px] rounded-full flex justify-center items-center">
                 <span className="text-sm text-black italic font-semibold">
                   Login
@@ -26,7 +26,7 @@ const Navbar = () => {
               </div>
             </Link>
 
-            <Link href={"/sign-up"}>
+            <Link href={"/auth/sign-up"}>
               <div className="bg-white w-[95px] h-[30px] rounded-full flex justify-center items-center">
                 <span className="text-sm text-black italic font-semibold">
                   SignUp
