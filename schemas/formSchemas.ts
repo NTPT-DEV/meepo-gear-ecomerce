@@ -8,11 +8,12 @@ export const SignUpSchema = z.object({
         message : 'Name must be at least 6 characters long'
     }),
     password : z.string().min(6 , {
-        message : 'Password must be at least 8 characters long'
+        message : 'Password must be at least 6 characters long'
     }), 
-    confirmPassword : z.string().min(6 , {
+    confirmPassword : z.string({
         message : "Password do not match"
-    })
+    }) 
+        
 }).refine((data) => data.password === data.confirmPassword , {
     message : "Password do not match" , 
     path : ['confirmPassword']
@@ -20,7 +21,7 @@ export const SignUpSchema = z.object({
 
 export type SignUpTypeSchema = z.infer<typeof SignUpSchema>
 
-
+///////////////
 
 export const SignInSchema = z.object({
     email : z.string().email({

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import LogoMeepoGear from "../logoSvg/LogoMeepoGear";
 import { CircleUserRound, Search, ShoppingBag } from "lucide-react";
-import Menubar from "./Menubar";
+
 const Navbar = () => {
   return (
     <div className="main-container">
@@ -44,7 +44,7 @@ const Navbar = () => {
       </div>
       {/* Menu Bar */}
 
-      <Menubar />
+      
     </div>
   );
 };

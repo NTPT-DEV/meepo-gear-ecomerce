@@ -5,7 +5,7 @@ import { SignInSchema } from '../schemas/formSchemas'
 import { prisma } from "../prisma/prisma"
 import bcrypt from "bcryptjs"
 
- 
+
 export default { 
     providers: [
         Google({
@@ -24,7 +24,7 @@ export default {
                     where : { email }
                 })
 
-                if(!user || !user.password || !user.email){
+                if(!user || !user.password){
                     return null 
                 }
 
@@ -36,12 +36,6 @@ export default {
 
             }})
 
-                        
-                    
-                
-            
-       
     ] 
-    
     
     } satisfies NextAuthConfig

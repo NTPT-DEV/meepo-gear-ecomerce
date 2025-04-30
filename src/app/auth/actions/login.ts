@@ -28,7 +28,7 @@ export const loginAction = async (data: SignInTypeSchema) => {
       redirect: false,
       
     });
-
+   
     if (res.error) {
       return { error: "Invalid email or password" };
     }
@@ -38,5 +38,6 @@ export const loginAction = async (data: SignInTypeSchema) => {
     console.log(error);
     return { error: "Something went wrong. Please try again."};
   }
+  
   return { success: "User logged in successfully" };
 };

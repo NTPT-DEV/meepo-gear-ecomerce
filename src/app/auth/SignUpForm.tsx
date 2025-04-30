@@ -4,12 +4,12 @@ import { Check, LoaderCircle } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FcGoogle } from "react-icons/fc";
 import { SignUpSchema } from "schemas/formSchemas";
 import type { SignUpTypeSchema } from "schemas/formSchemas";
 import { useState } from "react";
 import { registerAction } from "@/app/auth/actions/register"
 import { useRouter } from "next/navigation";
+import ButtonGoogle from "../components/Layout/compReuse/ButtonGoogle";
 
 
 const SignUpForm = () => {
@@ -18,7 +18,7 @@ const SignUpForm = () => {
   const router = useRouter();
 
   
-  const { register, handleSubmit, reset, formState: { errors , isSubmitSuccessful } }  = useForm<SignUpTypeSchema>({
+  const { register, handleSubmit, reset, watch ,  formState: { errors , isSubmitSuccessful } }  = useForm<SignUpTypeSchema>({
     resolver: zodResolver(SignUpSchema), 
     defaultValues : {
       email : '',
@@ -28,8 +28,7 @@ const SignUpForm = () => {
     }}
   );
 
-
-  const onSubmit = async ( data : SignUpTypeSchema) => {
+  const onSubmit = async (data : SignUpTypeSchema) => {
     
     setLoding(true);
 
@@ -49,7 +48,6 @@ const SignUpForm = () => {
   return (
     <div className="container mx-auto w-screen h-full">
 
-      
       <div className=" flex justify-center  ">
         <div className="flex justify-center items-center bg-white backdrop-blur-[2px] w-[400px] h-full rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300 ">
           <div className="flex flex-col w-full p-7">
@@ -70,7 +68,7 @@ const SignUpForm = () => {
                   {...register('email' , {
                     required: 'Email is required'
                   })}
-                  className="text-sm border border-zinc-200 w-full h-auto px-4 py-3 rounded-lg"
+                  className={`text-sm border ${ errors.email ? 'border-red-500' : 'border-zinc-200'} w-full h-auto px-4 py-3 rounded-lg`}
                   type="email"
                   placeholder="johnsnow@email.com"
                 />
@@ -93,7 +91,7 @@ const SignUpForm = () => {
                 <h3 className="text-sm font-semi-bold">Password</h3>
                 <input
                   {...register('password')}
-                  className="text-sm border border-zinc-200 w-full h-auto px-4 py-3 rounded-lg"
+                  className={`text-sm border border-zinc-200 w-full h-auto px-4 py-3 rounded-lg`}
                   type="password"
                   placeholder="********"
                 />
@@ -105,8 +103,8 @@ const SignUpForm = () => {
                 <h3 className="text-sm font-semi-bold">Confirm password</h3>
                 <input
                    {...register('confirmPassword')}
-                  className="text-sm border border-zinc-200 w-full h-auto px-4 py-3 rounded-lg"
-                  type="password"
+                   className={`text-sm border ${ watch('password') !== watch('confirmPassword') ? 'border-red-500' : 'border-zinc-200'} w-full h-auto px-4 py-3 rounded-lg`}
+                   type="password"
                   placeholder="********"
                 />
               </div>
@@ -126,9 +124,9 @@ const SignUpForm = () => {
                 : "Register"}
                 </button>
 
-              {/* Button Login google */}
-              <button className="bg-white flex justify-center items-center gap-2 border border-zinc-200 text-sm text-zinc-800 font-bold py-3 rounded-lg"><FcGoogle className="w-5 h-5" />Sign in with Google</button>
             </form>
+              {/* Button Login google */}
+              <ButtonGoogle />
 
             {/* Status Register */}
                 {errors.email && 
@@ -149,9 +147,7 @@ const SignUpForm = () => {
                   <Check className="w-6 h-6 text-lime-500 bg-white rounded-full p-1"/>
                   </div> : ''
                 }
-
-                
-                        
+       
             {/* Link to Register */}
             <div className="flex justify-center items-center text-xs my-5 text-zinc-700 hover:text-blue-800 transition-all duration-200">
                 <Link href={'/auth/sign-in'}><span>Already have an account</span></Link>

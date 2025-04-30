@@ -1,50 +1,45 @@
-
-'use client'
+"use client";
 import Link from "next/link";
-import { FcGoogle } from "react-icons/fc";
+
 import { useForm } from "react-hook-form";
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { SignInSchema } from "schemas/formSchemas";
 import type { SignInTypeSchema } from "schemas/formSchemas";
-import { loginAction } from "../auth/actions/login";
+import { loginAction } from "./actions/login";
 import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import ButtonGoogle from "../components/Layout/compReuse/ButtonGoogle";
 
 const SigninForm = () => {
+  const [loading, setLoding] = useState(false);
+  const router = useRouter();
 
- const [loading , setLoding ] = useState(false);
- const router = useRouter();
+  const { register, handleSubmit, reset } = useForm<SignInTypeSchema>({
+    resolver: zodResolver(SignInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-const { register, handleSubmit, reset }  = useForm<SignInTypeSchema>({
-    resolver: zodResolver(SignInSchema), 
-    defaultValues : {
-      email : '',
-      password : '',
-      
-    }}
-  );
+  const onSubmit = async (data: SignInTypeSchema) => {
+    setLoding(true);
 
-  const onSubmit = async ( data : SignInTypeSchema ) => {
-    setLoding(true); 
+    const response = await loginAction(data);
 
-    const response = await loginAction(data); 
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    await new Promise((resolve) => setTimeout(resolve , 1000));
-
-    if(response.success) {
-      console.log('login success');
-      router.push('/')
+    if (response.success) {
+      console.log("login success");
+      router.push("/dashboard");
       reset();
+    } else {
+      console.log("login fail");
     }
-    else {
-      console.log('login fail');
-    }
 
-    setLoding(false); 
-
-  }
-
+    setLoding(false);
+  };
 
   return (
     <div className="container mx-auto w-screen h-full mt-20">
@@ -58,14 +53,17 @@ const { register, handleSubmit, reset }  = useForm<SignInTypeSchema>({
 
             {/* Login Form */}
 
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full gap-y-4">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col w-full gap-y-4"
+            >
               {/* email */}
               <div className="flex flex-col gap-1">
                 <h3 className="text-sm font-semi-bold">Email</h3>
                 <input
-               {...register('email' , {
-                required: 'Email is required'
-              })}
+                  {...register("email", {
+                    required: "Email is required",
+                  })}
                   className="text-sm border border-zinc-200 w-full h-auto px-4 py-3 rounded-lg"
                   type="email"
                   placeholder="johnsnow@email.com"
@@ -76,7 +74,7 @@ const { register, handleSubmit, reset }  = useForm<SignInTypeSchema>({
               <div className="flex flex-col gap-1">
                 <h3 className="text-sm font-semi-bold">Password</h3>
                 <input
-                  {...register('password')}
+                  {...register("password")}
                   className="text-sm border border-zinc-200 w-full h-auto px-4 py-3 rounded-lg"
                   type="password"
                   placeholder="********"
@@ -90,17 +88,24 @@ const { register, handleSubmit, reset }  = useForm<SignInTypeSchema>({
 
               {/* Button Login Email */}
               <button className="bg-zinc-800 text-white font-bold py-3 rounded-lg active:scale-95 transition-all duration-200">
-              { loading ? 
-                <span className="flex justify-center items-center gap-2">Loading...<LoaderCircle className="w-5 h-5 text-white animate-spin" /></span> 
-                : "Login"}
-                </button>
-              {/* Button Login google */}
-              <button className="bg-white flex justify-center items-center gap-2 border border-zinc-200 text-sm text-zinc-800 font-bold py-3 rounded-lg"><Link href={'api/auth/signin'} className="flex w-full justify-center items-center gap-2"><FcGoogle className="w-5 h-5" />Sign in with Google</Link></button>
+                {loading ? (
+                  <span className="flex justify-center items-center gap-2">
+                    Loading...
+                    <LoaderCircle className="w-5 h-5 text-white animate-spin" />
+                  </span>
+                ) : (
+                  "Login"
+                )}
+              </button>
             </form>
+            {/* Button Login google */}
+            <ButtonGoogle /> 
 
             {/* Link to Register */}
             <div className="flex justify-center items-center text-xs my-5 text-zinc-700 hover:text-blue-800 transition-all duration-200">
-                <Link href={'/auth/sign-up'}><span>Don&apos;t have an account? Register here</span></Link>
+              <Link href={"/auth/sign-up"}>
+                <span>Don&apos;t have an account? Register here</span>
+              </Link>
             </div>
           </div>
         </div>
