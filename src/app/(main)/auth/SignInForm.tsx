@@ -6,14 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { SignInSchema } from "schemas/formSchemas";
 import type { SignInTypeSchema } from "schemas/formSchemas";
-import { loginAction } from "./actions/login";
+import { loginAction } from "../actions/login";
 import { LoaderCircle } from "lucide-react";
-import { useRouter } from "next/navigation";
-import ButtonGoogle from "../components/Layout/compReuse/ButtonGoogle";
+import ButtonGoogle from "../../components/Layout/compReuse/ButtonGoogle";
 
 const SigninForm = () => {
   const [loading, setLoding] = useState(false);
-  const router = useRouter();
+
 
   const { register, handleSubmit, reset } = useForm<SignInTypeSchema>({
     resolver: zodResolver(SignInSchema),
@@ -31,8 +30,6 @@ const SigninForm = () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     if (response.success) {
-      console.log("login success");
-      router.push("/dashboard");
       reset();
     } else {
       console.log("login fail");
@@ -42,7 +39,7 @@ const SigninForm = () => {
   };
 
   return (
-    <div className="container mx-auto w-screen h-full mt-20">
+    <div className="container mx-auto w-screen h-fit  relative items-center py-10">
       <div className=" flex items-center justify-center">
         <div className="flex justify-center items-center bg-white backdrop-blur-[2px] w-[400px] h-auto rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300 ">
           <div className="flex flex-col w-full p-7">
@@ -55,7 +52,7 @@ const SigninForm = () => {
 
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col w-full gap-y-4"
+              className="flex flex-col w-full h-auto gap-y-4"
             >
               {/* email */}
               <div className="flex flex-col gap-1">

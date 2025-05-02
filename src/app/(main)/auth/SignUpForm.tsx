@@ -7,9 +7,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpSchema } from "schemas/formSchemas";
 import type { SignUpTypeSchema } from "schemas/formSchemas";
 import { useState } from "react";
-import { registerAction } from "@/app/auth/actions/register"
+import { registerAction } from "@/app/(main)/actions/register"
 import { useRouter } from "next/navigation";
-import ButtonGoogle from "../components/Layout/compReuse/ButtonGoogle";
+import ButtonGoogle from "../../components/Layout/compReuse/ButtonGoogle";
 
 
 const SignUpForm = () => {
@@ -48,15 +48,15 @@ const SignUpForm = () => {
   return (
     <div className="container mx-auto w-screen h-full">
 
-      <div className=" flex justify-center  ">
+      <div className=" flex justify-center my-10">
         <div className="flex justify-center items-center bg-white backdrop-blur-[2px] w-[400px] h-full rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300 ">
           <div className="flex flex-col w-full p-7">
-            <div className="flex flex-col w-full h-auto items-center gap-1 mb-5">
+            <div className="flex flex-col w-full h-auto items-center gap-1 mb-4">
               <h1 className="text-3xl font-extrabold">Register</h1>
               <h3 className="text-sm text-zinc-500">ลงทะเบียนผู้ใช้</h3>
             </div>
 
-            {/* Login Form */}
+            {/* Register Form */}
 
             <form 
             onSubmit={handleSubmit(onSubmit)}

@@ -1,11 +1,12 @@
 import Link from "next/link";
-import LogoMeepoGear from "../logoSvg/LogoMeepoGear";
-import { CircleUserRound, Search, ShoppingBag } from "lucide-react";
+
+import { CircleUserRound } from "lucide-react";
+import LogoMeepoGear from "@/app/components/logoSvg/LogoMeepoGear";
 
 const Navbar = () => {
   return (
     <div className="main-container">
-      <div className="bg-black flex justify-between items-center w-full h-22 px-10 rounded-b-[40px]">
+      <div className="bg-black flex justify-between items-center w-full h-18 px-10">
         {/* Logo Main */}
 
         <Link href="/">
@@ -13,8 +14,6 @@ const Navbar = () => {
         </Link>
 
         <div className="nav-con flex items-center gap-3">
-          {/* Search */}
-          <Search className="text-white w-6 h-6" />
 
           {/* button Login - Register */}
           <div className="flex gap-2">
@@ -37,7 +36,6 @@ const Navbar = () => {
 
           {/* button Cart */}
           <div className="flex gap-2">
-            <ShoppingBag className="text-white w-6 h-6" />
             <CircleUserRound className="text-white w-6 h-6" />
           </div>
         </div>

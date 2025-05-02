@@ -1,5 +1,7 @@
 import * as z from 'zod'
 
+/////////////// Sign Up Schema /////////////////
+
 export const SignUpSchema = z.object({
     email : z.string().email({
         message : 'Please enter a valid email address'
@@ -21,7 +23,8 @@ export const SignUpSchema = z.object({
 
 export type SignUpTypeSchema = z.infer<typeof SignUpSchema>
 
-///////////////
+
+/////////////// Login Schema /////////////////
 
 export const SignInSchema = z.object({
     email : z.string().email({

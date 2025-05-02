@@ -1,4 +1,5 @@
 import "../globals.css";
+import Navbar from "./D-Components/NavBarDash";
 
 export default function DashboardLayout({
   children,
@@ -7,11 +8,9 @@ export default function DashboardLayout({
 }>) {
   return (
     <div>
+      <Navbar />
       {children}
     </div>
-        
-        
-     
-   
+
   );
 }

@@ -5,6 +5,7 @@ import { SignUpSchema } from "../../../../schemas/formSchemas"
 import type { SignUpTypeSchema } from "../../../../schemas/formSchemas"
 
 export const registerAction = async ( data : SignUpTypeSchema) => {
+    
     try { 
         const validatedData = SignUpSchema.parse(data) 
         

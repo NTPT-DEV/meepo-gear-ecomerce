@@ -6,6 +6,7 @@ import { signIn } from "@/auth";
 
 export const loginAction = async (data: SignInTypeSchema) => {
 
+  try {
     const validatedDate = SignInSchema.parse(data);
 
     const { email, password } = validatedDate;
@@ -18,10 +19,9 @@ export const loginAction = async (data: SignInTypeSchema) => {
     });
     console.log(userExist);
 
-    if (!userExist) {
-      return { error: "User not found" };
+    if (!userExist || !userExist.enabled ) {
+      return { error: "User not found or account is disabled" };
     }
-  try {
      const res = await signIn("credentials", {
       email: userExist.email,
       password: password,

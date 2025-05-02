@@ -1,20 +1,20 @@
 "use client";
 import { FcGoogle } from "react-icons/fc";
 import { useActionState } from "react";
-import { googleAuth } from "@/app/auth/actions/google-login";
-import { useRouter } from "next/navigation";
+import { googleAuth } from "@/app/(main)/actions/google-login";
+
 
 const ButtonGoogle = () => {
   const [errorMSGGoogle, dispatchGoogle] = useActionState(
     googleAuth,
     undefined
   );
-  const route = useRouter();
+
   const handleGoogleLogin = async () => {
     try {
       dispatchGoogle();
 
-      route.push("/");
+    
       console.log("Google login successful");
     } catch (error) {
       console.log("Google login failed", error);

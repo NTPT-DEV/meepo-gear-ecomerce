@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "./components/Layout/Navbar";
-import Footer from "./components/Layout/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,12 +13,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body suppressHydrationWarning={true} className=" mx-auto h-min-screen">
-        <div>
-          <Navbar />
-          {children}
-          <Footer />
-        </div>
+      <body suppressHydrationWarning={true} >
+        <div>{children}</div>
       </body>
     </html>
   );

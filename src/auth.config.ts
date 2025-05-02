@@ -24,7 +24,7 @@ export default {
                     where : { email }
                 })
 
-                if(!user || !user.password){
+                if(!user || !user.password || !user.enabled) {
                     return null 
                 }
 
