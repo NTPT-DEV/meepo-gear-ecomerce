@@ -1,4 +1,4 @@
-import SigninForm from "../SignInForm"
+import SigninForm from "../../../components/Layout/SignInForm"
 
 
 const SignInPage = () => {

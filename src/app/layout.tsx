@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import {SessionProvider} from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,8 +14,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body suppressHydrationWarning={true} >
-        <div>{children}</div>
+      <body suppressHydrationWarning={true} className="" >
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );

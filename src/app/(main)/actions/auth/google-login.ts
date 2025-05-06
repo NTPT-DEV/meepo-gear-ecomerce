@@ -2,10 +2,9 @@
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 
-
 export const googleAuth = async () => {
     try {
-        await signIn('google' , {redirectTo : '/'});
+        await signIn('google');
       
     } catch (error) {
         if(error instanceof AuthError){
@@ -13,7 +12,6 @@ export const googleAuth = async () => {
         }
         throw error;
     }
-    
     
 }
 

@@ -1,6 +1,6 @@
-import AddWishList from "@/app/components/Layout/compReuse/AddWishlist";
-import BuyNowButton from "@/app/components/Layout/compReuse/ButNowButton";
-import ButtonAddToCart from "@/app/components/Layout/compReuse/ButtonAddToCart";
+import AddWishList from "@/app/components/Layout/AddWishlist";
+import BuyNowButton from "@/app/components/Layout/ButNowButton";
+import ButtonAddToCart from "@/app/components/Layout/ButtonAddToCart";
 import QuantityButton from "@/app/components/Layout/QuantityButton";
 import Image from "next/image";
 
@@ -9,7 +9,7 @@ const ProductPage = () => {
 
 
   return (
-    <div className="product-main-con flex flex-col flex-1 w-full max-w-[1440px] h-auto mx-auto px-10 gap-10">
+    <div className="product-main-con flex flex-col flex-1 w-full max-w-[1440px] h-screen mx-auto px-10 gap-10">
       {/* Memu Navigation */}
       <div className="flex items-center w-full h-auto text-gray-500 text-sm gap-2 mt-5 font-[Outfit]">
         <span>Home {">"}</span>
@@ -17,7 +17,7 @@ const ProductPage = () => {
         <span>Monitor</span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full h-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full h-auto py-10">
         {/* Image Products */}
 
         <div className="flex flex-col items-center mb-5 gap-5">
@@ -45,7 +45,7 @@ const ProductPage = () => {
 
         {/* Product Details */}
 
-        <div className="details-container flex flex-col gap-2 bg-white w-full p-5 shadow-md">
+        <div className="details-container flex flex-col gap-2 bg-white w-full p-5 ">
           <div className="text-4xl font-bold">Name</div>
           <div className="text-2xl font-semibold">tiltle</div>
           <div className="text-md text-gray-500">

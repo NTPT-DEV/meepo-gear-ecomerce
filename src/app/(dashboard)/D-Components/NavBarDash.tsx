@@ -1,11 +1,16 @@
+"use client"
 import Link from "next/link";
-
 import { CircleUserRound } from "lucide-react";
 import LogoMeepoGear from "@/app/components/logoSvg/LogoMeepoGear";
+import SignOutBtn from "@/app/components/Layout/SignOutBtn";
+import { useSession } from "next-auth/react";
 
-const Navbar = () => {
+const NavbarDash = () => {
+
+const { data:session } = useSession();
+
   return (
-    <div className="main-container">
+    <div className="main-container fixed top-0 left-0 z-50 w-full">
       <div className="bg-black flex justify-between items-center w-full h-18 px-10">
         {/* Logo Main */}
 
@@ -15,8 +20,18 @@ const Navbar = () => {
 
         <div className="nav-con flex items-center gap-3">
 
-          {/* button Login - Register */}
-          <div className="flex gap-2">
+          {/* button Login Logout- Register */}
+          { session?.user ? 
+          (
+            <>
+              <p className="text-white font-bold text-sm">{session?.user?.email}</p>
+              <SignOutBtn /> 
+            </>
+          ) 
+          : 
+          (
+            <>
+            <div className="flex gap-2">
             <Link href={"/auth/sign-in"}>
               <div className="bg-[#9AE600] w-[95px] h-[30px] rounded-full flex justify-center items-center">
                 <span className="text-sm text-black italic font-semibold">
@@ -33,6 +48,8 @@ const Navbar = () => {
               </div>
             </Link>
           </div>
+          </>
+          )}  
 
           {/* button Cart */}
           <div className="flex gap-2">
@@ -46,4 +63,4 @@ const Navbar = () => {
     </div>
   );
 };
-export default Navbar;
+export default NavbarDash;

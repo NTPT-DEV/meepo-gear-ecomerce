@@ -1,5 +1,8 @@
+
+import { SessionProvider } from "next-auth/react";
 import "../globals.css";
-import Navbar from "./D-Components/NavBarDash";
+import MenuDashBoard from "./D-Components/MenuDashBoard";
+import NavbarDash from "./D-Components/NavBarDash";
 
 export default function DashboardLayout({
   children,
@@ -8,8 +11,9 @@ export default function DashboardLayout({
 }>) {
   return (
     <div>
-      <Navbar />
-      {children}
+      <NavbarDash />
+      <MenuDashBoard />
+      <SessionProvider>{children}</SessionProvider>
     </div>
 
   );

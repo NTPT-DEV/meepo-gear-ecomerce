@@ -9,7 +9,7 @@ import type { SignUpTypeSchema } from "schemas/formSchemas";
 import { useState } from "react";
 import { registerAction } from "@/app/(main)/actions/register"
 import { useRouter } from "next/navigation";
-import ButtonGoogle from "../../components/Layout/compReuse/ButtonGoogle";
+import ButtonGoogle from "./ButtonGoogle";
 
 
 const SignUpForm = () => {

@@ -1,4 +1,4 @@
-import ProductCard from "./compReuse/ProductCard"
+import ProductCard from "./ProductCard"
 
 const NewAvirialsSection = () => {
   return (
@@ -7,6 +7,11 @@ const NewAvirialsSection = () => {
       สินค้าใหม่<span className="w-6 h-6 animate-pulse">🔥</span>
     </h1>
     <div className="flex flex-wrap justify-center items-center gap-5 w-full h-auto ">
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
       <ProductCard />
       <ProductCard />
       <ProductCard />

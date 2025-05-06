@@ -1,4 +1,4 @@
-import ProductCategory from "./compReuse/ProductCategory";
+import ProductCategory from "./ProductCategory";
 
 const CategorySection = () => {
   return (

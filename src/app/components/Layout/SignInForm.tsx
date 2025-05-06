@@ -6,9 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { SignInSchema } from "schemas/formSchemas";
 import type { SignInTypeSchema } from "schemas/formSchemas";
-import { loginAction } from "../actions/login";
+
 import { LoaderCircle } from "lucide-react";
-import ButtonGoogle from "../../components/Layout/compReuse/ButtonGoogle";
+import ButtonGoogle from "./ButtonGoogle";
+import { loginAction } from "@/app/(main)/actions/auth/login";
 
 const SigninForm = () => {
   const [loading, setLoding] = useState(false);

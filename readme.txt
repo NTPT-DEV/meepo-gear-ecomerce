@@ -13,6 +13,7 @@ mongoDB   user nuttaphong / password yY7340DhhOYXIG2T *** meepo gear project ***
 zod 
 
 React-hook-form
+zustand
 
 
 ------------------------------
@@ -56,4 +57,18 @@ if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma
 8. npm install @prisma/client @auth/prisma-adapter // for adapter prisma 
 9. npm install next-auth@beta  // for auth js 
 
+
+
+
+
+
+
+step to build product 
+
+create db 
+connect prisma 
+authentication 
+
+build server action 
+create route
 

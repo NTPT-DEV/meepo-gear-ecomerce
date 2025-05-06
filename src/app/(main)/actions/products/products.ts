@@ -1,4 +1,5 @@
-import { prisma } from "prisma/prisma";
+
+import { prisma } from "../../../../../prisma/prisma";
 import { ProductTypeSchema, TgetProductByTypeSchema } from "schemas/productFormSchema";
 
 //// Create a new product
@@ -53,6 +54,8 @@ export const getAllProducts = async (data: ProductTypeSchema) => {
     return { error: "Error getting products" };
   }
 };
+
+
 
 /// Get Products by 
 
@@ -159,22 +162,22 @@ export const deleteProduct = async (id: string) => {
 };
 
 /// Search Filter products
-export const searchFilterProduct = async (data : SeacrhTypeSchema) => {
-  try {
-    const { query, category, price } = data;
-    if (query) { 
-        console.log(query);
-    }
-    if(category) {
-        console.log(category);
-    }
-    if(price) {
-        console.log(price);
-    }
+// export const searchFilterProduct = async (data : SeacrhTypeSchema) => {
+//   try {
+//     const { query, category, price } = data;
+//     if (query) { 
+//         console.log(query);
+//     }
+//     if(category) {
+//         console.log(category);
+//     }
+//     if(price) {
+//         console.log(price);
+//     }
 
 
-  } catch (error) {
-    console.log(error);
-    return { error: "Error getting products" };
-  }
-};
+//   } catch (error) {
+//     console.log(error);
+//     return { error: "Error getting products" };
+//   }
+// };
