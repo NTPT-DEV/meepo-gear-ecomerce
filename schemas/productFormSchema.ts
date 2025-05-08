@@ -2,13 +2,13 @@ import * as z from 'zod';
 
 export const ProductSchema = z.object({
     id : z.string().optional(),
-    name: z.string().min(1 , {
+    name: z.string().min(3 , {
         message: 'Name is required'
     }),
-    title: z.string().min(1 , {
+    title: z.string().min(3 , {
         message: 'Title is required'
     }), 
-    description: z.string().min(1 , {
+    description: z.string().min(3 , {
         message: 'Description is required'
     }),
     price: z.number({
@@ -21,7 +21,7 @@ export const ProductSchema = z.object({
     }).min(1 , {
         message: 'Quantity must be greater than 0'
     }), 
-    categoryId: z.string().min(1 , {
+    categoryId: z.string().min(3 , {
         message: 'Category is required'
     }),
     images : z.array(z.object({
@@ -42,3 +42,11 @@ export const getProductByTypeSchema = z.object({
     quantity: z.number().min(1, { message: 'Quantity is required' })
 })
 export type TgetProductByTypeSchema = z.infer<typeof getProductByTypeSchema>
+
+
+export const SearchTypeSchema = z.object({
+    query : z.string().optional(),
+    category : z.array(z.string()).optional(),
+    price : z.string().optional()
+})
+export type TSearchTypeSchema = z.infer<typeof SearchTypeSchema>

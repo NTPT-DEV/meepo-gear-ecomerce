@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
     try {
-      const { id } = await params; 
+      const { id } =  params; 
       const { name } = await req.json();
   
       const result = await editCategory({ id, name });
