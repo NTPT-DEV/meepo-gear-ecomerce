@@ -4,9 +4,13 @@ import LogoMeepoGear from "../logoSvg/LogoMeepoGear";
 import { CircleUserRound, Search, ShoppingBag } from "lucide-react";
 import SignOutBtn from "./SignOutBtn";
 import { useSession } from "next-auth/react";
+import AdminBtn from "./AdminBtn";
+// import AdminBtn from "./AdminBtn";
 
 const Navbar = () => {
   const { data: session } = useSession();
+  // console.log(session);
+  // console.log(session?.user?.role);
 
   return (
     <div className="main-container">
@@ -28,6 +32,7 @@ const Navbar = () => {
               <p className="text-white font-bold text-sm">
                 {session?.user?.email}
               </p>
+              {session?.user?.role === "admin" && <AdminBtn />}
               <SignOutBtn />
             </>
           ) : (

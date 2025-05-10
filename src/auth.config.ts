@@ -20,21 +20,37 @@ export default {
 
                 const { email , password } = validatedData.data; 
 
-                const user = await prisma.user.findUnique({
-                    where : { email }
+                const user = await prisma.user.findFirst({
+                    where : { email } ,
+                    select : {
+                        id : true , 
+                        email : true ,
+                        name : true , 
+                        password : true , 
+                        role : true , 
+                        statusUser : true , 
+                    },
                 })
+               
 
-                if(!user || !user.password || !user.enabled) {
+                if(!user || !user.password || !user.statusUser) {
                     return null 
                 }
 
                  const passwordsMatch = await bcrypt.compare(password , user.password); 
                  if(passwordsMatch){
-                    return user 
+                    return {
+                        id : user.id , 
+                        email : user.email , 
+                        name : user.name , 
+                        role : user.role , 
+                        statusUser : user.statusUser
+                    } 
                 } 
                 return null
 
             }})
+            
 
     ] 
     

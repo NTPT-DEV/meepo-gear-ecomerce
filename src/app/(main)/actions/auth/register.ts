@@ -1,8 +1,7 @@
 "use server" 
 import { prisma } from '@/../prisma/prisma'
 import bcrypt from "bcryptjs";
-import { SignUpSchema } from "../../../../schemas/formSchemas"
-import type { SignUpTypeSchema } from "../../../../schemas/formSchemas"
+import { SignUpSchema, SignUpTypeSchema } from 'schemas/formSchemas';
 
 export const registerAction = async ( data : SignUpTypeSchema) => {
     

@@ -10,6 +10,7 @@ const MainSliderImg = () => {
           height={2024}
           alt="asus tuf gaming"
           className="object-cover w-full h-full animate-pulse "
+          priority
         />
       </div>
     </div>

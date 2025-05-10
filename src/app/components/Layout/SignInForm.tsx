@@ -6,14 +6,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { SignInSchema } from "schemas/formSchemas";
 import type { SignInTypeSchema } from "schemas/formSchemas";
-
+import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
 import ButtonGoogle from "./ButtonGoogle";
 import { loginAction } from "@/app/(main)/actions/auth/login";
+import { useSession } from "next-auth/react";
 
 const SigninForm = () => {
-  const [loading, setLoding] = useState(false);
 
+  const [loading, setLoding] = useState(false);
+  const router = useRouter();
+  const { data : session ,  status } = useSession();
+  console.log( session , 'THIS iS SESSION');
+  console.log( status , 'THIS iS STATUS');
+  
 
   const { register, handleSubmit, reset } = useForm<SignInTypeSchema>({
     resolver: zodResolver(SignInSchema),
@@ -32,6 +38,8 @@ const SigninForm = () => {
 
     if (response.success) {
       reset();
+      router.push("/");
+
     } else {
       console.log("login fail");
     }
@@ -97,7 +105,7 @@ const SigninForm = () => {
               </button>
             </form>
             {/* Button Login google */}
-            <ButtonGoogle /> 
+            <ButtonGoogle />
 
             {/* Link to Register */}
             <div className="flex justify-center items-center text-xs my-5 text-zinc-700 hover:text-blue-800 transition-all duration-200">

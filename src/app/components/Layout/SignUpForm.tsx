@@ -7,9 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpSchema } from "schemas/formSchemas";
 import type { SignUpTypeSchema } from "schemas/formSchemas";
 import { useState } from "react";
-import { registerAction } from "@/app/(main)/actions/register"
+
 import { useRouter } from "next/navigation";
 import ButtonGoogle from "./ButtonGoogle";
+import { registerAction } from "@/app/(main)/actions/auth/register";
 
 
 const SignUpForm = () => {
@@ -42,6 +43,7 @@ const SignUpForm = () => {
     }
 
     setLoding(false);
+    console.log(response.success);
     
   }
 

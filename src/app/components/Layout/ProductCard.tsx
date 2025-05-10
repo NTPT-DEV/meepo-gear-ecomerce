@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import BtnProductCard from "./BtnProductCard";
 
 const ProductCard = () => {
   return (
@@ -20,9 +21,7 @@ const ProductCard = () => {
         </h3>
         <div className="flex flex-col justify-center items-start w-full gap-y-2 mt-3 absolute bottom-3 left-0 p-3">
           <h1 className="text-2xl mt-3 font-bold">฿22,0000</h1>
-          <button className="bg-black text-white text-md w-full py-2 rounded-full active:scale-[98%] transition-all duration-200 cursor-pointer hover:bg-[#9AE600] hover:text-black ">
-            ใส่ตะกร้า
-            </button>
+          <BtnProductCard />
         </div>
       </div>
     </div>
