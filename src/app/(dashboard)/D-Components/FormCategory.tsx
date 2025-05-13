@@ -1,19 +1,19 @@
 import Image from "next/image";
-
-import axios from "axios";
 import { X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { upLoadImageCloudinary } from "../actionDashboard/upload/controllersImage";
 import {
   createCategorySchema,
   TypeCreateCategory,
 } from "schemas/upLoadCategorytShema";
+import axios from "axios";
 
 const FormCategory = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors , isSubmitting },
     reset,
   } = useForm<TypeCreateCategory>({
     resolver: zodResolver(createCategorySchema),
@@ -24,39 +24,29 @@ const FormCategory = () => {
   });
 
   const upLoadCategorySubmit = async (data: TypeCreateCategory) => {
-    
-    const fileList = data.categoryImage as unknown as FileList;
-    const file = fileList[0];
-    const formData = new FormData();
-    formData.append('file', file)
-    formData.append('upload_preset' , 'upload_image')
-     const uploadResponse = await axios.post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, formData)
-    console.log(uploadResponse.data);
+    const fileList = data.categoryImage as FileList;
+    try {
+      const uploadUrlImage = await upLoadImageCloudinary(fileList);
 
+      const formData = new FormData();
+      formData.append("nameCategory", data.nameCategory);
 
+      const payload = {
+        nameCategory: data.nameCategory,
+        categoryImage: uploadUrlImage,
+      };
 
+      /// ส่งชื่อกับลิงค์ภาพไป API
 
-    
-    
-    
-    
-    
-    
-    
-    // const { nameCategory, categoryImage } = data;
+      await axios.post("/api/category", payload);
 
-    // console.log(nameCategory, categoryImage);
-
-    // const ImageCloudinary = await upLoadImageCloudinary(
-    //   categoryImage as unknown as File
-    // );
-    // console.log(ImageCloudinary);
-
-    // await axios.post("/api/category", {
-    //   nameCategory,
-    //   categoryImage: ImageCloudinary,
-    // });
-    
+      console.log(
+        payload,
+        "This is pay loaddddddddddddddddddddddddddddddddddddd"
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   ////////
@@ -105,8 +95,7 @@ const FormCategory = () => {
               className="text-sm border border-zinc-200 w-[200px] h-auto px-4 py-3 rounded-lg"
               type="file"
               accept="image/*"
-              // multiple
-              
+              multiple
             />
           </div>
 
@@ -125,6 +114,7 @@ const FormCategory = () => {
 
           <div className="flex gap-3 ml-3">
             <button
+            disabled={isSubmitting}
               type="submit"
               className="flex items-center justify-center px-4 py-2 rounded-full bg-lime-300 text-black font-bold
              hover:text-lime-300 hover:bg-black transition-all duration-200 italic

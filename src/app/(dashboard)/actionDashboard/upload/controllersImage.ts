@@ -1,19 +1,34 @@
-// import axios from "axios";
+import axios from "axios";
 
-// export const upLoadImageCloudinary = async (file: File) => {
-//   if (!file) {
-//     console.log("File not Select");
-//     return;
-//   }
-//   try {
-//     const formData = new FormData();
-//     formData.append("file", file);
-//     formData.append("upload_preset", "upload-category");
+export const upLoadImageCloudinary = async (fileList: FileList) => {
 
-//     const res = await axios.post("https://api.cloudinary.com/v1_1/dhmfewrsr/image/upload");
-//     console.log(res.data);
-//     return res.data
-//   } catch (error) {
-//     console.log(error, "Something error whten upload image");
-//   }
-// };
+  const uploadMultiple: {
+    asset_id: string;
+    public_id: string;
+    url: string;
+    secure_url: string;
+  }[] = [];
+  
+  for (const file of fileList) {
+    if (!file.type.startsWith("image/")) {
+      console.log(file.name, ": This file is not Iamge type");
+      continue;
+    }
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "upload_image");
+
+    try {
+      const uploadResponse = await axios.post(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        formData
+      );
+      const { asset_id, public_id, url, secure_url } = uploadResponse.data;
+      uploadMultiple.push({ asset_id, public_id, url, secure_url });
+      console.log(uploadResponse.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  return uploadMultiple;
+};
