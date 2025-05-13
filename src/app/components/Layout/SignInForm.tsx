@@ -10,15 +10,14 @@ import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
 import ButtonGoogle from "./ButtonGoogle";
 import { loginAction } from "@/app/(main)/actions/auth/login";
-import { useSession } from "next-auth/react";
+
 
 const SigninForm = () => {
 
   const [loading, setLoding] = useState(false);
   const router = useRouter();
-  const { data : session ,  status } = useSession();
-  console.log( session , 'THIS iS SESSION');
-  console.log( status , 'THIS iS STATUS');
+  
+
   
 
   const { register, handleSubmit, reset } = useForm<SignInTypeSchema>({
@@ -92,7 +91,7 @@ const SigninForm = () => {
                 Forgot password ?
               </div>
 
-              {/* Button Login Email */}
+              {/* Button Login Credentials */}
               <button className="bg-zinc-800 text-white font-bold py-3 rounded-lg active:scale-95 transition-all duration-200">
                 {loading ? (
                   <span className="flex justify-center items-center gap-2">

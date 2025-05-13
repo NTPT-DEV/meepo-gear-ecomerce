@@ -38,7 +38,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       token.role = existingUser.role;
       token.statusUser = existingUser.statusUser;
 
-      console.log(token);
+      
       return token;
     },
     async session({ token, session }) {

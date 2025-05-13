@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "../../../../../prisma/prisma";
-import {
-  ProductTypeSchema,
-  TgetProductByTypeSchema,
-  TSearchTypeSchema,
-} from "schemas/productFormSchema";
+import { ProductTypeSchema,TgetProductByTypeSchema,TSearchTypeSchema, } from "schemas/productFormSchema";
 
 //// Create a new product
 export const createProduct = async (data: ProductTypeSchema) => {
@@ -38,6 +34,8 @@ export const createProduct = async (data: ProductTypeSchema) => {
     return { error: "Error creating product" };
   }
 };
+
+
 
 //// Get all products by count
 export const getAllProducts = async (count: number) => {

@@ -1,4 +1,12 @@
+'use client'
+
+
+
 const FormProductUpload = () => {
+ 
+  
+
+
   return (
     // import Produt Section
     <div className="flex justify-center items-center w-full p-5 h-auto flex-1 ">

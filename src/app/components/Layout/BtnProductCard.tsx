@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 const BtnProductCard = () => {
 
 const {data : session} = useSession();
-console.log(session);
 
 const handleAddToCard = () => {
     if(session) {

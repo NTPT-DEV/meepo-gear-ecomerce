@@ -10,16 +10,13 @@ export default auth(async function middleware(req) {
   // GET all data from token 
   const token = await getToken({ req , secret : process.env.AUTH_SECRET });
   const roleUser = token?.role;
- 
-  console.log("ROLE CHECK " , roleUser);
+
   
   // check user is loggin
   const isLoggedIn = !!req.auth;
   // reqquest URL
   const { nextUrl } = req;
   const url = "http://localhost:3000";
- 
-
 
   const isPrivateRoute = privateRoutes.includes(nextUrl.pathname);
   const isAuthRoute = nextUrl.pathname.includes("/auth");
