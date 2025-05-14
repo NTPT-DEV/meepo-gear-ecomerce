@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { prisma } from "../prisma/prisma";
+import { prisma } from "./lib/prisma";
 import { getUserById } from "./app/(main)/actions/data/user";
 import { getAccountByUserId } from "./app/(main)/actions/data/account";
 import authConfig from "./auth.config";

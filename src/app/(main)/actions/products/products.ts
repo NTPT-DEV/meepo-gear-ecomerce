@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "../../../../../prisma/prisma";
+import { prisma } from "../../../../lib/prisma";
 import { ProductTypeSchema,TgetProductByTypeSchema,TSearchTypeSchema, } from "schemas/productFormSchema";
 
 //// Create a new product

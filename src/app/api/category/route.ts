@@ -1,7 +1,8 @@
+import { createCategory, getAllCategory } from "@/app/(main)/actions/products/category";
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/../prisma/prisma";
 
 /// create Category API
+
 interface CreateCategoryInput {
   nameCategory: string;
   categoryImage: {
@@ -11,35 +12,36 @@ interface CreateCategoryInput {
     secure_url: string;
   }[];
 }
-
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
     const { nameCategory, categoryImage }: CreateCategoryInput = data;
 
-    const createCategory = await prisma.category.create({
-      data: {
-        name: nameCategory,
-        categoryImage: {
-          create: categoryImage.map((imgUrl) => ({
-            asset_id: imgUrl.asset_id,
-            public_id: imgUrl.public_id,
-            url: imgUrl.url,
-            secure_url: imgUrl.secure_url,
-          })),
-        },
-      },
-      include: {
-        categoryImage: true,
-      },
-    });
+   const  addCategory = await createCategory({ nameCategory, categoryImage });
 
     return NextResponse.json(
-      { createCategory, success: true },
+      { addCategory, success: true },
       { status: 200 }
     );
   } catch (error) {
     console.log(error);
     return NextResponse.json({ error } , { status: 500 });
+  }
+}
+
+
+export async function GET(){
+  try {
+  const categories = await getAllCategory()
+
+   return NextResponse.json({
+    categories , 
+    success : true , 
+    message : 'Get category all successfully'}, 
+    {status : 200})
+
+  }catch(error) {
+    console.log(error);
+    return NextResponse.json({error : 'Something went wrong in getting'} , {status : 500});
   }
 }

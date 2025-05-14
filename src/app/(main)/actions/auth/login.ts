@@ -3,7 +3,7 @@
 import type { SignInTypeSchema } from "schemas/formSchemas";
 import { SignInSchema } from "schemas/formSchemas";
 import { signIn } from "@/auth";
-import { prisma } from "@../../prisma/prisma";
+import { prisma } from "@/lib/prisma";
 
 export const loginAction = async (data: SignInTypeSchema) => {
 

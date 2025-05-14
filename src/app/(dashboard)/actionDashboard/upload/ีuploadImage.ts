@@ -23,12 +23,21 @@ export const upLoadImageCloudinary = async (fileList: FileList) => {
         `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
         formData
       );
+
       const { asset_id, public_id, url, secure_url } = uploadResponse.data;
-      uploadMultiple.push({ asset_id, public_id, url, secure_url });
-      console.log(uploadResponse.data);
+      uploadMultiple.push({ 
+        asset_id, 
+        public_id, 
+        url, 
+        secure_url 
+      });
+      
+
     } catch (error) {
       console.log(error);
     }
   }
   return uploadMultiple;
 };
+
+

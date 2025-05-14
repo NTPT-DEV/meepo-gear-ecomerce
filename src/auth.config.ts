@@ -2,7 +2,7 @@ import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
 import type { NextAuthConfig } from "next-auth"
 import { SignInSchema } from '../schemas/formSchemas'
-import { prisma } from "../prisma/prisma"
+import { prisma } from "./lib/prisma"
 import bcrypt from "bcryptjs"
 
 
