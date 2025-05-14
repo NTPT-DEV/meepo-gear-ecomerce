@@ -72,7 +72,7 @@ model Product {
 model Category {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
   name          String
-  categoryImage CategoryImage[]
+  categoryImage CategoryImage[] 
   products      Product[]       @relation("CategoryToProduct")
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
@@ -84,7 +84,7 @@ model CategoryImage {
   public_id  String
   url        String
   secure_url String
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id] , onDelete : Cascade)
   categoryId String   @db.ObjectId
 }
 

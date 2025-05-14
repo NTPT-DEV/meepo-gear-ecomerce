@@ -115,7 +115,7 @@ const FormCategory = () => {
               {...register("categoryImage", {
                 required: "Category image is required",
               })}
-              className="text-sm border border-zinc-200 w-[200px] h-auto px-4 py-3 rounded-lg"
+              className="text-sm border border-zinc-200 w-[200px] h-auto px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-300 focus:border-lime-300 text-black transition-all duration-200"
               type="file"
               accept="image/*"
               // multiple
@@ -127,7 +127,7 @@ const FormCategory = () => {
               {...register("nameCategory", {
                 required: "Name category is required",
               })}
-              className="text-sm border border-zinc-200 w-full h-auto px-4 py-3 rounded-lg italic"
+              className="text-sm border border-zinc-200 w-full h-auto px-4 py-3 rounded-lg italic focus:outline-none focus:ring-2 focus:ring-lime-300 focus:border-lime-300 text-black transition-all duration-200"
               type="text"
               placeholder="Name Category"
             />

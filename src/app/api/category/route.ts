@@ -1,7 +1,6 @@
 import { createCategory, getAllCategory } from "@/app/(main)/actions/products/category";
 import { NextRequest, NextResponse } from "next/server";
 
-/// create Category API
 
 interface CreateCategoryInput {
   nameCategory: string;
@@ -12,6 +11,9 @@ interface CreateCategoryInput {
     secure_url: string;
   }[];
 }
+
+
+/// create Category API
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
@@ -29,7 +31,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-
+//// Get All Categories
 export async function GET(){
   try {
   const categories = await getAllCategory()

@@ -6,6 +6,6 @@ interface DashBoardStore {
 }
 
 export const useDashBoradStore = create<DashBoardStore>((set) => ({
-    selectedMenu : null ,
+    selectedMenu : "Import Product" ,
     setSelectedMenu : (menu) => set(()=> ({selectedMenu : menu})),
 }))
