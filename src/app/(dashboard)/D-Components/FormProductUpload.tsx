@@ -11,8 +11,9 @@ interface CategoryType {
 }
 
 const FormProductUpload = () => {
-  const [categoryData, setCategoryData] = useState<CategoryType[]>([]);
 
+  //get list Category to select
+  const [categoryData, setCategoryData] = useState<CategoryType[]>([]);
   useEffect(() => {
     const fetchCategory = async () => {
       try {
@@ -29,7 +30,12 @@ const FormProductUpload = () => {
     fetchCategory();
   }, []);
 
-  const { register, handleSubmit , reset , formState : { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(ProductSchema),
     defaultValues: {
       name: "",
@@ -38,14 +44,14 @@ const FormProductUpload = () => {
     },
   });
 
-  const handleSubmitProduct = (data : TypeProductSchema) => {
-    console.log("SUBMIIITTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" , data);
+  const handleSubmitProduct = (data: TypeProductSchema) => {
+    console.log("SUBMIIITTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT", data);
   };
 
-  const resetForm = () => { 
-    reset()
+  const resetForm = () => {
+    reset();
     console.log("Reset Form");
-  }
+  };
 
   return (
     // import Produt Section
@@ -54,35 +60,17 @@ const FormProductUpload = () => {
         onSubmit={handleSubmit(handleSubmitProduct)}
         className="max-w-[700px] w-full px-10"
       >
-
-        {/* ERROR */}
-        {errors.productImage &&(
-          <p className="text-red-500">{String(errors.productImage.message)}</p>
-        )}
-        {errors.name &&(
-          <p className="text-red-500">{String(errors.name.message)}</p>
-        )}
-        {errors.title &&(
-          <p className="text-red-500">{String(errors.title.message)}</p>
-        )}
-        {errors.description &&(
-          <p className="text-red-500">{String(errors.description.message)}</p>
-        )}
-        {errors.price &&(
-          <p className="text-red-500">{String(errors.price.message)}</p>
-        )}
-        {errors.quantity &&(
-          <p className="text-red-500">{String(errors.quantity.message)}</p>
-        )}
-        {errors.category &&(
-          <p className="text-red-500">{String(errors.category.message)}</p>
-        )}
-        
-
-        
-
         {/* Upload Images */}
         <div className="flex flex-col gap-1 mb-5">
+          {/* error */}
+          {errors.productImage && (
+            <div className="flex justify-center items-center w-full h-auto gap-2 bg-red-500 py-2 my-2 rounded-xl">
+              <span className="text-sm text-white font-bold">
+                {String(errors.productImage.message)}
+              </span>
+            </div>
+          )}
+
           <label className="text-lg font-bold text-black">Upload Images</label>
           <input
             {...register("productImage", {
@@ -107,6 +95,15 @@ const FormProductUpload = () => {
 
         {/* Name Product */}
         <div className="flex flex-col gap-1 mb-5">
+          {/* error */}
+          {errors.name && (
+            <div className="flex justify-center items-center w-full h-auto gap-2 bg-red-500 py-2 my-2 rounded-xl">
+              <span className="text-sm text-white font-bold">
+                {String(errors.name.message)}
+              </span>
+            </div>
+          )}
+
           <label className="text-lg font-bold text-black">Name</label>
           <input
             {...register("name", {
@@ -121,6 +118,15 @@ const FormProductUpload = () => {
         {/* Title */}
 
         <div className="flex flex-col gap-1 mb-5">
+          {/* error */}
+          {errors.title && (
+            <div className="flex justify-center items-center w-full h-auto gap-2 bg-red-500 py-2 my-2 rounded-xl">
+              <span className="text-sm text-white font-bold">
+                {String(errors.title.message)}
+              </span>
+            </div>
+          )}
+
           <label className="text-lg font-bold text-black">Title</label>
           <input
             {...register("title", {
@@ -135,6 +141,15 @@ const FormProductUpload = () => {
         {/* Description */}
 
         <div className="flex flex-col gap-1 mb-5">
+          {/* error */}
+          {errors.description && (
+            <div className="flex justify-center items-center w-full h-auto gap-2 bg-red-500 py-2 my-2 rounded-xl">
+              <span className="text-sm text-white font-bold">
+                {String(errors.description.message)}
+              </span>
+            </div>
+          )}
+
           <label className="text-lg font-bold text-black">Description</label>
           <textarea
             {...register("description", {
@@ -148,6 +163,14 @@ const FormProductUpload = () => {
         {/* Price */}
 
         <div className="flex flex-col gap-1 mb-5">
+          {/* error */}
+          {errors.price && (
+            <div className="flex justify-center items-center w-full h-auto gap-2 bg-red-500 py-2 my-2 rounded-xl">
+              <span className="text-sm text-white font-bold">
+                {String(errors.price.message)}
+              </span>
+            </div>
+          )}
           <label className="text-lg font-bold text-black">Price</label>
           <input
             {...register("price", {
@@ -166,6 +189,14 @@ const FormProductUpload = () => {
           {/* Quantity */}
 
           <div className="flex flex-col gap-1 mb-5 w-full">
+            {/* error */}
+            {errors.quantity && (
+              <div className="flex justify-center items-center w-full h-auto gap-2 bg-red-500 py-2 my-2 rounded-xl">
+                <span className="text-sm text-white font-bold">
+                  {String(errors.quantity.message)}
+                </span>
+              </div>
+            )}
             <label className="text-lg font-bold text-black">Quantity</label>
             <input
               {...register("quantity", {
@@ -180,6 +211,14 @@ const FormProductUpload = () => {
           {/* Category */}
 
           <div className="flex flex-col gap-1 mb-5 w-full">
+            {/* error */}
+            {errors.category && (
+              <div className="flex justify-center items-center w-full h-auto gap-2 bg-red-500 py-2 my-2 rounded-xl">
+                <span className="text-sm text-white font-bold">
+                  {String(errors.category.message)}
+                </span>
+              </div>
+            )}
             <label className="text-lg font-bold text-black">Categories</label>
             <select
               {...register("category", {
@@ -189,11 +228,9 @@ const FormProductUpload = () => {
               focus:outline-none focus:ring-2 focus:ring-lime-300 focus:border-lime-300 text-black transition-all duration-200
               "
             >
-              <option value="">Select a category</option>
+              <option value="">Select a Category</option>
               {categoryData.map((item, index) => (
-                <option 
-                className=""
-                  key={index} value={item.id}>
+                <option className="" key={index} value={item.id}>
                   {item.name.toUpperCase()}
                 </option>
               ))}
@@ -201,8 +238,7 @@ const FormProductUpload = () => {
           </div>
         </div>
 
-
-          {/* Button section */}
+        {/* Button section */}
         <div className="flex w-full justify-center items-center gap-3 max-md:flex-col">
           <button
             type="submit"
@@ -213,7 +249,7 @@ const FormProductUpload = () => {
             ADD PRODUCT
           </button>
           <button
-          onClick={resetForm}
+            onClick={resetForm}
             type="button"
             className="flex w-full flex-1/3 items-center justify-center px-7 py-4 rounded-lg
              bg-red-600 text-white font-bold active:scale-95 transition-all duration-200"

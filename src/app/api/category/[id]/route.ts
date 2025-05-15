@@ -5,24 +5,24 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 //// Delete Category 
-export async function DELETE(req : NextRequest, {params} : {params : {id : string}}) { 
+export async function DELETE(req : NextRequest, {params} : {params : Promise<{id : string}>}) { 
     try {
-
+        const resolveParams = await params
         const data =  await req.json()
         const { public_id } = data
         console.log(data);
         console.log(public_id);
-        console.log(params.id);
+        console.log(resolveParams.id);
 
 
         
-        if(!params.id || !public_id) {
+        if(!resolveParams.id || !public_id) {
             console.log("Missing category ID or public_id");
             return NextResponse.json({error : 'Missing category ID or public_id'} , {status : 400})
         }
 
 
-        const removeCategory =  await deleteCategory(params.id) ;
+        const removeCategory =  await deleteCategory(resolveParams.id) ;
         console.log(removeCategory);
 
 
@@ -33,6 +33,6 @@ export async function DELETE(req : NextRequest, {params} : {params : {id : strin
 
     }catch(error) {
         console.log(error);
-        NextResponse.json({error : 'Something went wrong in deleting'} , {status : 500})
+        return NextResponse.json({error : 'Something went wrong in deleting'} , {status : 500})
     }
  }

@@ -52,7 +52,7 @@ export const createCategory = async ({ nameCategory, categoryImage }: CreateCate
      return create;
 } 
 
-export const getAllCategory = async() => {
+export const getAllCategory = async () => {
   try {
     const getAll = await prisma.category.findMany({
       include :{

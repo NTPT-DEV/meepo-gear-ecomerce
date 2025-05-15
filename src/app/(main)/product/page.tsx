@@ -23,7 +23,7 @@ const ProductPage = () => {
         <div className="flex flex-col items-center mb-5 gap-5">
           {/* Main Size Image */}
           <div className="flex justify-center items-center max-w-[500px] h-auto aspect-square rounded-4xl overflow-hidden bg-white shadow-md hover:shadow-lg transition-all duration-200 ">
-            <Image 
+            <Image  draggable={false}
             className="w-full h-auto hover:scale-105 transition-all duration-300"
             src={"/1024.png"} alt="" width={500} height={500} />
           </div>
@@ -32,14 +32,21 @@ const ProductPage = () => {
 
           <div className="flex justify-between max-w-[500px] gap-3 px-8 py-2">
             <div className="flex justify-center items-center w-full max-w-[150px] h-auto  aspect-square rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-200  ">
-              <Image src={"/1024.png"} alt="" width={500} height={500} />
+              <Image
+                draggable={false}
+                src={"/1024.png"} alt="" width={500} height={500} />
             </div>
             <div className="flex justify-center items-center w-full max-w-[150px] h-auto  aspect-square rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-200  ">
-              <Image src={"/1024.png"} alt="" width={500} height={500} />
+              <Image
+                draggable={false}
+                src={"/1024.png"} alt="" width={500} height={500} />
             </div>
             <div className="flex justify-center items-center w-full max-w-[150px] h-auto  aspect-square rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-200  ">
-              <Image src={"/1024.png"} alt="" width={500} height={500} />
+              <Image
+                draggable={false}
+                src={"/1024.png"} alt="" width={500} height={500} />
             </div>
+           
           </div>
         </div>
 

@@ -2,7 +2,7 @@
 'use client'
 import ListProduct from "../D-Components/ListProductSection";
 import FormProductUpload from "../D-Components/FormProductUpload";
-import { useDashBoradStore } from "@/store/useDashboardStore";
+import { useMenuDashBoradStore } from "@/store/useDashboardStore";
 import CategoryDashboard from "../D-Components/CategoryDashboard";
 
 
@@ -10,7 +10,7 @@ import CategoryDashboard from "../D-Components/CategoryDashboard";
 const DashboardMainPage = () => {
 
 
-  const selectedMenu = useDashBoradStore((state) => state.selectedMenu);
+  const selectedMenu = useMenuDashBoradStore((state) => state.selectedMenu);
 
   
   return (

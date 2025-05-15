@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body suppressHydrationWarning={true} className="" >
+      <body suppressHydrationWarning={true} className="mx-auto  min-h-screen" >
         <SessionProvider>{children}</SessionProvider>
       </body>
     </html>

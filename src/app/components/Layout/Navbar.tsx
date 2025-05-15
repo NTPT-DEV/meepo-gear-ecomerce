@@ -18,18 +18,25 @@ const Navbar = () => {
         {/* Logo Main */}
 
         <Link href="/">
-          <LogoMeepoGear className="text-white w-36 h-auto" />
+          <LogoMeepoGear className="text-white w-36 h-auto
+          max-sm:w-30
+          " />
         </Link>
 
         <div className="nav-con flex items-center gap-3">
           {/* Search */}
-          <Search className="text-white w-6 h-6" />
+          <Search className="text-white w-6 h-6 
+          " />
 
           {/* button Login LogOut - Register */}
-
+        <div className="flex justify-center items-center gap-3
+        max-md:hidden
+        ">
+  
           {session?.user ? (
             <>
-              <p className="text-white font-bold text-sm">
+              <p className="text-white font-bold text-sm
+              ">
                 {session?.user?.email}
               </p>
               {session?.user?.role === "admin" && <AdminBtn />}
@@ -37,8 +44,12 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <p className="text-white font-bold text-sm">Guest</p>
-              <div className="flex gap-2">
+              <p className="text-white font-bold text-sm
+              max-sm:hidden
+              ">Guest</p>
+              <div className="flex gap-2
+              
+              ">
                 <Link href={"/auth/sign-in"}>
                   <div className="bg-[#9AE600] w-[95px] h-[30px] rounded-full flex justify-center items-center">
                     <span className="text-sm text-black italic font-semibold">
@@ -57,6 +68,7 @@ const Navbar = () => {
               </div>
             </>
           )}
+        </div>
 
           {/* button Cart */}
           <div className="flex gap-2 ">

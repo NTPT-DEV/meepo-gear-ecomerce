@@ -11,14 +11,22 @@ interface CategoryType {
   id: string;
   name: string;
   categoryImage: {
+    public_id: string;
     secure_url: string;
   }[];
 }
 
-const ListCategory = () => {
+interface ListCategoryType {
+  updateAddCategory: boolean;
+}
+
+
+const ListCategory = ({updateAddCategory} : ListCategoryType) => {
   const [category, setCategory] = useState<CategoryType[]>([]);
  
-
+ 
+  /// DELETE ///
+  // getAll Catagory
   useEffect(() => {
     const fetcGetAllCategory = async () => {
       const response = await axios.get("/api/category");
@@ -28,7 +36,13 @@ const ListCategory = () => {
     };
 
     fetcGetAllCategory();
-  }, []);
+  }, [updateAddCategory]);
+
+  const handleDeleteSuccess = (id: string) => {
+    setCategory((prevState) => prevState.filter((item) => item.id !== id));
+  }
+
+  
 
   return (
     <>
@@ -43,7 +57,7 @@ const ListCategory = () => {
             <div className="flex justify-center items-center">
               <div className="flex justify-center items-center bg-white w-[120px] aspect-square h-auto rounded-4xl drop-shadow-md overflow-hidden">
                 {item.categoryImage.map((item, index) => (
-                   <Image key={index} className="" src={item.secure_url} alt="test image" width={300} height={300} /> 
+                   <Image key={index} className="p-3" src={item.secure_url} alt="test image" width={300} height={300} /> 
                   ))}
                            
               </div>
@@ -68,7 +82,11 @@ const ListCategory = () => {
             {/* menu edit & delete */}
 
             {/* test delete */}
-            <MenuBtnDashboard/>
+            <MenuBtnDashboard 
+              id={item.id} 
+              public_id={item.categoryImage.map((item) => item.public_id)} 
+              onDeleteSuccess={handleDeleteSuccess} 
+            />
           </div>
         ))}
     </>

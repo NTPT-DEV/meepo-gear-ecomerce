@@ -1,5 +1,5 @@
 'use client';
-import { useDashBoradStore } from "@/store/useDashboardStore";
+import { useMenuDashBoradStore } from "@/store/useDashboardStore";
 import {
   LayoutList,
   Package2,
@@ -24,7 +24,7 @@ const menuDashBoardData: TmenuDashBoardData[] = [
 
 const MenuDashBoard = () => {
 
-const setSelectedMenu = useDashBoradStore((state) => state.setSelectedMenu);
+const setSelectedMenu = useMenuDashBoradStore((state) => state.setSelectedMenu);
 
 const handdleSelectMenu = (title : string) => {
   setSelectedMenu(title)

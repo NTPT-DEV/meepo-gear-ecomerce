@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
-interface DashBoardStore {
+interface ZMenuDashBoradStoreStore {
     selectedMenu : string | null 
     setSelectedMenu : (menu : string | null) => void
 }
 
-export const useDashBoradStore = create<DashBoardStore>((set) => ({
-    selectedMenu : "Import Product" ,
+export const useMenuDashBoradStore = create<ZMenuDashBoradStoreStore>((set) => ({
+    selectedMenu : "Categorys" ,
     setSelectedMenu : (menu) => set(()=> ({selectedMenu : menu})),
 }))

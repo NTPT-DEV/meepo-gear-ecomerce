@@ -10,7 +10,11 @@ import {
 import axios from "axios";
 import { useState } from "react";
 
-const FormCategory = () => {
+interface TypeUpdateAddCategory {
+  setUpdateAddCategory: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
   const [message, setMessage] = useState<string | null>(null);
   const [errorExist, setErrorExist] = useState<boolean | null>(false);
 
@@ -29,16 +33,15 @@ const FormCategory = () => {
   /// On submit form
   const upLoadCategorySubmit = async (data: TypeCreateCategory) => {
     try {
-
       const formData = new FormData();
       formData.append("nameCategory", data.nameCategory);
 
-      const checkCategory = await axios.post("/api/category/check-exist", {
+      const checkExistCategory = await axios.post("/api/category/check-exist", {
         nameCategory: data.nameCategory,
       });
 
       // Check Exist Category
-      if (checkCategory.data.exists) {
+      if (checkExistCategory.data.exists) {
         setMessage("Category already exists");
         setErrorExist(true);
         setTimeout(() => {
@@ -60,6 +63,8 @@ const FormCategory = () => {
     } catch (error) {
       console.log(error);
     }
+    setUpdateAddCategory((prev) => !prev);
+    reset();
   };
 
   /// Reset Form
@@ -67,8 +72,6 @@ const FormCategory = () => {
     reset();
     console.log("Reset Form");
   };
-
-
 
   return (
     <div className="mt-3 flex flex-col justify-center items-center w-full h-full flex-1">

@@ -1,12 +1,16 @@
+import { useState } from "react"
 import FormCategory from "./FormCategory"
 import ListCategory from "./ListCategory"
 
+
 const CategoryDashboard = () => {
+  const [updateAddCategory , setUpdateAddCategory] = useState<boolean>(false)
+
   return (
     <div>
       {/* ListCategory sample*/}
-      <FormCategory/>
-      <ListCategory/>
+      <FormCategory setUpdateAddCategory={setUpdateAddCategory}/> 
+      <ListCategory updateAddCategory={updateAddCategory} />
     </div>
   )
 }

@@ -41,3 +41,7 @@ export const upLoadImageCloudinary = async (fileList: FileList) => {
 };
 
 
+
+// const const uploadProductImage = async(fileList : File)
+
+

@@ -3,11 +3,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
 
 body {
+
   font-family: 'Noto Sans Thai', sans-serif;
 }
+
+ /* for ShadCn */
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -124,3 +127,16 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* **** */
+
+/* @layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  };
+  } */
+

@@ -8,10 +8,9 @@ import NewAvirialsSection from "./components/Layout/NewAvirialsSection";
 import VideoBanner from "./components/Layout/VideoBanner";
 
 
-
 const HomePage = () => {
   return (
-    <div className="flex flex-col w-full min-h-screen gap-y-5 ">
+    <div className="flex flex-col w-full min-h-screen gap-y-5">
       <Navbar />
       <MainSliderImg />
       <CategorySection />
