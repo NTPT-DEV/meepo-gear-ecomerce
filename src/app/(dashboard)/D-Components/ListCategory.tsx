@@ -50,7 +50,9 @@ const ListCategory = ({updateAddCategory} : ListCategoryType) => {
         category.map((item) => (
           <div
             key={item.id}
-            className="grid grid-cols-4 w-full h-auto gap-5 items-center bg-white  py-3 hover:shadow-sm border-b border-gray-100 transition-all duration-200 hover:-translate-y-0.5 transform"
+            className="grid grid-cols-4 w-full h-auto gap-5 items-center bg-white  py-3 hover:shadow-sm border-b border-gray-100 transition-all duration-200 hover:-translate-y-0.5 transform
+            
+            "
           >
             {/* Image */}
           

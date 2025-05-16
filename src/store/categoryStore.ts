@@ -1,7 +1,6 @@
-// import { create } from "zustand";
+import { create } from "zustand";
 
-
-export interface CategoryType {
+ interface CategoryType {
   id: string;
   name: string;
   categoryImage: {
@@ -9,3 +8,19 @@ export interface CategoryType {
     secure_url: string;
   }[];
 }
+
+interface CategoryStore { 
+  categories : CategoryType[];
+  setCategories : ( item : CategoryType[]) => void ; 
+  removeCategory : (id : string) => void
+}
+
+export const useCategoryStore = create<CategoryStore>((set) => ({
+ categories : [] , 
+ setCategories : (item) => set({categories : item}) , 
+  removeCategory : (id)  => {
+    set((state) => ({
+      categories : state.categories.filter((item)=> item.id !== id )
+    }))
+  }
+}))

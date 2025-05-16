@@ -4,15 +4,17 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ProductSchema, TypeProductSchema } from "schemas/productFormSchema";
 import PreviewImage from "./PreviewImage";
+import { uploadProductImage } from "../actionDashboard/upload/ีuploadImage";
 
-interface CategoryType {
-  id: string;
-  name: string;
-}
+
 
 const FormProductUpload = () => {
 
   //get list Category to select
+  interface CategoryType {
+  id: string;
+  name: string;
+}
   const [categoryData, setCategoryData] = useState<CategoryType[]>([]);
   useEffect(() => {
     const fetchCategory = async () => {
@@ -30,6 +32,7 @@ const FormProductUpload = () => {
     fetchCategory();
   }, []);
 
+ //// Input form 
   const {
     register,
     handleSubmit,
@@ -44,8 +47,43 @@ const FormProductUpload = () => {
     },
   });
 
-  const handleSubmitProduct = (data: TypeProductSchema) => {
-    console.log("SUBMIIITTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT", data);
+  const handleSubmitProduct = async (data: TypeProductSchema) => {
+    try {
+        const formData = new FormData(); 
+        formData.append('name' , data.name)
+        formData.append('title' , data.title)
+        formData.append('description' , data.description)
+        formData.append('price' , data.price.toString())
+        formData.append('quantity' , data.quantity.toString())
+        formData.append('category' , data.category)
+
+
+        const fileList = data.productImage as FileList;
+        const productCloudImage = await uploadProductImage(fileList)   
+
+
+
+        const payload = {
+          name : data.name , 
+          title : data.title , 
+          description : data.description , 
+          price : data.price , 
+          quantity : data.quantity , 
+          category : data.category , 
+          productImage : productCloudImage 
+        }
+
+        console.log(productCloudImage , 'productCloudImage');
+        console.log(typeof payload.productImage , 'typeof payload.productImage');
+        console.log(payload.productImage , 'payload.productImage');
+
+        const resResponse = await axios.post('/api/product' , payload )
+        console.log(resResponse , 'Form frontend send to api');
+
+
+      } catch(err) { 
+        console.log(err)
+      }
   };
 
   const resetForm = () => {
