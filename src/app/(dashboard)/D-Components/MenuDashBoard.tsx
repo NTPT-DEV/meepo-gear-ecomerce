@@ -17,8 +17,8 @@ const menuDashBoardData: TmenuDashBoardData[] = [
   { icons: <PackageOpen className="w-5 h-5" />, title: "List Product" },
   { icons: <LayoutList className="w-5 h-5" />, title: "Categorys" },
   { icons: <Package2 className="w-5 h-5" />, title: "Import Product" },
-  { icons: <ScrollText className="w-5 h-5" />, title: "Orders" },
   { icons: <UserPen className="w-5 h-5" />, title: "Customers" },
+  { icons: <ScrollText className="w-5 h-5" />, title: "Orders" },
 ];
 
 

@@ -8,10 +8,6 @@ export const ProductSchema = z.object({
   price: z.coerce.number().min(1, "Price is required"),
   quantity: z.coerce.number().min(1, "Quantity is required"),
   category: z.string().min(1, "Category is required"),
-  
-  // productImage: z
-  //   .any()
-  //   .refine((files) => files?.length > 0, "Image is required at least 1 image"),
   productImage: z
     .unknown()
 });
@@ -26,10 +22,32 @@ export const ImageUrlType = z.object({
   url : z.string(),
   secure_url : z.string()
 })
-
 export const ProductImageUrlArray = z.array(ImageUrlType)
-
 export type TImageUrlType = z.infer<typeof ImageUrlType>
 export type TImageUrlTypeArray = z.infer<typeof ProductImageUrlArray>
+
+
+// import to fronend 
+export interface ProductType { 
+  id : string
+  name : string 
+  title : string 
+  description : string 
+  price : number 
+  quantity : number 
+  category : CategoryType 
+  images : ProductImageType[]
+}
+
+interface CategoryType { 
+  name : string
+}
+
+export interface ProductImageType { 
+  asset_id : string 
+  public_id : string
+  url : string 
+  secure_url : string 
+}
 
 

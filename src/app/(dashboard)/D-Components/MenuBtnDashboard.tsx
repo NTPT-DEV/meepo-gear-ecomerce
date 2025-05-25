@@ -8,11 +8,8 @@ interface MenuBtnDashboardProps {
   onDeleteSuccess: (id: string) => void;
 }
 
-const MenuBtnDashboard = ({
-  id,
-  public_id,
-  onDeleteSuccess,
-}: MenuBtnDashboardProps) => {
+const MenuBtnDashboard = ({id , public_id, onDeleteSuccess,}: MenuBtnDashboardProps) => {
+  
   const handleDelete = async () => {
     try {
       const response = await axios.delete(`/api/category/${id}`, {
@@ -25,7 +22,6 @@ const MenuBtnDashboard = ({
         } else {
           console.log("onDeleteSuccess is not a function");
         }
-
         console.log("Delete catgeory Success");
       } else {
         console.log("Failed Delete catgeory");
@@ -42,8 +38,8 @@ const MenuBtnDashboard = ({
           onClick={handleDelete}
           className="flex justify-center items-center cursor-pointer absolute left-0 group-hover:translate-x-[-50%] transitions-all duration-300 ease-in-out "
         >
-          <div className="flex justify-center items-center bg-gray-100 w-12 h-12">
-            <AlignJustify className="w-6 h-6 text-zinc-500" />
+          <div className="flex justify-center items-center bg-black w-12 h-12">
+            <AlignJustify className="w-6 h-6 text-lime-300" />
           </div>
           <div className="flex justify-center items-center bg-red-600  w-12 h-12">
             <Trash2 className="w-6 h-6 text-white" />

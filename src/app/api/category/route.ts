@@ -1,4 +1,4 @@
-import { createCategory, getAllCategory } from "@/app/(main)/actions/products/category";
+import { createCategory, getAllCategory } from "@/app/(dashboard)/actionDashboard/products/category";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -11,7 +11,6 @@ interface CreateCategoryInput {
     secure_url: string;
   }[];
 }
-
 
 /// create Category API
 export async function POST(req: NextRequest) {

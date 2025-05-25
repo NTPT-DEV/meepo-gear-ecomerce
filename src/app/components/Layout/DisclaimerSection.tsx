@@ -27,7 +27,7 @@ const disclaimerData: disclaimerDataType[] = [
 
 const DisclaimerSection = () => {
     return (
-      <div className="container flex w-full  mx-auto justify-center items-center py-5 gap-5 flex-wrap">
+      <div className="container flex w-full  mx-auto justify-center items-center py-5 gap-5 my-10 flex-wrap">
         {disclaimerData.map((item, index) => {
           
           return (

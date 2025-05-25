@@ -20,7 +20,7 @@ export const createCategory = async ({ nameCategory, categoryImage }: CreateCate
 
     const existCategory = await prisma.category.findFirst({
       where: {
-        name: nameCategory,
+        name: nameCategory.trim(),
       },
     })
 

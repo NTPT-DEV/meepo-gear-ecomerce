@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { ProductSchema, TypeProductSchema } from "schemas/productFormSchema";
 import PreviewImage from "./PreviewImage";
 import { uploadProductImage } from "../actionDashboard/upload/ีuploadImage";
-
+import { LoaderCircle } from "lucide-react";
 
 
 const FormProductUpload = () => {
@@ -37,7 +37,7 @@ const FormProductUpload = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors , isSubmitSuccessful , isSubmitting },
   } = useForm({
     resolver: zodResolver(ProductSchema),
     defaultValues: {
@@ -61,8 +61,6 @@ const FormProductUpload = () => {
         const fileList = data.productImage as FileList;
         const productCloudImage = await uploadProductImage(fileList)   
 
-
-
         const payload = {
           name : data.name , 
           title : data.title , 
@@ -78,9 +76,10 @@ const FormProductUpload = () => {
         console.log(payload.productImage , 'payload.productImage');
 
         const resResponse = await axios.post('/api/product' , payload )
-        console.log(resResponse , 'Form frontend send to api');
-
-
+        if(resResponse) {
+          reset()
+        }
+        
       } catch(err) { 
         console.log(err)
       }
@@ -100,7 +99,15 @@ const FormProductUpload = () => {
       >
         {/* Upload Images */}
         <div className="flex flex-col gap-1 mb-5">
-          {/* error */}
+          {/* error & sucessfully */}
+          {isSubmitSuccessful &&(
+            <div className="flex justify-center items-center w-full h-auto  gap-2 bg-lime-300 py-5 my-2 rounded-xl">
+              <span className="text-sm text-black font-bold">
+                Upload product successfully
+              </span>
+            </div>
+          )}
+
           {errors.productImage && (
             <div className="flex justify-center items-center w-full h-auto gap-2 bg-red-500 py-2 my-2 rounded-xl">
               <span className="text-sm text-white font-bold">
@@ -282,15 +289,25 @@ const FormProductUpload = () => {
             type="submit"
             className="flex w-full items-center justify-center px-7 py-4 rounded-lg
              bg-lime-300 text-black font-bold hover:bg-black hover:text-lime-300 
-             transition-all duration-200 active:scale-95 mdl"
+             transition-all duration-200 active:scale-95 cursor-pointer"
           >
-            ADD PRODUCT
+            {isSubmitting ? 
+            (<div className="flex gap-2 justify-center items-center">
+              <span className="italic text-md">Loading</span>
+              <LoaderCircle className="animate-spin w-6 h-6" />
+            </div>)
+            
+            :
+           (<div className="flex gap-2 justify-center items-center">
+              <span>ADD PRODUCT</span>
+            </div>)
+            }
           </button>
           <button
             onClick={resetForm}
             type="button"
             className="flex w-full flex-1/3 items-center justify-center px-7 py-4 rounded-lg
-             bg-red-600 text-white font-bold active:scale-95 transition-all duration-200"
+             bg-red-600 text-white font-bold active:scale-95 transition-all duration-200 cursor-pointer"
           >
             RESET
           </button>

@@ -25,7 +25,6 @@ const ListCategory = ({updateAddCategory} : ListCategoryType) => {
   const [category, setCategory] = useState<CategoryType[]>([]);
  
  
-  /// DELETE ///
   // getAll Catagory
   useEffect(() => {
     const fetcGetAllCategory = async () => {
@@ -43,7 +42,6 @@ const ListCategory = ({updateAddCategory} : ListCategoryType) => {
   }
 
   
-
   return (
     <>
       {category &&

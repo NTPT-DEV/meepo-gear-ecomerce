@@ -1,5 +1,5 @@
 import { deleteImageCloudinary } from "@/app/(dashboard)/actionDashboard/delete/deleteImage";
-import { deleteCategory } from "@/app/(main)/actions/products/category";
+import { deleteCategory } from "@/app/(dashboard)/actionDashboard/products/category";
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -7,22 +7,15 @@ import { NextRequest, NextResponse } from "next/server";
 //// Delete Category 
 export async function DELETE(req : NextRequest, {params} : {params : Promise<{id : string}>}) { 
     try {
-        const resolveParams = await params
-        const data =  await req.json()
-        const { public_id } = data
-        console.log(data);
-        console.log(public_id);
-        console.log(resolveParams.id);
-
-
-        
-        if(!resolveParams.id || !public_id) {
+        const { id } = await params
+        const {public_id} =  await req.json()
+       
+        if(!id || !public_id) {
             console.log("Missing category ID or public_id");
             return NextResponse.json({error : 'Missing category ID or public_id'} , {status : 400})
         }
 
-
-        const removeCategory =  await deleteCategory(resolveParams.id) ;
+        const removeCategory =  await deleteCategory(id) ;
         console.log(removeCategory);
 
 

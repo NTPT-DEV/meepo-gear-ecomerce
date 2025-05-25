@@ -10,9 +10,9 @@ export async function GET() {
     //   return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     // }
 
-    const listUsers = await getAllusers();
+    const usersAccounts = await getAllusers();
     return NextResponse.json(
-      { listUsers, message: "Get all users success" },
+      { usersAccounts, message: "Get all users success" },
       { status: 200 }
     );
   } catch (error) {

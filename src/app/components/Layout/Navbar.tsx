@@ -1,16 +1,24 @@
 "use client";
 import Link from "next/link";
 import LogoMeepoGear from "../logoSvg/LogoMeepoGear";
-import { CircleUserRound, Search, ShoppingBag } from "lucide-react";
+import { CircleUserRound, ShoppingBag } from "lucide-react";
 import SignOutBtn from "./SignOutBtn";
 import { useSession } from "next-auth/react";
 import AdminBtn from "./AdminBtn";
+import SearchProduct from "./SearchProduct";
+import { useState } from "react";
+
 // import AdminBtn from "./AdminBtn";
 
 const Navbar = () => {
   const { data: session } = useSession();
-  // console.log(session);
-  // console.log(session?.user?.role);
+  const [onToggle, setOnToggle] = useState(false);
+
+  const toggleMenu = () => {
+    console.log("isClick");
+    setOnToggle((prev) => !prev);
+  };
+  console.log(onToggle);
 
   return (
     <div className="main-container">
@@ -18,57 +26,53 @@ const Navbar = () => {
         {/* Logo Main */}
 
         <Link href="/">
-          <LogoMeepoGear className="text-white w-36 h-auto
+          <LogoMeepoGear
+            className="text-white w-36 h-auto
           max-sm:w-30
-          " />
+          "
+          />
         </Link>
 
-        <div className="nav-con flex items-center gap-3">
-          {/* Search */}
-          <Search className="text-white w-6 h-6 
-          " />
+        <div className="nav-con flex items-center gap-3 cursor-pointer group">
+          {/* search bar */}
+          <SearchProduct />
 
           {/* button Login LogOut - Register */}
-        <div className="flex justify-center items-center gap-3
-        max-md:hidden
-        ">
-  
-          {session?.user ? (
-            <>
-              <p className="text-white font-bold text-sm
-              ">
-                {session?.user?.email}
-              </p>
-              {session?.user?.role === "admin" && <AdminBtn />}
-              <SignOutBtn />
-            </>
-          ) : (
-            <>
-              <p className="text-white font-bold text-sm
-              max-sm:hidden
-              ">Guest</p>
-              <div className="flex gap-2
-              
-              ">
-                <Link href={"/auth/sign-in"}>
-                  <div className="bg-[#9AE600] w-[95px] h-[30px] rounded-full flex justify-center items-center">
-                    <span className="text-sm text-black italic font-semibold">
-                      Login
-                    </span>
-                  </div>
-                </Link>
+          <div
+            className="flex justify-center items-center gap-3 max-md:hidden">
+            {session?.user ? (
+              <>
+                <p className="text-white font-bold text-sm">
+                  {session?.user?.email}
+                </p>
+                {session?.user?.role === "admin" && <AdminBtn />}
+                <SignOutBtn />
+              </>
+                 ) : (
+              <>
+                <p className="text-white font-bold text-sm max-sm:hidden">
+                  Guest
+                </p>
+                <div className="flex gap-2">
+                  <Link href={"/auth/sign-in"}>
+                    <div className="bg-[#9AE600] w-[95px] h-[30px] rounded-full flex justify-center items-center">
+                      <span className="text-sm text-black italic font-semibold">
+                        Login
+                      </span>
+                    </div>
+                  </Link>
 
-                <Link href={"/auth/sign-up"}>
-                  <div className="bg-white w-[95px] h-[30px] rounded-full flex justify-center items-center">
-                    <span className="text-sm text-black italic font-semibold">
-                      SignUp
-                    </span>
-                  </div>
-                </Link>
-              </div>
-            </>
-          )}
-        </div>
+                  <Link href={"/auth/sign-up"}>
+                    <div className="bg-white w-[95px] h-[30px] rounded-full flex justify-center items-center">
+                      <span className="text-sm text-black italic font-semibold">
+                        SignUp
+                      </span>
+                    </div>
+                  </Link>
+                </div>
+              </>
+            )}
+          </div>
 
           {/* button Cart */}
           <div className="flex gap-2 ">
@@ -80,8 +84,16 @@ const Navbar = () => {
                 </span>
               </div>
             </div>
-
-            <CircleUserRound className="text-white w-6 h-6" />
+            {/* Icon Menu Profile */}
+            <div className={`reative flex`}>
+              <CircleUserRound onClick={toggleMenu} className="text-white w-6 h-6" />
+              <div className={`w-50 h-70 absolute bg-black z-60 top-22 right-4 rounded-2xl p-4 ${onToggle ? 'block' : 'hidden'}`}>
+                <div className="flex justify-center w-full">
+                  <CircleUserRound onClick={toggleMenu} className="text-white w-10 h-10" />
+                </div>
+                <div className="text-lime-300">email : test@gmail.com</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

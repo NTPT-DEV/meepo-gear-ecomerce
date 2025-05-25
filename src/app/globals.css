@@ -5,9 +5,13 @@
 
 
 body {
-
   font-family: 'Noto Sans Thai', sans-serif;
 }
+
+.swiper-linear .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
 
  /* for ShadCn */
 @custom-variant dark (&:is(.dark *));
@@ -130,7 +134,7 @@ body {
 
 /* **** */
 
-/* @layer utilities {
+@layer utilities {
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -138,5 +142,9 @@ body {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   };
-  } */
+
+
+  }
+
+
 

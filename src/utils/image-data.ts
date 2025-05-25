@@ -23,3 +23,17 @@ export const logoBrand : ImageData[] = [
     { src: "/image/logos/tuff.png", alt: "tuff Logo" }, 
 
 ];
+
+export const bannerIMG : ImageData[] = [
+  {src : "/image/banner/Banner4.webp" , alt : ""},
+  {src : "/image/banner/Banner0.webp" , alt : ""},
+  {src : "/image/banner/Banner1.webp" , alt : ""},
+  {src : "/image/banner/Banner2.webp" , alt : ""},
+  {src : "/image/banner/Banner3.webp" , alt : ""},
+  {src : "/image/banner/Banner5.webp" , alt : ""},
+  {src : "/image/banner/Banner6.webp" , alt : ""},
+  {src : "/image/banner/Banner7.webp" , alt : ""},
+  {src : "/image/banner/Banner8.webp" , alt : ""},
+  {src : "/image/banner/Banner9.webp" , alt : ""},
+  {src : "/image/banner/Banner10.webp" , alt : ""},
+]

@@ -7,9 +7,9 @@ export const createProduct = async (payload: TypeProductSchema) => {
   try {
     const product = await prisma.product.create({
       data: {
-        name: payload.name,
-        title: payload.title,
-        description: payload.description,
+        name: payload.name.trim(),
+        title: payload.title.trim(),
+        description: payload.description.trim(),
         price: payload.price,
         quantity: payload.quantity,
         categoryId: payload.category,
@@ -26,13 +26,53 @@ export const createProduct = async (payload: TypeProductSchema) => {
     });
 
     console.log(product, "Product created successfully");
-
     return { product, success: "Product created successfully" };
   } catch (error) {
     console.log(error);
     return { error: "Error creating product" };
   }
 };
+
+
+/// Get all products
+export const getallProduct = async () => {
+  try {
+    const getAll = await prisma.product.findMany({
+      include : {
+        category : true ,
+        images : true
+      }
+    })
+    console.log(getAll);
+    return getAll
+
+  }catch(error) { 
+    console.log(error);
+  }
+}
+
+
+// Delete Product 
+export const deleteProduct = async ( id : string ) => {
+  try {
+    await prisma.product.delete({
+      where : {
+        id : id
+      }
+    })
+    console.log('Delete product successfully');
+  }catch(error){
+    console.log(error , 'Something error product delete');
+  }
+}
+
+
+
+
+
+
+
+
 
 //// Get all products by count
 // export const getAllProducts = async (count: number) => {

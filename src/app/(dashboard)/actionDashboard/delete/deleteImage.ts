@@ -2,7 +2,7 @@ import cloudinary from "../upload/cloudinary";
 
 export const deleteImageCloudinary = async (public_id : string | string[]) => {
   try {
-    if(!public_id ||  public_id.length === 0) {
+    if(!public_id || public_id.length === 0) {
       console.log('Not have public Id');
       return
     }
