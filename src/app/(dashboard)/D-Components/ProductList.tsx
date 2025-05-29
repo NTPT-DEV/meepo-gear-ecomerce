@@ -3,6 +3,23 @@ import { Menu, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { ProductType } from "schemas/productFormSchema";
 import { TypeListProduct } from "./ListProductSection";
+import { motion } from "motion/react"
+
+const  varsProductList = { 
+    initial: {
+    opacity: 0,
+    y: 5,
+  },
+  animate: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      // duration: 0.5,
+      delay: 0.08 * index,
+      easing : 'easeInOut'
+    },
+  }),
+}
 
 const ProductList = ({ products, setProducts }: TypeListProduct) => {
   interface ProductDeleteType {
@@ -53,9 +70,14 @@ const ProductList = ({ products, setProducts }: TypeListProduct) => {
       {/* Products */}
       {products.length > 0 &&
         products.map((item: ProductType, index: number) => (
-          <div
+          <motion.div
+          variants={varsProductList}
+          initial='initial'
+          whileInView='animate'
+          viewport={{once: true}}
+          custom={index}
             key={index}
-            className="grid grid-cols-6 gap-4 items-center w-full h-auto bg-white border-b border-gray-100 rounded-sm px-4 py-2 hover:shadow-sm transition-all duration-200 hover:-translate-y-0.5 transform"
+            className="grid grid-cols-6 gap-4 items-center w-full h-auto bg-white border-b border-gray-100 rounded-sm px-4 py-2 hover:shadow-sm hover:-translate-y-0.5 transform transition-all duration-200"
           >
             <div className="flex justify-center items-center">
               <div className="text-sm font-bold flex justify-center items-center w-18 h-18 rounded-xl shadow-sm overflow-hidden bg-white p-1">
@@ -96,7 +118,7 @@ const ProductList = ({ products, setProducts }: TypeListProduct) => {
                         );
                         handleDelete({ id: item.id, public_id: public_ids });
                       }}
-                      className="flex justify-center items-center w-8 h-8  bg-red-500 active:scale-95 transition-all duration-200 cursor-pointer"
+                      className="flex justify-center items-center w-8 h-8  bg-red-500 active:scale-95 transition-transform duration-200 cursor-pointer"
                     >
                       <Trash2 className="text-white w-5 h-5" />
                     </div>
@@ -118,7 +140,7 @@ const ProductList = ({ products, setProducts }: TypeListProduct) => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
     </div>
   );

@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 
-const AdminBtn = () => {
+const AdminBtn = ({className} : {className?: string}) => {
   return (
-    <button className="bg-white w-[95px] h-[30px] rounded-full flex justify-center items-center cursor-pointer">
+    <button className={className}>
       <Link href={"/dashboard"}>
         <span className="text-sm text-black italic font-semibold">Admin</span>
       </Link>

@@ -10,7 +10,7 @@ export const upLoadImageCloudinary = async (fileList: FileList) => {
 
   for (const file of fileList) {
     if (!file.type.startsWith("image/")) {
-      console.log(file.name, ": This file is not Iamge type");
+      console.log(file.name, ": This file is not Image type");
       continue;
     }
     const formData = new FormData();
@@ -37,7 +37,7 @@ export const upLoadImageCloudinary = async (fileList: FileList) => {
   return uploadMultiple;
 };
 
-export const uploadProductImage = async (fileList: FileList) => {
+export const uploadProductImage = async (fileList: File[]) => {
   const uploadMultipleImageProduct: {
     asset_id: string;
     public_id: string;

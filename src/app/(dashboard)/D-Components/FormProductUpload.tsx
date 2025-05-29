@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ProductSchema, TypeProductSchema } from "schemas/productFormSchema";
 import PreviewImage from "./PreviewImage";
-import { uploadProductImage } from "../actionDashboard/upload/ีuploadImage";
+import { motion} from "motion/react" 
 import { LoaderCircle } from "lucide-react";
+import { uploadProductImage } from "../actionDashboard/upload/uploadImage";
 
 
 const FormProductUpload = () => {
@@ -16,6 +17,9 @@ const FormProductUpload = () => {
   name: string;
 }
   const [categoryData, setCategoryData] = useState<CategoryType[]>([]);
+  const [previewImage , setPreviewImage] = useState<string[] | null>(null)
+  const [selectFile , setSelectFile ] = useState<File[] | null>([])
+
   useEffect(() => {
     const fetchCategory = async () => {
       try {
@@ -31,6 +35,34 @@ const FormProductUpload = () => {
 
     fetchCategory();
   }, []);
+
+  /// Preview Images 
+
+  const onChangeFiles = (e : React.ChangeEvent<HTMLInputElement>)  => {
+    const files = e.target.files
+    if(!files || files.length === 0) {
+      setPreviewImage([]);
+      setSelectFile([]);
+      return;
+    }
+    const urls = Array.from(files).map((f) => URL.createObjectURL(f));
+    setPreviewImage(urls);
+    setSelectFile(Array.from(files));
+
+  }
+
+  /// Remove Proview Images
+const removePreview = (indexToRemove: number) => {
+  setPreviewImage((prev) => {
+    if (!prev) return null;
+    return prev.filter((_, index) => index !== indexToRemove);
+  });
+  setSelectFile((prev) => {
+    if (!prev) return null;
+    return prev.filter((_, index) => index !== indexToRemove);
+  });
+};
+
 
  //// Input form 
   const {
@@ -58,8 +90,7 @@ const FormProductUpload = () => {
         formData.append('category' , data.category)
 
 
-        const fileList = data.productImage as FileList;
-        const productCloudImage = await uploadProductImage(fileList)   
+        const productCloudImage = await uploadProductImage(selectFile ?? [])
 
         const payload = {
           name : data.name , 
@@ -71,14 +102,16 @@ const FormProductUpload = () => {
           productImage : productCloudImage 
         }
 
-        console.log(productCloudImage , 'productCloudImage');
-        console.log(typeof payload.productImage , 'typeof payload.productImage');
-        console.log(payload.productImage , 'payload.productImage');
+        // console.log(productCloudImage , 'productCloudImage');
+        // console.log(typeof payload.productImage , 'typeof payload.productImage');
+        // console.log(payload.productImage , 'payload.productImage');
 
         const resResponse = await axios.post('/api/product' , payload )
         if(resResponse) {
           reset()
         }
+        setPreviewImage([]);
+        setSelectFile([]);
         
       } catch(err) { 
         console.log(err)
@@ -92,7 +125,11 @@ const FormProductUpload = () => {
 
   return (
     // import Produt Section
-    <div className="flex justify-center items-center w-full p-5 h-auto flex-1 ">
+    <motion.div 
+    initial={{ opacity: 0 , y : 30 }}
+    animate={{ opacity: 1 , y : 0 }}
+    transition={{ duration: 0.8 , delay : 0.3 , easings : 'easeInOut' }} 
+    className="flex justify-center items-center w-full p-5 h-auto flex-1 ">
       <form
         onSubmit={handleSubmit(handleSubmitProduct)}
         className="max-w-[700px] w-full px-10"
@@ -121,6 +158,7 @@ const FormProductUpload = () => {
             {...register("productImage", {
               required: "Image is required atleast 1 image",
             })}
+            onChange={onChangeFiles}
             className="text-sm border border-zinc-200 w-full h-auto px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-300 focus:border-lime-300 text-black transition-all duration-200"
             type="file"
             accept="Images/*"
@@ -129,13 +167,10 @@ const FormProductUpload = () => {
         </div>
 
         {/* Preview Image Uploading Section */}
-        <p className="text-gray-500">mockup for preview image</p>
         <div className="flex justify-center items-center w-full h-auto gap-4 flex-wrap mb-3 py-3">
-          <PreviewImage />
-          <PreviewImage />
-          <PreviewImage />
-          <PreviewImage />
-          <PreviewImage />
+          {previewImage && previewImage.map((url: string, index: number) => (
+            <PreviewImage key={index} index={index} url={url} removePreview={removePreview} />
+          ))}
         </div>
 
         {/* Name Product */}
@@ -313,7 +348,7 @@ const FormProductUpload = () => {
           </button>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 export default FormProductUpload;

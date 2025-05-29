@@ -25,7 +25,6 @@ export const createProduct = async (payload: TypeProductSchema) => {
       },
     });
 
-    console.log(product, "Product created successfully");
     return { product, success: "Product created successfully" };
   } catch (error) {
     console.log(error);
@@ -43,7 +42,6 @@ export const getallProduct = async () => {
         images : true
       }
     })
-    console.log(getAll);
     return getAll
 
   }catch(error) { 

@@ -88,7 +88,7 @@ const SearchProduct = () => {
 
               <X
                 onClick={closeSearch}
-                className="text-lime-300 w-7 h-7 absolute right-3 top-3 hover:rotate-180 transition-all duration-100 active:scale-95"
+                className="text-lime-300 w-7 h-7 absolute right-3 top-3 hover:rotate-180 transition-all duration-400 active:scale-95"
               />
             </div>
 

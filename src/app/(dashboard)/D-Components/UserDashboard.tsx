@@ -1,10 +1,26 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { TusersSchema } from "schemas/usersSchema";
+import { motion } from "motion/react";
+
+export const varliantsUsers = {
+  initial: {
+    opacity: 0,
+    y: 5,
+  },
+  animate: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delay: 0.1 * index,
+    },
+  }),
+};
 
 const UserDashboard = () => {
   const [acounts, setAcounts] = useState<TusersSchema[]>();
- // All Users
+  // All Users
   useEffect(() => {
     const gellAllUsers = async () => {
       try {
@@ -17,12 +33,6 @@ const UserDashboard = () => {
     };
     gellAllUsers();
   }, []);
-
-
-//   const handleRole = () => {
-
-//   }
-
 
   return (
     <div className="flex flex-col w-full h-auto">
@@ -48,7 +58,12 @@ const UserDashboard = () => {
       {/* Products */}
       {acounts &&
         acounts.map((user, index) => (
-          <div
+          <motion.div
+            initial='initial'
+            animate='animate'
+            custom={index}
+            transition={{ duration: 0.8, delay: 0.3, easings: "easeInOut" }}
+            variants={varliantsUsers}
             key={index}
             className="grid grid-cols-4 gap-4 items-center w-full h-auto bg-white border-b
              border-gray-100 rounded-sm  px-4 py-5 hover:shadow-sm 
@@ -66,7 +81,7 @@ const UserDashboard = () => {
             <div className="text-sm font-bold flex justify-center items-center">
               {user.statusUser ? "Enable" : "Disable"}
             </div>
-          </div>
+          </motion.div>
         ))}
     </div>
   );

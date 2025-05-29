@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import BtnProductCard from "./BtnProductCard";
+import { motion} from "motion/react"
 
 interface ProductCardProps {
   products: TypeGetProduct[];
@@ -25,13 +26,35 @@ interface TypeGetProduct {
   images: ImageProduct[];
 }
 
+const animateProductVar = {
+  initial : {
+    opacity : 0 , 
+    y : 5
+  } , 
+  animate : (index : number ) => ({
+    opacity : 1 , 
+    y : 0 , 
+    transition : {
+      duration : 0.3 , 
+      delay: 0.2 * index
+      
+    }
+  })
+}
+
 const ProductCard = ({ products }: ProductCardProps) => {
   return (
-    <div className="flex flex-wrap justify-center items-center gap-2 py-3 ">
+    <div 
+    className="flex flex-wrap justify-center items-center gap-2 py-3 ">
       {products.map((item , index) => index < 10 &&(
-        <div
+        <motion.div
+         variants={animateProductVar}
+          initial='initial'
+          custom={index}
+          whileInView="animate"
+          viewport={{once:true}}
           key={item.id}
-          className="flex flex-col w-[250px] h-[480px] rounded-3xl shadow-sm  p-2 overflow-hidden hover:shadow-md transition-all duration-200 bg-white relative"
+          className="flex flex-col w-[250px] h-[480px] rounded-3xl shadow-sm  p-2 overflow-hidden hover:shadow-md bg-white relative"
         >
           <Link href={`/product/${item.id}`}>
             <div className="flex justify-center items-center w-full p-5">
@@ -54,7 +77,7 @@ const ProductCard = ({ products }: ProductCardProps) => {
               <BtnProductCard />
             </div>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   );

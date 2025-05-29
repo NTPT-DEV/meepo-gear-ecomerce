@@ -4,7 +4,7 @@ import Image from "next/image";
 import { logoBrand } from "@/utils/image-data";
 import {Autoplay , FreeMode} from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react' 
-
+import { motion } from "motion/react"
 
 
 const LogoCarousel= () => {
@@ -12,7 +12,12 @@ const LogoCarousel= () => {
     <div className=" flex flex-col justify-center items-center gap-10 w-[1440px] mx-auto px-4 my-20 overflow-hidden">
      
       {/* Slide TOP */}
-        <div className="flex justify-start items-center gap-5">
+        <motion.div 
+        initial = {{opacity : 0 , y : 5}}
+        whileInView={{opacity : 1 , y : 0}}
+        viewport={{once : true}}
+        transition={{duration : 0.5 , delay : 0.5}}
+        className="flex justify-start items-center gap-5">
          <Swiper 
          className="swiper-linear"
          modules={[Autoplay  , FreeMode]}
@@ -42,9 +47,14 @@ const LogoCarousel= () => {
             </SwiperSlide>
            
         </Swiper>
-        </div>
+        </motion.div>
       {/* Slide BOTTOM */}
-        <div className="flex justify-end items-center gap-5">
+        <motion.div 
+        initial = {{opacity : 0 , y : 5}}
+        whileInView={{opacity : 1 , y : 0}}
+        viewport={{once : true}}
+        transition={{duration : 0.5 , delay : 0.8}}
+        className="flex justify-end items-center gap-5">
          <Swiper 
          className="swiper-linear"
          modules={[Autoplay  , FreeMode]}
@@ -76,7 +86,7 @@ const LogoCarousel= () => {
             </SwiperSlide>
            
         </Swiper>
-        </div>
+        </motion.div>
     </div>
   )
 }

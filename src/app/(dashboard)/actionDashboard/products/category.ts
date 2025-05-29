@@ -31,7 +31,7 @@ export const createCategory = async ({ nameCategory, categoryImage }: CreateCate
 
     
     const nameLowerCase = nameCategory.toLowerCase().trim();
-    console.log(nameLowerCase);
+    
 
     const create = await prisma.category.create({
          data: {

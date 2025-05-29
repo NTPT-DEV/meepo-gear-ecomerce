@@ -28,7 +28,6 @@ const setSelectedMenu = useMenuDashBoradStore((state) => state.setSelectedMenu);
 
 const handdleSelectMenu = (title : string) => {
   setSelectedMenu(title)
-  console.log(title);
 }
 
   return (

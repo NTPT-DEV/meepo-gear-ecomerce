@@ -1,5 +1,6 @@
+'use client'
 import { Clock1, ShieldCheck, Truck } from "lucide-react";
-
+import { motion } from "motion/react"
 interface disclaimerDataType {
   icon: React.ReactElement;
   title: string;
@@ -29,9 +30,11 @@ const DisclaimerSection = () => {
     return (
       <div className="container flex w-full  mx-auto justify-center items-center py-5 gap-5 my-10 flex-wrap">
         {disclaimerData.map((item, index) => {
-          
           return (
-            <div
+            <motion.div
+              initial={{ opacity: 0 , y : 5 }}
+              whileInView={{ opacity: 1 , y : 0}}
+              transition={{ duration: 0.8 , delay : index * 0.1 }}
               className="flex justify-center bg-white gap-2 items-center w-[250px] h-auto px-4 py-5 rounded-3xl shadow-sm"
               key={index}
             >
@@ -42,7 +45,7 @@ const DisclaimerSection = () => {
                 <h1 className="text-xl font-semibold text-nowrap">{item.title}</h1>
                 <p className="text-sm text-zinc-500 text-nowrap">{item.description}</p>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>

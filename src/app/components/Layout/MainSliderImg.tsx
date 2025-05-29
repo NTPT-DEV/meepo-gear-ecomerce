@@ -25,8 +25,8 @@ const MainSliderImg = () => {
             <SwiperSlide key={index} className="flex justify-center items-center">
               <Image
                 src={item.src}
-                width={1024}
-                height={1024}
+                width={1920}
+                height={1920}
                 alt={item.alt}
                 className="object-cover w-full h-full  "
                 priority

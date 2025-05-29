@@ -1,8 +1,10 @@
+'use client'
 import Image from "next/image";
 import { X } from "lucide-react";
+import { motion } from "motion/react"
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { upLoadImageCloudinary } from "../actionDashboard/upload/ีuploadImage";
+import { upLoadImageCloudinary } from "../actionDashboard/upload/uploadImage";
 import {
   createCategorySchema,
   TypeCreateCategory,
@@ -14,10 +16,15 @@ interface TypeUpdateAddCategory {
   setUpdateAddCategory: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+
+
 const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
   const [message, setMessage] = useState<string | null>(null);
   const [errorExist, setErrorExist] = useState<boolean | null>(false);
 
+
+  const [previewImage , setPreviewImage ] = useState<string[] | null>([])
+ 
   const {
     register,
     handleSubmit,
@@ -30,6 +37,27 @@ const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
       categoryImage: undefined,
     },
   });
+
+  // Preview 
+  const onFileChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files 
+    if(!files || files.length === 0 ){
+      setPreviewImage([])
+      return
+    }
+    
+    const urls = Array.from(files).map((f) => URL.createObjectURL(f))
+    setPreviewImage(urls)
+  }
+
+  // Remove Preview
+
+  const removePreview = (indexToRemove : number ) => {
+    setPreviewImage((prev) => prev ? prev.filter((_, index) => index !== indexToRemove) : []);
+  }
+
+
+
   /// On submit form
   const upLoadCategorySubmit = async (data: TypeCreateCategory) => {
     try {
@@ -48,6 +76,7 @@ const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
           setMessage(null);
           setErrorExist(false);
         }, 3000);
+        
         return;
       }
 
@@ -65,6 +94,7 @@ const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
     }
     setUpdateAddCategory((prev) => !prev);
     reset();
+    setPreviewImage([])
   };
 
   /// Reset Form
@@ -74,7 +104,11 @@ const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
   };
 
   return (
-    <div className="mt-3 flex flex-col justify-center items-center w-full h-full flex-1">
+    <motion.div 
+    initial={{ opacity: 0 , y : -7}}
+    animate={{ opacity: 1 , y : 0 }}
+    transition={{ duration: 1 , delay : 0.3,  easings : "easeInOut"}}
+    className="mt-3 flex flex-col justify-center items-center w-full h-full flex-1">
       {/* error  section */}
       {errorExist && (
         <div className="flex flex-col justify-center items-center w-auto h-auto gap-2 px-20 mb-2 py-5 bg-red-500 rounded-2xl">
@@ -118,6 +152,7 @@ const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
               {...register("categoryImage", {
                 required: "Category image is required",
               })}
+              onChange={onFileChange}
               className="text-sm border border-zinc-200 w-[200px] h-auto px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-300 focus:border-lime-300 text-black transition-all duration-200"
               type="file"
               accept="image/*"
@@ -162,29 +197,32 @@ const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
       </form>
 
       {/* preview Image */}
-      <div className="w-full h-auto flex justify-center items-center gap-5 my-4 flex-wrap ">
+      {previewImage && previewImage.map((url : string , index : number) => (
+        <div key={index} className="w-full h-auto flex justify-center items-center gap-5 my-4 flex-wrap">
         <div
-          className={`w-[150px] h-full rounded-2xl aspect-square relative overflow-hidden group`}
+          className={`w-[150px] h-full rounded-2xl aspect-square relative overflow-hidden group bg-white shadow-md`}
         >
           <Image
             src={
-              "https://res.cloudinary.com/dhmfewrsr/image/upload/v1746966457/blackwell-geforce-rtx-50-series_cdiswm.jpg"
+              url
             }
             width={500}
             height={500}
             alt={"image"}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full p-3"
           />
           <div
+            onClick={()=> removePreview(index)}
             className="bg-white w-6 h-6 absolute top-2 right-2 rounded-full flex justify-center items-center
-            opacity-0 group-hover:opacity-100 transition-all duration-400 hover:rotate-180
+            opacity-0 group-hover:opacity-100 transition-all duration-400 hover:rotate-180 shadow-sm
             "
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5"  />
           </div>
         </div>
       </div>
-    </div>
+      ))}
+    </motion.div>
   );
 };
 

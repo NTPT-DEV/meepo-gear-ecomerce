@@ -3,7 +3,6 @@ import { useEffect, useState } from "react"
 import ProductCard from "./ProductCard"
 import axios from "axios"
 
-
 interface ImageProduct  {
   public_id : string ,
   secure_url : string 
