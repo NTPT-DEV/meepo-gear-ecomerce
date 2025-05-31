@@ -2,7 +2,7 @@
 import { Gamepad2, ShoppingCart, X } from "lucide-react";
 import { useEffect } from "react";
 import { useMenuCartStore } from "@/store/menuCart";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import ItemOnCart from "./ItemOnCart";
 import { useCartStore } from "@/store/cartStore";
 
@@ -10,10 +10,10 @@ const CartMenu = () => {
   const menuCart = useMenuCartStore((state) => state.menuCart);
   const toggleMenuCart = useMenuCartStore((state) => state.toggleMenuCart);
 
-  /// get Cart Item
   const cart = useCartStore((state) => state.cart);
   const fetchCart = useCartStore((state) => state.fetchCart);
   const clearCart = useCartStore((state) => state.clearCart);
+  const removeFromCart = useCartStore((state) => state.removeFromCart)
 
   useEffect(() => {
     fetchCart();
@@ -21,8 +21,12 @@ const CartMenu = () => {
 
   const handleClearCart = async () => {
     clearCart();
-    console.log("is Click");
   };
+
+  const handleRemoveCartItem = async (cartItemId: string) => {
+    removeFromCart(cartItemId)
+  }
+
 
   return (
     <>
@@ -48,13 +52,23 @@ const CartMenu = () => {
         <div className="flex flex-col gap-3 mt-5 max-h-[65vh] mb-5 overflow-y-auto no-scrollbar ">
           {/* CART ITEM COMPONENT */}
           <div className="flex flex-col gap-3">
-            {cart.map((item, index) => (
-              <ItemOnCart item={item} key={index} index={index} />
+            <AnimatePresence mode='sync'>
+            {cart?.map((item, index) => (              
+              <motion.div 
+              initial={{ opacity : 0 , y : 5 , scale : 0.95}}
+              animate={{opacity : 1 , y : 0 , scale : 1}}
+              exit={{opacity : 0 , y : 5 }}
+              transition={{duration : 0.3 }}
+              key={item.id || index}
+              >
+                <ItemOnCart item={item} key={item.id} index={index} handleRemoveCartItem={handleRemoveCartItem} />
+              </motion.div>
             ))}
+            </AnimatePresence>
           </div>
         </div>
         {/* TOTAL COMPONENT */}
-        {cart.length > 0 ? (
+        {cart?.length > 0 ? (
           <div className=" flex flex-col mb-2 bg-lime-300 p-5 rounded-3xl">
             <div className="flex justify-between items-center w-full h-auto font-semibold">
               <div className="flex flex-col">
@@ -73,7 +87,6 @@ const CartMenu = () => {
               >
                 Checkout
               </button>
-
               {/* RESET CART */}
               <button
                 onClick={handleClearCart}
@@ -87,7 +100,7 @@ const CartMenu = () => {
         ) : (
           <div className="flex flex-col justify-center items-center gap-3 absolute rounded-full top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <div className=" border-4 border-lime-300 p-7 pr-9 rounded-full flex justify-center items-center animate-bounce">
-              <ShoppingCart className="text-lime-300 w-30 h-auto" />
+              <ShoppingCart className="text-lime-300 w-20 h-auto" />
             </div>
             <h1 className="text-lime-300 text-4xl font-bold font-[outfit] text-nowrap">EMPTHY CART</h1>
           </div>

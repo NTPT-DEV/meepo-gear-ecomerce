@@ -2,6 +2,7 @@ import axios from "axios";
 import { create } from "zustand";
 
 export type CartItem = {
+  id? : string
   productId: string;
   name : string
   price : number
@@ -33,7 +34,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
   cart: [],
   getCart: () => get().cart,
   addToCart: (item: CartItem) => {
-    const existingItem = get().cart.find((i) => i.productId === item.productId);
+    const existingItem = get().cart?.find((i) => i.productId === item.productId);
 
     if (existingItem) {
       set((state) => ({
@@ -46,15 +47,22 @@ export const useCartStore = create<CartStore>((set, get) => ({
       
     } else {
       set((state) => ({
-        cart: [...state.cart, item],
+        cart: [...state.cart || [], item],
       }));
     }
   },
 
-  removeFromCart: (productId: string) => {
-    set((state) => ({
-      cart: state.cart.filter((i) => i.productId !== productId),
+  removeFromCart: async (cartItemId: string) => {
+    try { 
+      console.log("Trying to delete productId:", cartItemId);
+      await axios.delete(`/api/cart/${cartItemId}`)
+      set((state) => ({
+      cart: state.cart.filter((i) => i.id !== cartItemId),
     }));
+
+    }catch(err){
+      console.log(err);
+    }
   },
 
   clearCart: async () => {

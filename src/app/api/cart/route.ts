@@ -110,7 +110,6 @@ export async function DELETE() {
 
         }
         
-        
         const userId = session.user.id
 
         const cart = await prisma.cart.findFirst({

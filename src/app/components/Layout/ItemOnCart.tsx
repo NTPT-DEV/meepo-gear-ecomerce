@@ -1,18 +1,20 @@
 import { CartItem } from "@/store/cartStore";
-import { CircleMinus, CirclePlus } from "lucide-react";
+import { CircleMinus, CirclePlus, Trash2 } from "lucide-react";
 import Image from "next/image";
 
-type TypeProps = { 
-    item : CartItem , 
-    index : number 
-}
+type TypeProps = {
+  item: CartItem;
+  index: number;
+  handleRemoveCartItem : (cartItemId : string) => void
+};
 
-const ItemOnCart = ({ item, index }: TypeProps) => {
+const ItemOnCart = ({ item, index , handleRemoveCartItem }: TypeProps ) => {
   return (
     <div
       key={index}
-      className="flex w-full h-auto items-center p-5 gap-4 rounded-3xl mx-auto bg-white
-      max-[500px]:flex-col overflow-y-hidden">
+      className="flex w-full h-full items-center p-5 gap-4 rounded-3xl mx-auto bg-white
+      max-[500px]:flex-col overflow-y-hidden relative"
+    >
       <Image
         src={item.product?.images?.[0]?.secure_url}
         alt={item.product.name}
@@ -23,8 +25,7 @@ const ItemOnCart = ({ item, index }: TypeProps) => {
       />
       <div
         className="flex w-full items-center justify-between
-              max-[500px]:flex-col 
-              "
+              max-[500px]:flex-col "
       >
         <div
           className="flex flex-col gap-2 
@@ -50,7 +51,19 @@ const ItemOnCart = ({ item, index }: TypeProps) => {
           </div>
         </div>
         {/* Quantity */}
-        <div className="flex gap-2 my-2">
+        <div className="flex flex-col justify-between items-center gap-2 h-full my-2">
+          <button 
+          onClick={()=> {
+            
+            if (!item.id) {
+             console.error("CartItem ID is undefined");
+            return;
+    }
+            handleRemoveCartItem(item.id)
+          }}
+          >
+            <Trash2 className="text-gray-500 hover:text-red-700 w-5 h-auto absolute right-5 top-4 transittion-text duration-300 cursor-pointer" />
+          </button>
           <div className="flex gap-3">
             <CircleMinus className="text-gray-500 hover:text-gray-900 w-5 h-auto transition-all duration-200" />
             <span className="font-bold text-xl border-2 border-gray-100 px-3 py-1 rounded-sm">

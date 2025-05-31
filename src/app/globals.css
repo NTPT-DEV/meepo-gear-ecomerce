@@ -13,6 +13,7 @@ body {
 }
 
 
+
  /* for ShadCn */
 @custom-variant dark (&:is(.dark *));
 
