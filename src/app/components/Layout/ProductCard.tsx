@@ -23,6 +23,7 @@ interface TypeGetProduct {
   price: number;
   quantity: number;
   category: Category;
+  categoryId : string 
   images: ImageProduct[];
 }
 
@@ -54,7 +55,7 @@ const ProductCard = ({ products }: ProductCardProps) => {
           whileInView="animate"
           viewport={{once:true}}
           key={item.id}
-          className="flex flex-col w-[250px] h-[480px] rounded-3xl shadow-sm  p-2 overflow-hidden hover:shadow-md bg-white relative"
+          className="flex flex-col w-[250px] h-[480px] rounded-3xl shadow-sm  p-2 overflow-hidden hover:shadow-md/20 transition-shadow duration-300 bg-white relative"
         >
           <Link href={`/product/${item.id}`}>
             <div className="flex justify-center items-center w-full p-5">
@@ -74,7 +75,14 @@ const ProductCard = ({ products }: ProductCardProps) => {
             </h3>
             <div className="flex flex-col justify-center items-start w-full gap-y-2 mt-3 absolute bottom-3 left-0 p-5">
               <h1 className="text-2xl mt-3 font-bold">฿{item.price}</h1>
-              <BtnProductCard />
+              <BtnProductCard 
+              product={item}
+              productId={item.id}
+              name={item.name}
+              price={item.price}
+              quantity={1}
+              images={item.images[0].secure_url}
+              />
             </div>
           </div>
         </motion.div>

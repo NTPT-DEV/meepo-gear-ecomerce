@@ -47,7 +47,7 @@ const ProductCategory = () => {
       >
         {categoryData.map((item, index) => (
           <SwiperSlide key={index} className="!w-auto">
-            <Link draggable={false} key={index} href={`/product`}>
+            <Link draggable={false} key={index} href={`/category/${item.id}`}>
               <div className="hover:scale-105 transition-all duration-200 cursor-pointer">
                 <div className="flex flex-col justify-center items-center gap-5">
                   <div
@@ -57,6 +57,7 @@ const ProductCategory = () => {
                   >
                     {item.categoryImage.map((img, index) => (
                       <Image
+                        priority={true}
                         draggable={false}
                         key={index}
                         src={img.secure_url}

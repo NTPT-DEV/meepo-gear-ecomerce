@@ -72,8 +72,8 @@ const SearchProduct = () => {
         />
       </div>
       {isClick && (
-        <div className="flex justify-center items-center fixed inset-0 z-10 bg-black/50 backdrop-blur-xs">
-          <div className="bg-lime-300/20 w-[70%]  overflow-y-hidden rounded-2xl px-6 pt-4 pb-7 border-3 border-lime-300 flex flex-col items-center relative shadow-md">
+        <div className="flex justify-center items-center fixed inset-0 z-10 bg-black/50 backdrop-blur-xs shadow-2xl">
+          <div className="bg-zinc-900/80 w-[70%]  overflow-y-hidden rounded-2xl px-6 pt-4 pb-7 flex flex-col items-center relative shadow-md">
             {/* Search Bar */}
             <div className="flex justify-center items-center w-full gap-2 p-3 mt-5 z-20">
               <Search className=" w-10 h-10 text-lime-300 transition-all duration-200 animate-bounce" />
@@ -93,7 +93,7 @@ const SearchProduct = () => {
             </div>
 
             {/* Product from search */}
-            <div className="flex flex-col items-center w-[90%] gap-y-[0.01rem] overflow-y-auto max-h-[370px] my-2 no-scrollbar">
+            <div className="flex flex-col items-center w-full gap-y-[0.01rem] overflow-y-auto max-h-[370px] my-2 no-scrollbar">
               {result.length > 0 &&
                 result.map((item: Product, index) => (
                   <Link key={index} href={`/product/${item.id}`} className="flex justify-center items-center w-full">

@@ -19,6 +19,7 @@ interface TypeGetProduct {
   price : number 
   quantity : number 
   category : Category
+  categoryId : string
   images : ImageProduct[]
 }
 

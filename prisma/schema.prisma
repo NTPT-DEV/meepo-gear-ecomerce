@@ -88,7 +88,7 @@ model CategoryImage {
   categoryId String   @db.ObjectId
 }
 
-model Order {s
+model Order {
   id          String           @id @default(auto()) @map("_id") @db.ObjectId
   products    ProductOnOrder[]
   cartTotal   Float

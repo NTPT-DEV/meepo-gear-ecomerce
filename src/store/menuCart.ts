@@ -4,16 +4,23 @@ import { create } from 'zustand'
 
 type menuCartTypeStore = { 
     menuCart : boolean 
-    handleMenuCart : () => void
+    toggleMenuCart : () => void
+    manualMenuCart : () => void 
 }
 
 export const useMenuCartStore = create<menuCartTypeStore>((set) => ({
     menuCart : false , 
-
-    handleMenuCart : () => 
+    
+    toggleMenuCart : () => 
     set((state) => ({ 
-    menuCart : !state.menuCart
-    }))
+    menuCart : !state.menuCart 
+    })) ,
+
+    manualMenuCart : () => {
+     set(() => ({
+        menuCart : true
+     }))
+    }
 }))
 
 

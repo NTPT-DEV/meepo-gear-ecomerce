@@ -6,7 +6,7 @@ import SignOutBtn from "./SignOutBtn";
 import { useSession } from "next-auth/react";
 import AdminBtn from "./AdminBtn";
 import SearchProduct from "./SearchProduct";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react"
 import CartMenu from "./CartMenu";
 import { useMenuCartStore } from "@/store/menuCart";
@@ -17,30 +17,12 @@ const Navbar = () => {
   const { data: session } = useSession();
   const [onToggle, setOnToggle] = useState(false);
   const  menuRef =  useRef<HTMLDivElement>(null)
-  const handleMenuCart  = useMenuCartStore(state => state.handleMenuCart)
+  const toggleMenuCart  = useMenuCartStore(state => state.toggleMenuCart)
 
-
-  
   const toggleMenu = () => {
-    console.log("isClick");
     setOnToggle((prev) => !prev);
   };
   
-  useEffect(() => {
-    const handleClickOutSide = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setOnToggle(false);
-      }
-    };
-    if (onToggle) {
-      document.addEventListener("mousedown", handleClickOutSide);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutSide);
-      };
-  }
-}, [onToggle]);
-
-
   return (
     <div className="main-container">
       <div className="bg-black flex justify-between items-center w-full h-22 px-10 rounded-b-[40px] ">
@@ -97,7 +79,7 @@ const Navbar = () => {
           {/* button Cart */}
           <div className="flex gap-2 ">
             <div 
-            onClick={handleMenuCart}
+            onClick={toggleMenuCart}
             className="relative">
               <ShoppingBag 
               className="text-white w-6 relative" />

@@ -1,0 +1,66 @@
+import { CartItem } from "@/store/cartStore";
+import { CircleMinus, CirclePlus } from "lucide-react";
+import Image from "next/image";
+
+type TypeProps = { 
+    item : CartItem , 
+    index : number 
+}
+
+const ItemOnCart = ({ item, index }: TypeProps) => {
+  return (
+    <div
+      key={index}
+      className="flex w-full h-auto items-center p-5 gap-4 rounded-3xl mx-auto bg-white
+      max-[500px]:flex-col overflow-y-hidden">
+      <Image
+        src={item.product?.images?.[0]?.secure_url}
+        alt={item.product.name}
+        width={400}
+        height={400}
+        priority
+        className="w-30 p-3 h-auto shadow-sm rounded-2xl"
+      />
+      <div
+        className="flex w-full items-center justify-between
+              max-[500px]:flex-col 
+              "
+      >
+        <div
+          className="flex flex-col gap-2 
+                max-[500px]:justify-center max-[500px]:text-center"
+        >
+          {/* Name */}
+          <div
+            className="font-bold text-md
+                  max-[500px]:text-lg line-clamp-2"
+          >
+            {item.product.name}
+          </div>
+          <div
+            className="flex flex-col 
+                  max-[500px]:flex-row max-[500px]:items-center max-[500px]:gap-2 max-[500px]:justify-center"
+          >
+            <h1 className="font-semibold text-sm text-gray-600 max-[500px]:text-lg">
+              Price :
+            </h1>
+            <h2 className="font-bold text-zinc-900 text-lg max-[500px]:text-xl">
+              {item.product.price}
+            </h2>
+          </div>
+        </div>
+        {/* Quantity */}
+        <div className="flex gap-2 my-2">
+          <div className="flex gap-3">
+            <CircleMinus className="text-gray-500 hover:text-gray-900 w-5 h-auto transition-all duration-200" />
+            <span className="font-bold text-xl border-2 border-gray-100 px-3 py-1 rounded-sm">
+              {item.quantity}
+            </span>
+            <CirclePlus className="text-gray-500 hover:text-gray-900 w-5 h-auto transition-all duration-200" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+export default ItemOnCart;

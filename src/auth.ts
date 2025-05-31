@@ -49,7 +49,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           id: token.sub,
           isOauth: token.isOauth,
           role : token.role, 
-          statusUser : token.statusUser
+          statusUser : token.statusUser , 
           
         },
       };

@@ -59,7 +59,7 @@ export const getAllCategory = async () => {
         categoryImage : true 
       }
     })
-    console.log(getAll);
+    
     return getAll
 
   }catch(error) {
