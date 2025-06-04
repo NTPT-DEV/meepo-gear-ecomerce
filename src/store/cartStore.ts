@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 export type CartItem = {
   id? : string
-  productId: string;
+  productId?: string;
   name : string
   price : number
   images : string
@@ -16,14 +16,15 @@ export type CartItem = {
       }[];
     };
 };
+
 type CartStore = {
   cart: CartItem[];
   getCart: () => CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (productId: string) => void;
   clearCart: () => void;
-  increaseQty: (productId: string, item: CartItem) => void;
-  decreaseQty: (productId: string, item: CartItem) => void;
+  increaseQty: (productId: string ) => void;
+  decreaseQty: (productId: string ) => void;
   getTotalQuantity: () => number;
   getTotalPrice: () => number;
   fetchCart: () => Promise<void>;
@@ -52,12 +53,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
     }
   },
 
-  removeFromCart: async (cartItemId: string) => {
-    try { 
-      console.log("Trying to delete productId:", cartItemId);
-      await axios.delete(`/api/cart/${cartItemId}`)
+  removeFromCart: async (cartItemsId: string) => {
+    try {
+      await axios.delete(`/api/cart/${cartItemsId}`);
       set((state) => ({
-      cart: state.cart.filter((i) => i.id !== cartItemId),
+      cart: state.cart.filter((i) => i.id !== cartItemsId),
     }));
 
     }catch(err){
@@ -78,22 +78,22 @@ export const useCartStore = create<CartStore>((set, get) => ({
     }
   },
 
-  increaseQty: (productId: string, item: CartItem) => {
+  increaseQty: (productId: string ) => {
     set((state) => ({
       cart: state.cart.map((i) =>
         i.productId === productId
-          ? { ...i, quantity: i.quantity + item.quantity }
+          ? { ...i, quantity: i.quantity + 1 }
           : i
       ),
     }));
   },
 
-  decreaseQty: (productId: string, item: CartItem) => {
+  decreaseQty: (productId: string) => {
     set((state) => ({
       cart: state.cart
         .map((i) =>
           i.productId === productId
-            ? { ...i, quantity: i.quantity - item.quantity }
+            ? { ...i, quantity: i.quantity - 1 }
             : i
         )
         .filter((i) => i.quantity > 0),

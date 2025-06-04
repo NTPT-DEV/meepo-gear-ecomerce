@@ -12,7 +12,6 @@ export const varliantsUsers = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
       delay: 0.1 * index,
     },
   }),
@@ -67,7 +66,7 @@ const UserDashboard = () => {
             key={index}
             className="grid grid-cols-4 gap-4 items-center w-full h-auto bg-white border-b
              border-gray-100 rounded-sm  px-4 py-5 hover:shadow-sm 
-             transition-all duration-200 hover:-translate-y-0.5 transform text-zinc-800"
+             transition- duration-200 hover:-translate-y-0.5 transform text-zinc-800"
           >
             <div className="text-sm font-bold flex justify-center items-center">
               {user.name}

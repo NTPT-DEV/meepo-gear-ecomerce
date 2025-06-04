@@ -7,7 +7,7 @@ import type { CartItem } from "@/store/cartStore";
 import { useMenuCartStore } from "@/store/menuCart";
 
 
-const BtnProductCard = ({id , productId , name , price , quantity , product , images } : CartItem) => {
+const BtnProductCard = ({id ,productId , name , price , quantity , product , images } : CartItem) => {
   const {addToCart , fetchCart} = useCartStore();
   const { manualMenuCart } = useMenuCartStore()
   const {data : session} = useSession();
@@ -18,12 +18,11 @@ const handleAddToCart = async () => {
         redirect('/auth/sign-in');
     }
     addToCart({
-       id , productId, name, price, quantity, product, images   
+      id , productId, name, price, quantity, product, images   
     });
    
      try {
       await axios.post('/api/cart' , {
-      id ,
       productId,
       price,
       quantity,

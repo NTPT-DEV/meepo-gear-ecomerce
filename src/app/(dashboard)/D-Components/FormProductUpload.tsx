@@ -128,7 +128,7 @@ const removePreview = (indexToRemove: number) => {
     <motion.div 
     initial={{ opacity: 0 , y : 30 }}
     animate={{ opacity: 1 , y : 0 }}
-    transition={{ duration: 0.8 , delay : 0.3 , easings : 'easeInOut' }} 
+    transition={{ duration: 0.8 , delay : 0.1 , easings : 'easeInOut' }} 
     className="flex justify-center items-center w-full p-5 h-auto flex-1 ">
       <form
         onSubmit={handleSubmit(handleSubmitProduct)}

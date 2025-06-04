@@ -9,9 +9,10 @@ import { motion } from "motion/react"
 
 const LogoCarousel= () => {
   return (
-    <div className="flex flex-col justify-center max-w-[1440px] items-center 
-    gap-10 mx-auto px-4 my-20 overflow-hidden">
+    <div className="flex max-w-[1440px] h-auto
+     mx-auto my-10 overflow-hidden">
      
+     <div className="flex flex-col justify-center items-center w-full h-auto gap-12 p-5">
       {/* Slide TOP */}
         <motion.div 
         initial = {{opacity : 0 , y : -5}}
@@ -20,7 +21,7 @@ const LogoCarousel= () => {
         transition={{duration : 0.5 , delay : 0.5}}
         className="flex justify-start items-center gap-5 overflow-hidden">
          <Swiper 
-         className="swiper-linear w-full"
+         className="swiper-linear"
          modules={[Autoplay  , FreeMode]}
          loop={true}
          slidesPerView="auto"
@@ -33,14 +34,14 @@ const LogoCarousel= () => {
          }}
          >
            <SwiperSlide >
-             <div className="flex justify-center items-center w-auto gap-10" >
+             <div className="flex justify-center items-center gap-10" >
               { logoBrand.map((item , index) => (
                 <Image key={index} src={item.src} alt={item.alt} width={200} height={100} className="w-24 h-12 opacity-50 hover:opacity-80 object-contain transition-all duration-200" />
               ))}
               </div>
             </SwiperSlide>
            <SwiperSlide >
-             <div className="flex justify-center items-center w-auto gap-10 overflow-hidden" >
+             <div className="flex justify-center items-center gap-10 " >
               { logoBrand.map((item , index) => (
                 <Image key={index} src={item.src} alt={item.alt} width={200} height={100} className="w-24 h-12 opacity-50 hover:opacity-80 object-contain transition-all duration-200" />
               ))}
@@ -55,7 +56,7 @@ const LogoCarousel= () => {
         whileInView={{opacity : 1 , y : 0}}
         viewport={{once : true}}
         transition={{duration : 0.5 , delay : 0.8}}
-        className="flex justify-end items-center gap-5 overflow-hidden">
+        className="flex justify-end items-center gap-5">
          <Swiper 
          className="swiper-linear"
          modules={[Autoplay  , FreeMode]}
@@ -72,14 +73,14 @@ const LogoCarousel= () => {
          }}
          >
            <SwiperSlide >
-             <div className="flex justify-center items-center w-auto gap-10" >
+             <div className="flex justify-center items-center gap-10" >
               { logoBrand.map((item , index) => (
                 <Image key={index} src={item.src} alt={item.alt} width={200} height={100} className="w-24 h-12 opacity-50 hover:opacity-80 object-contain transition-all duration-200" />
               ))}
               </div>
             </SwiperSlide>
            <SwiperSlide >
-             <div className="flex justify-center items-center w-auto gap-10" >
+             <div className="flex justify-center items-center gap-10" >
               { logoBrand.map((item , index) => (
                 <Image key={index} src={item.src} alt={item.alt} width={200} height={100} className="w-24 h-12 opacity-50 hover:opacity-80 object-contain transition-all duration-200" />
               ))}
@@ -88,6 +89,8 @@ const LogoCarousel= () => {
            
         </Swiper>
         </motion.div>
+     </div>
+      
     </div>
   )
 }

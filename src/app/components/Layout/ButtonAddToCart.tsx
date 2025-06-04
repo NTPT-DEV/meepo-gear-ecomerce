@@ -1,25 +1,62 @@
-
 "use client";
 import { IoMdCart } from "react-icons/io";
 import { useSession } from "next-auth/react";
+import { useCartStore } from "@/store/cartStore";
+import { redirect } from "next/navigation";
+import { TypeGetProduct } from "@/types/typesStore";
+import { useMenuCartStore } from "@/store/menuCart";
+import axios from "axios";
 
-const ButtonAddToCart = () => {
+const ButtonAddToCart = ({ product }: { product: TypeGetProduct }) => {
+  const { fetchCart } = useCartStore();
+  const { manualMenuCart } = useMenuCartStore();
+  const {  id, name, price, images } = product;
 
-  
+  const { addToCart } = useCartStore();
   const { data: session } = useSession();
-  
-  const handleClickAddToCart = () => {
-    if (session) {
-      console.log("add to cart success");
-    } else {
-      console.log("add to cart fail");
+
+  const handleAddToCart = async () => {
+    if (!session) {
+      alert("Please login first !!");
+      redirect("/auth/sign-in");
+    }
+
+    try {
+
+      addToCart({
+        productId : id , 
+        name,
+        price,
+        quantity: 1,
+        images: images?.[0]?.secure_url,
+        product: {
+          name,
+          price,
+          images: images || [],
+        },
+      });
+
+      await axios.post('/api/cart' , {
+        productId: id,
+        price,
+        quantity: 1,
+        product: {
+          name,
+          price,
+          images: images || [],
+        },
+      })
+      await fetchCart()
+      manualMenuCart();
+
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  
   return (
     <button
-      onClick={handleClickAddToCart}
+      onClick={handleAddToCart}
       className="mt-2 bg-[#9AE600] flex justify-center items-center w-full h-12
      rounded-xl cursor-pointer active:scale-95 transition-all duration-100 gap-2"
     >

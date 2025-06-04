@@ -2,30 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import BtnProductCard from "./BtnProductCard";
 import { motion} from "motion/react"
-
-interface ProductCardProps {
-  products: TypeGetProduct[];
-}
-
-interface ImageProduct {
-  public_id: string;
-  secure_url: string;
-}
-interface Category {
-  name: string;
-}
-
-interface TypeGetProduct {
-  id: string;
-  name: string;
-  title: string;
-  description: string;
-  price: number;
-  quantity: number;
-  category: Category;
-  categoryId : string 
-  images: ImageProduct[];
-}
+import {ProductCardProps} from "@/types/typesStore";
 
 const animateProductVar = {
   initial : {
@@ -37,7 +14,7 @@ const animateProductVar = {
     y : 0 , 
     transition : {
       duration : 0.3 , 
-      delay: 0.2 * index
+      delay: 0.1 * index
       
     }
   })

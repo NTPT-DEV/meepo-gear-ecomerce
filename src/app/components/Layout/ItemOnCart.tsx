@@ -1,6 +1,7 @@
-import { CartItem } from "@/store/cartStore";
-import { CircleMinus, CirclePlus, Trash2 } from "lucide-react";
 import Image from "next/image";
+import { CircleMinus, CirclePlus, Trash2 } from "lucide-react";
+import { CartItem } from "@/store/cartStore";
+import { useCartStore } from "@/store/cartStore";
 
 type TypeProps = {
   item: CartItem;
@@ -9,6 +10,29 @@ type TypeProps = {
 };
 
 const ItemOnCart = ({ item, index , handleRemoveCartItem }: TypeProps ) => {
+
+  const  increaseQty  = useCartStore((state) => state.increaseQty);
+  const  decreaseQty  = useCartStore((state) => state.decreaseQty);
+
+  /// incerease quantity
+ const handleIncreaseQty = () => {
+  if (!item.productId) {
+    console.error("CartItem productId is undefined");
+    return;
+  }
+  increaseQty(item?.productId );
+
+ }
+
+ // decrease quantity
+ const handleDecreaseQty = () => {
+  if (item.quantity <= 1 || !item.productId) {
+    return;
+  }
+  decreaseQty(item.productId);
+
+ }
+
   return (
     <div
       key={index}
@@ -53,7 +77,7 @@ const ItemOnCart = ({ item, index , handleRemoveCartItem }: TypeProps ) => {
         {/* Quantity */}
         <div className="flex flex-col justify-between items-center gap-2 h-full my-2">
           <button 
-          onClick={()=> {
+            onClick={()=> {
             
             if (!item.id) {
              console.error("CartItem ID is undefined");
@@ -65,11 +89,15 @@ const ItemOnCart = ({ item, index , handleRemoveCartItem }: TypeProps ) => {
             <Trash2 className="text-gray-500 hover:text-red-700 w-5 h-auto absolute right-5 top-4 transittion-text duration-300 cursor-pointer" />
           </button>
           <div className="flex gap-3">
-            <CircleMinus className="text-gray-500 hover:text-gray-900 w-5 h-auto transition-all duration-200" />
+            <CircleMinus 
+            onClick={handleDecreaseQty}
+            className="text-gray-500 hover:text-gray-900 w-5 h-auto transition-all duration-200" />
             <span className="font-bold text-xl border-2 border-gray-100 px-3 py-1 rounded-sm">
               {item.quantity}
             </span>
-            <CirclePlus className="text-gray-500 hover:text-gray-900 w-5 h-auto transition-all duration-200" />
+            <CirclePlus 
+            onClick={handleIncreaseQty}
+            className="text-gray-500 hover:text-gray-900 w-5 h-auto transition-all duration-200" />
           </div>
         </div>
       </div>

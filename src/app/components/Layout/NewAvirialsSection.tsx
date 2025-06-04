@@ -2,29 +2,10 @@
 import { useEffect, useState } from "react"
 import ProductCard from "./ProductCard"
 import axios from "axios"
-
-interface ImageProduct  {
-  public_id : string ,
-  secure_url : string 
-}
-interface Category {
-  name : string 
-}
-
-interface TypeGetProduct {
-  id : string 
-  name : string 
-  title : string 
-  description : string 
-  price : number 
-  quantity : number 
-  category : Category
-  categoryId : string
-  images : ImageProduct[]
-}
+import { TypeGetProduct } from "@/types/typesStore"
 
 const NewAvirialsSection = () => {
-  const [products , setProduct ] = useState<TypeGetProduct[]>([])
+  const [ products , setProduct ] = useState<TypeGetProduct[]>([])
 
 useEffect(() => {
     const  fetchProduct = async () => {

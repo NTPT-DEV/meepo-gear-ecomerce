@@ -4,29 +4,12 @@ import BuyNowButton from "@/app/components/Layout/ButNowButton";
 import ButtonAddToCart from "@/app/components/Layout/ButtonAddToCart";
 import QuantityButton from "@/app/components/Layout/QuantityButton";
 import { firstTextUppercase } from "@/lib/utils";
+import { TypeGetProduct } from "@/types/typesStore";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, use } from "react";
 
-interface ImageProduct {
-  public_id: string;
-  secure_url: string;
-}
-interface Category {
-  name: string;
-}
-
-interface TypeGetProduct {
-  id: string;
-  name: string;
-  title: string;
-  description: string;
-  price: number;
-  quantity: number;
-  category: Category;
-  images: ImageProduct[];
-}
 
 const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const [getProduct, setGetProduct] = useState<TypeGetProduct | null>(null);
@@ -40,7 +23,6 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
         const res = await axios.get(`/api/product/${id}`);
         setGetProduct(res.data.product);
         setMainImage(res.data.product.images[0].secure_url || "");
-        console.log(res.data.product);
       } catch (err) {
         console.log(err);
       }
@@ -48,7 +30,6 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
     fetchProductbyId();
   }, [id]);
 
-  console.log(getProduct);
 
   return (
     <div className="product-main-con flex flex-col flex-1 w-full max-w-[1440px] h-screen mx-auto px-10 gap-10">
@@ -61,7 +42,9 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
           <span>Home {">"}</span>
         </Link>
         <span>Category {">"}</span>
-        <span>{firstTextUppercase(getProduct?.category?.name || "")}</span>
+        <Link href={`/category/${getProduct?.category?.id}`}>
+          <span className="hover:text-gray-700 transition-all duration-200">{firstTextUppercase(getProduct?.category?.name || "")}</span>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full h-auto py-10">
@@ -130,8 +113,14 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
             <AddWishList />
           </div>
           {/* Button Add to Cart and But Now */}
-          <ButtonAddToCart />
-          <BuyNowButton />
+          {getProduct && (
+           <>
+            <ButtonAddToCart
+            product={getProduct!}
+             />
+            <BuyNowButton />
+           </>
+          )}
 
           {/* Spec details*/}
           <div className="flex  flex-col w-full h-auto my-12 gap-1">
