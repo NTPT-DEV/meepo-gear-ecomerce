@@ -44,7 +44,7 @@ const Navbar = () => {
           <div className="flex justify-center items-center gap-3 max-md:hidden">
             {session?.user ? (
               <>
-                <p className="text-white font-bold text-sm">
+                <p className="text-white font-bold text-sm font-[outfit]">
                   {session?.user?.email}
                 </p>
                 {/* {session?.user?.role === "admin" && <AdminBtn />} */}
@@ -107,7 +107,7 @@ const Navbar = () => {
               animate={{opacity : 1}}
               exit={{opacity : 0}}
               transition={{duration : 0.2}}
-                className={` flex flex-col border-2 border-lime-300 items-center gap-2 min-w-50 h-70 absolute bg-black z-60 top-22 right-4 rounded-2xl p-4 
+                className={` flex flex-col border-2 border-lime-300 items-center gap-2 min-w-50 h-70 absolute bg-black/70 backdrop-blur-xs z-60 top-22 right-4 rounded-2xl p-4 
                 }`}
               >
                 <div className="flex justify-center w-full">

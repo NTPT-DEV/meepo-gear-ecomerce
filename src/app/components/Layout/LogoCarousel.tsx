@@ -9,7 +9,7 @@ import { motion } from "motion/react"
 
 const LogoCarousel= () => {
   return (
-    <div className="flex max-w-[1440px] h-auto
+    <div className="flex max-w-[1440px] w-full h-auto
      mx-auto my-10 overflow-hidden">
      
      <div className="flex flex-col justify-center items-center w-full h-auto gap-12 p-5">
@@ -19,13 +19,13 @@ const LogoCarousel= () => {
         whileInView={{opacity : 1 , y : 0}}
         viewport={{once : true}}
         transition={{duration : 0.5 , delay : 0.5}}
-        className="flex justify-start items-center gap-5 overflow-hidden">
+        className="flex justify-start max-w-full items-center gap-5 overflow-hidden">
          <Swiper 
          className="swiper-linear"
          modules={[Autoplay  , FreeMode]}
          loop={true}
-         slidesPerView="auto"
-         spaceBetween={300}
+         slidesPerView='auto'       
+         spaceBetween={1000} 
          freeMode={true}
          speed={50000}
          autoplay={{
@@ -61,8 +61,8 @@ const LogoCarousel= () => {
          className="swiper-linear"
          modules={[Autoplay  , FreeMode]}
          loop={true}
-         slidesPerView="auto"
-         spaceBetween={300}
+         slidesPerView='auto'     
+         spaceBetween={300} 
          freeMode={true}
          speed={50000}
           
