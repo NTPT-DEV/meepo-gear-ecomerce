@@ -1,7 +1,7 @@
 "use client";
 import { IoMdCart } from "react-icons/io";
 import { useSession } from "next-auth/react";
-import { useCartStore } from "@/store/cartStore";
+import { useCartStore, useQuantityStore } from "@/store/cartStore";
 import { redirect } from "next/navigation";
 import { TypeGetProduct } from "@/types/typesStore";
 import { useMenuCartStore } from "@/store/menuCart";
@@ -11,7 +11,8 @@ const ButtonAddToCart = ({ product }: { product: TypeGetProduct }) => {
   const { fetchCart } = useCartStore();
   const { manualMenuCart } = useMenuCartStore();
   const {  id, name, price, images } = product;
-
+  const itemCount = useQuantityStore((state) => state.itemCount);
+  const resetItemCount = useQuantityStore((state) => state.resetItemCount);
   const { addToCart } = useCartStore();
   const { data: session } = useSession();
 
@@ -20,14 +21,12 @@ const ButtonAddToCart = ({ product }: { product: TypeGetProduct }) => {
       alert("Please login first !!");
       redirect("/auth/sign-in");
     }
-
     try {
-
       addToCart({
         productId : id , 
         name,
         price,
-        quantity: 1,
+        quantity: itemCount,
         images: images?.[0]?.secure_url,
         product: {
           name,
@@ -39,7 +38,7 @@ const ButtonAddToCart = ({ product }: { product: TypeGetProduct }) => {
       await axios.post('/api/cart' , {
         productId: id,
         price,
-        quantity: 1,
+        quantity: itemCount,
         product: {
           name,
           price,
@@ -48,6 +47,7 @@ const ButtonAddToCart = ({ product }: { product: TypeGetProduct }) => {
       })
       await fetchCart()
       manualMenuCart();
+      resetItemCount();
 
     } catch (err) {
       console.log(err);

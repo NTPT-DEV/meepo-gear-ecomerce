@@ -80,7 +80,7 @@ export async function POST(req : NextRequest) {
                     id : existingCartItem.id 
                 }, 
                 data : {
-                    quantity : existingCartItem.quantity + 1
+                    quantity : existingCartItem.quantity + quantity
                 }
             })
         } else {

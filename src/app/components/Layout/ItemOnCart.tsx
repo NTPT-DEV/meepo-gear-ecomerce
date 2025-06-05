@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { CircleMinus, CirclePlus, Trash2 } from "lucide-react";
-import { CartItem } from "@/store/cartStore";
-import { useCartStore } from "@/store/cartStore";
+import { CartItem, useCartStore } from "@/store/cartStore";
+import axios from "axios";
 
 type TypeProps = {
   item: CartItem;
@@ -11,27 +11,44 @@ type TypeProps = {
 
 const ItemOnCart = ({ item, index , handleRemoveCartItem }: TypeProps ) => {
 
-  const  increaseQty  = useCartStore((state) => state.increaseQty);
-  const  decreaseQty  = useCartStore((state) => state.decreaseQty);
+  const { updateCartItem } = useCartStore();
 
-  /// incerease quantity
- const handleIncreaseQty = () => {
-  if (!item.productId) {
-    console.error("CartItem productId is undefined");
-    return;
-  }
-  increaseQty(item?.productId );
+  const handleIncreaseQty = async () => {
+    if(item.id) {
+      try {  
+        const response = await axios.patch(`/api/cart/${item.id}` , 
+        { quantity: item.quantity + 1 }
+        )
 
- }
+        const updatedItem = response.data.cartItem;
+        
 
- // decrease quantity
- const handleDecreaseQty = () => {
-  if (item.quantity <= 1 || !item.productId) {
-    return;
-  }
-  decreaseQty(item.productId);
+        updateCartItem(updatedItem);
 
- }
+      }catch(err){ 
+        console.error("Failed to increase item quantity", err);
+      }
+    }
+  };
+  const handleDecreaseQty = async () => {
+    if(item.id) {
+      if(item.quantity <= 1)return
+      try {  
+        const response = await axios.patch(`/api/cart/${item.id}` , 
+        { quantity: item.quantity - 1 }
+        )
+
+        const updatedItem = response.data.cartItem;
+        
+
+        updateCartItem(updatedItem);
+
+      }catch(err){ 
+        console.error("Failed to decrease item quantity", err);
+      }
+    }
+  };
+
 
   return (
     <div
@@ -41,7 +58,7 @@ const ItemOnCart = ({ item, index , handleRemoveCartItem }: TypeProps ) => {
     >
       <Image
         src={item.product?.images?.[0]?.secure_url}
-        alt={item.product.name}
+        alt={item.product?.name}
         width={400}
         height={400}
         priority
@@ -60,7 +77,7 @@ const ItemOnCart = ({ item, index , handleRemoveCartItem }: TypeProps ) => {
             className="font-bold text-md
                   max-[500px]:text-lg line-clamp-2"
           >
-            {item.product.name}
+            {item.product?.name}
           </div>
           <div
             className="flex flex-col 
@@ -70,7 +87,7 @@ const ItemOnCart = ({ item, index , handleRemoveCartItem }: TypeProps ) => {
               Price :
             </h1>
             <h2 className="font-bold text-zinc-900 text-lg max-[500px]:text-xl">
-              {item.product.price}
+              {item.product?.price}
             </h2>
           </div>
         </div>
