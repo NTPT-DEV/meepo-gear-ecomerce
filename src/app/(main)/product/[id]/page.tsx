@@ -10,11 +10,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, use } from "react";
 
-
 const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const [getProduct, setGetProduct] = useState<TypeGetProduct | null>(null);
   const [mainImage, setMainImage] = useState<string>("");
-
+  const [showMore, setShowMore] = useState<boolean>(false);
 
   const { id } = use(params);
   useEffect(() => {
@@ -30,6 +29,9 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
     fetchProductbyId();
   }, [id]);
 
+  const handleShowMore = () => {
+    setShowMore((prev) => !prev);
+  };
 
   return (
     <div className="product-main-con flex flex-col flex-1 w-full max-w-[1440px] h-screen mx-auto px-10 gap-10">
@@ -43,7 +45,9 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
         </Link>
         <span>Category {">"}</span>
         <Link href={`/category/${getProduct?.category?.id}`}>
-          <span className="hover:text-gray-700 transition-all duration-200">{firstTextUppercase(getProduct?.category?.name || "")}</span>
+          <span className="hover:text-gray-700 transition-all duration-200">
+            {firstTextUppercase(getProduct?.category?.name || "")}
+          </span>
         </Link>
       </div>
 
@@ -114,18 +118,38 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
           {/* Button Add to Cart and But Now */}
           {getProduct && (
-           <>
-            <ButtonAddToCart
-            product={getProduct!}
-             />
-            <BuyNowButton />
-           </>
+            <>
+              <ButtonAddToCart product={getProduct!} />
+              <BuyNowButton />
+            </>
           )}
 
           {/* Spec details*/}
           <div className="flex  flex-col w-full h-auto my-12 gap-1">
             <h3 className="text-xl font-bold text-zinc-700">Details :</h3>
-            <p className="text-sm text-zinc-500">{getProduct?.description}</p>
+            <p className="text-sm text-zinc-500">
+              {showMore ? (
+                <>
+                  {getProduct?.description}
+                  <span
+                    onClick={handleShowMore}
+                    className="text-zinc-400 hover:text-zinc-700 transition-all duration-200 cursor-pointer text-[16px] italic"
+                  >
+                    ...ย่อลง
+                  </span>
+                </>
+              ) : (
+                <>
+                  {getProduct?.description.substring(0, 450)}
+                  <span
+                    onClick={handleShowMore}
+                    className="text-zinc-400 hover:text-zinc-700 transition-all duration-200 cursor-pointer text-[16px] italic"
+                  >
+                    ...อ่านเพิ่มเติม
+                  </span>
+                </>
+              )}
+            </p>
           </div>
         </div>
       </div>

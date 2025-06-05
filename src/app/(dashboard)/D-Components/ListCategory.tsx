@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import MenuBtnDashboard from "./MenuBtnDashboard";
 import { motion } from "motion/react";
+import Link from "next/link";
 
 interface CategoryType {
   id: string;
@@ -20,7 +21,7 @@ interface ListCategoryType {
   updateAddCategory: boolean;
 }
 
- export const varliantsCategory = {
+export const varliantsCategory = {
   initial: {
     opacity: 0,
     y: 5,
@@ -42,8 +43,6 @@ const ListCategory = ({ updateAddCategory }: ListCategoryType) => {
   useEffect(() => {
     const fetcGetAllCategory = async () => {
       const response = await axios.get("/api/category");
-      // console.log(response.data.categories);
-      // console.log(response.data.categories[0]?.categoryImage[0]?.secure_url);
       setCategory(response.data.categories);
     };
 
@@ -71,18 +70,20 @@ const ListCategory = ({ updateAddCategory }: ListCategoryType) => {
             {/* Image */}
 
             <div className="flex justify-center items-center">
-              <div className="flex justify-center items-center bg-white w-[120px] aspect-square h-auto rounded-4xl drop-shadow-md overflow-hidden">
-                {item.categoryImage.map((item, index) => (
-                  <Image
-                    key={index}
-                    className="p-3"
-                    src={item.secure_url}
-                    alt="test image"
-                    width={300}
-                    height={300}
-                  />
-                ))}
-              </div>
+              <Link href={`/category/${item.id}`}>
+                <div className="flex justify-center items-center bg-white w-[120px] aspect-square h-auto rounded-4xl drop-shadow-md overflow-hidden">
+                  {item.categoryImage.map((item, index) => (
+                    <Image
+                      key={index}
+                      className="p-3"
+                      src={item.secure_url}
+                      alt="test image"
+                      width={300}
+                      height={300}
+                    />
+                  ))}
+                </div>
+              </Link>
             </div>
 
             {/* Name & title */}

@@ -63,7 +63,7 @@ const ProductByCategory = ({ categoryId }: { categoryId: string }) => {
 
   return (
     <div className="flex flex-col w-full min-h-screen my-2">
-      <div className="flex w-full p-5 justify-center items-center text-2xl font-[outfit] font-black bg-black">
+      <div className="flex w-full p-5 justify-center items-center text-2xl font-[outfit] font-black bg-black rounded-tl-full rounded-tr-full shadow-md shadow-black/20">
         <motion.h1 
         initial={{ opacity: 0, y: -5 }}
         animate={{ opacity: 1, y: 0, transition: { duration: 0.5 , delay : 0.8 , ease : "easeInOut"} }}
@@ -73,7 +73,7 @@ const ProductByCategory = ({ categoryId }: { categoryId: string }) => {
         </motion.h1>
       </div>
 
-      <div className="flex flex-wrap justify-center items-center gap-2 py-3 ">
+      <div className="flex flex-wrap justify-center items-center gap-2 py-3 mt-3 ">
         {getProducts && getProducts.map((item, index) => (
           <motion.div
             variants={animateProductVar}

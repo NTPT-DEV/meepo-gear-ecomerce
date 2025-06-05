@@ -78,7 +78,10 @@ const CartMenu = () => {
                 </div>
               </div>
 
-              <div className="text-2xl font-bold font-[outfit]">{cart?.reduce((acc , item) => acc + item.price * item.quantity , 0)}</div>
+              <div className="text-2xl font-bold font-[outfit]">
+                {cart?.reduce((acc , item) => acc + item.price * item.quantity , 0)}
+                ฿
+              </div>
             </div>
             <div className="flex w-full justify-center items-center gap-3 mt-4
             max-[500px]:flex-col

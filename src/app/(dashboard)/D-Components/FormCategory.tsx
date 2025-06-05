@@ -1,7 +1,7 @@
-'use client'
+"use client";
 import Image from "next/image";
 import { X } from "lucide-react";
-import { motion } from "motion/react"
+import { motion } from "motion/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { upLoadImageCloudinary } from "../actionDashboard/upload/uploadImage";
@@ -16,15 +16,11 @@ interface TypeUpdateAddCategory {
   setUpdateAddCategory: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-
-
 const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
   const [message, setMessage] = useState<string | null>(null);
   const [errorExist, setErrorExist] = useState<boolean | null>(false);
+  const [previewImage, setPreviewImage] = useState<string[] | null>([]);
 
-
-  const [previewImage , setPreviewImage ] = useState<string[] | null>([])
- 
   const {
     register,
     handleSubmit,
@@ -38,25 +34,25 @@ const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
     },
   });
 
-  // Preview 
-  const onFileChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files 
-    if(!files || files.length === 0 ){
-      setPreviewImage([])
-      return
+  // Preview
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) {
+      setPreviewImage([]);
+      return;
     }
-    
-    const urls = Array.from(files).map((f) => URL.createObjectURL(f))
-    setPreviewImage(urls)
-  }
+
+    const urls = Array.from(files).map((f) => URL.createObjectURL(f));
+    setPreviewImage(urls);
+  };
 
   // Remove Preview
 
-  const removePreview = (indexToRemove : number ) => {
-    setPreviewImage((prev) => prev ? prev.filter((_, index) => index !== indexToRemove) : []);
-  }
-
-
+  const removePreview = (indexToRemove: number) => {
+    setPreviewImage((prev) =>
+      prev ? prev.filter((_, index) => index !== indexToRemove) : []
+    );
+  };
 
   /// On submit form
   const upLoadCategorySubmit = async (data: TypeCreateCategory) => {
@@ -76,7 +72,7 @@ const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
           setMessage(null);
           setErrorExist(false);
         }, 3000);
-        
+
         return;
       }
 
@@ -94,7 +90,7 @@ const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
     }
     setUpdateAddCategory((prev) => !prev);
     reset();
-    setPreviewImage([])
+    setPreviewImage([]);
   };
 
   /// Reset Form
@@ -104,11 +100,12 @@ const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
   };
 
   return (
-    <motion.div 
-    initial={{ opacity: 0 , y : -7}}
-    animate={{ opacity: 1 , y : 0 }}
-    transition={{ duration: 1 , delay : 0.3,  easings : "easeInOut"}}
-    className="mt-3 flex flex-col justify-center items-center w-full h-full flex-1">
+    <motion.div
+      initial={{ opacity: 0, y: -7 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay: 0.3, easings: "easeInOut" }}
+      className="mt-3 flex flex-col justify-center items-center w-full h-full flex-1"
+    >
       {/* error  section */}
       {errorExist && (
         <div className="flex flex-col justify-center items-center w-auto h-auto gap-2 px-20 mb-2 py-5 bg-red-500 rounded-2xl">
@@ -146,7 +143,9 @@ const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
         <div className="flex justify-center items-end w-full gap-2 ">
           <div className="flex items-center gap-2 italic relative">
             <button className="font-bold text-black bg-zinc-900 w-[200px] h-full rounded-lg absolute">
-              <span className="text-lime-300 text-md hover:scale-95 transition-all duration-300">Upload Images</span>
+              <span className="text-lime-300 text-md hover:scale-95 transition-all duration-300">
+                Upload Images
+              </span>
             </button>
             <input
               {...register("categoryImage", {
@@ -197,31 +196,34 @@ const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
       </form>
 
       {/* preview Image */}
-      {previewImage && previewImage.map((url : string , index : number) => (
-        <div key={index} className="w-full h-auto flex justify-center items-center gap-5 my-4 flex-wrap">
-        <div
-          className={`w-[150px] h-full rounded-2xl aspect-square relative overflow-hidden group bg-white shadow-md`}
-        >
-          <Image
-            src={
-              url
-            }
-            width={500}
-            height={500}
-            alt={"image"}
-            className="object-cover w-full h-full p-3"
-          />
+      {previewImage &&
+        previewImage.map((url: string, index: number) => (
           <div
-            onClick={()=> removePreview(index)}
-            className="bg-white w-6 h-6 absolute top-2 right-2 rounded-full flex justify-center items-center
-            opacity-0 group-hover:opacity-100 transition-all duration-400 hover:rotate-180 shadow-sm
-            "
+            key={index}
+            className="w-full h-auto flex justify-center items-center gap-5 my-4 flex-wrap"
           >
-            <X className="w-5 h-5"  />
+            <div
+              className={`w-[150px] h-full rounded-2xl aspect-square relative overflow-hidden group bg-white shadow-md`}
+            >
+              <Image
+                src={url}
+                width={500}
+                height={500}
+                alt={"image"}
+                className="object-cover w-full h-full p-3"
+              />
+
+              <div
+                onClick={() => removePreview(index)}
+                className="bg-white w-6 h-6 absolute top-2 right-2 rounded-full flex justify-center items-center
+                opacity-0 group-hover:opacity-100 transition-all duration-400 hover:rotate-180 shadow-sm
+                "
+              >
+                <X className="w-5 h-5" />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      ))}
+        ))}
     </motion.div>
   );
 };

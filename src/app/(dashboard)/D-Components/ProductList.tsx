@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ProductType } from "schemas/productFormSchema";
 import { TypeListProduct } from "./ListProductSection";
 import { motion } from "motion/react"
+import Link from "next/link";
 
 const  varsProductList = { 
     initial: {
@@ -79,6 +80,7 @@ const ProductList = ({ products, setProducts }: TypeListProduct) => {
             className="grid grid-cols-6 gap-4 items-center w-full h-auto bg-white border-b border-gray-100 rounded-sm px-4 py-2 hover:shadow-sm hover:-translate-y-0.5 transform duration-200"
           >
             <div className="flex justify-center items-center">
+              <Link href={`/product/${item.id}`}>
               <div className="text-sm font-bold flex justify-center items-center w-18 h-18 rounded-xl shadow-sm overflow-hidden bg-white p-1">
                 <Image
                   className=""
@@ -88,6 +90,7 @@ const ProductList = ({ products, setProducts }: TypeListProduct) => {
                   height={300}
                 />
               </div>
+              </Link>
             </div>
             <div className="text-sm font-bold flex justify-center items-center w-full">
               <div className="w-30 h-auto truncate text-center">

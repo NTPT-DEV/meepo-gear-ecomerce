@@ -16,7 +16,7 @@ interface CreateCategoryInput {
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-    const { nameCategory, categoryImage }: CreateCategoryInput = data;
+    const {nameCategory, categoryImage }: CreateCategoryInput = data;
 
    const  addCategory = await createCategory({ nameCategory, categoryImage });
 

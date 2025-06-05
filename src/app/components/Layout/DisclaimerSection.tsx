@@ -28,13 +28,14 @@ const disclaimerData: disclaimerDataType[] = [
 
 const DisclaimerSection = () => {
     return (
-      <div className="container flex w-full  mx-auto justify-center items-center py-5 gap-5 my-10 flex-wrap">
+      <div className="container flex w-full  mx-auto justify-center items-center py-5 gap-5 my-10 flex-wrap 
+      max-[576px]:grid max-[576px]:grid-cols-1 max-[576px]:gap-5 max-[576px]:place-items-center max-[576px]:mt-0">
         {disclaimerData.map((item, index) => {
           return (
             <motion.div
               initial={{ opacity: 0 , y : 5 }}
               whileInView={{ opacity: 1 , y : 0}}
-              transition={{ duration: 0.8 , delay : index * 0.1 }}
+              transition={{ duration: 0.5 , delay : index * 0.2 }}
               className="flex justify-center bg-white gap-2 items-center w-[250px] h-auto px-4 py-5 rounded-3xl shadow-sm"
               key={index}
             >
