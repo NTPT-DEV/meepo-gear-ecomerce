@@ -5,6 +5,8 @@ import { useMenuCartStore } from "@/store/menuCart";
 import { AnimatePresence, motion } from "motion/react";
 import ItemOnCart from "./ItemOnCart";
 import { useCartStore } from "@/store/cartStore";
+import axios from "axios";
+import { useRouter } from 'next/navigation'
 
 const CartMenu = () => {
   const menuCart = useMenuCartStore((state) => state.menuCart);
@@ -14,6 +16,8 @@ const CartMenu = () => {
   const fetchCart = useCartStore((state) => state.fetchCart);
   const clearCart = useCartStore((state) => state.clearCart);
   const removeFromCart = useCartStore((state) => state.removeFromCart)
+  const router = useRouter()
+
 
   // Update feachCart Item
   useEffect(() => {
@@ -27,6 +31,20 @@ const CartMenu = () => {
   const handleRemoveCartItem = async (cartItemId: string) => {
     removeFromCart(cartItemId)
   }
+
+const handleCheckOut = async () => {
+  try { 
+    const res = await axios.post("/api/stripe/create-checkout-session", cart)
+    const { clientSecret } = res.data
+    console.log('Session ID from API checkout :', clientSecret);
+    toggleMenuCart()
+    router.push(`/checkout?clientSecret=${clientSecret}`)
+
+
+  } catch(err) { 
+    console.log(err);
+  }
+}
 
   return (
     <>
@@ -86,7 +104,9 @@ const CartMenu = () => {
             <div className="flex w-full justify-center items-center gap-3 mt-4
             max-[500px]:flex-col
             ">
+              {/* CHECKOUT */}
               <button
+              onClick={handleCheckOut}
                 className="z-60 w-full h-auto text-white bg-zinc-900 py-2 rounded-3xl font-bold
             active:scale-95 transition-all duration-200 cursor-pointer"
               >

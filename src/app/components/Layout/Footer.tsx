@@ -10,13 +10,13 @@ const Footer = () => {
         <div className="flex justify-between items-center px-10 rounded-[20px] rounded-t-[50px] max-w-[90%] 
         w-full h-[70px] left-0 right-0 mx-auto -top-3 bg-lime-400 absolute
         max-[760px]:flex-col max-[760px]:h-auto max-[760px]:gap-3 max-[760px]:py-5 max-[760px]:-top-10 max-[760px]:rounded-t-[100px]
-        max-sm:-top-12 max-[520px]:-top-50
+        max-sm:-top-12 max-[520px]:-top-50 
         ">
-            <Link href="/"><LogoMeepoGearV2 className="text-black w-auto h-4 cursor-pointer"/></Link>
+            <Link href="/"><LogoMeepoGearV2 className="text-black w-auto h-4 cursor-pointer hover:scale-105 transition-all duration-300"/></Link>
             <p className="text-center text-[12px] text-nowrap max-[520px]:text-wrap">© 2023 Meepo Gear All Rights. | Terms & Conditions | Privacy Policy</p>
             <div className="flex gap-2 justify-center items-center">
-            <FaFacebook className='w-6 h-6 text-black' />
-            <BsLine className='w-6 h-6 text-black' />
+            <FaFacebook className='w-6 h-6 text-black hover:scale-105 transition-all duration-300' />
+            <BsLine className='w-6 h-6 text-black hover:scale-105 transition-all duration-300' />
             </div>
         </div>
     </div>

@@ -25,7 +25,7 @@ const LogoCarousel= () => {
          modules={[Autoplay  , FreeMode]}
          loop={true}
          slidesPerView='auto'       
-         spaceBetween={1000} 
+         spaceBetween={780} 
          freeMode={true}
          speed={50000}
          autoplay={{

@@ -39,8 +39,7 @@ const ItemOnCart = ({ item, index , handleRemoveCartItem }: TypeProps ) => {
         )
 
         const updatedItem = response.data.cartItem;
-        
-
+      
         updateCartItem(updatedItem);
 
       }catch(err){ 
