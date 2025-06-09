@@ -85,6 +85,9 @@ export async function POST(req: NextRequest) {
           data : {
             quantity : {
               decrement : item.quantity
+            }, 
+            sold : {
+              increment : item.quantity
             }
           }
         })

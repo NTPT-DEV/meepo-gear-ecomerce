@@ -72,7 +72,7 @@ model Product {
 model Category {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
   name          String
-  categoryImage CategoryImage[] 
+  categoryImage CategoryImage[]
   products      Product[]       @relation("CategoryToProduct")
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
@@ -84,19 +84,19 @@ model CategoryImage {
   public_id  String
   url        String
   secure_url String
-  category   Category @relation(fields: [categoryId], references: [id] , onDelete : Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String   @db.ObjectId
 }
 
 model Order {
-  id          String           @id @default(auto()) @map("_id") @db.ObjectId
-  products    ProductOnOrder[]
-  cartTotal   Float?
-  orderStatus String           @default("pending")
-  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      String           @db.ObjectId
-  createAt    DateTime         @default(now())
-  updateAt    DateTime         @updatedAt
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  products       ProductOnOrder[]
+  cartTotalPrice Float?
+  orderStatus    String           @default("pending")
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String           @db.ObjectId
+  createAt       DateTime         @default(now())
+  updateAt       DateTime         @updatedAt
 }
 
 model Cart {

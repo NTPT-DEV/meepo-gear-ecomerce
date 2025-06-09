@@ -8,7 +8,6 @@ const CategoryDashboard = () => {
 
   return (
     <div>
-      {/* ListCategory sample*/}
       <FormCategory setUpdateAddCategory={setUpdateAddCategory}/> 
       <ListCategory updateAddCategory={updateAddCategory} />
     </div>

@@ -14,6 +14,7 @@ export interface TypeGetProduct {
   description : string 
   price : number 
   quantity : number 
+  sold : number 
   category : Category
   categoryId : string
   images : ImageProduct[]

@@ -11,6 +11,11 @@ export const getAllusers = async () => {
         role: true,
         statusUser: true,
         address: true,
+        createAt: true,
+        updateAt: true,
+        phone: true,
+        orders: true,
+        carts: true,
       },
     });
     return users;

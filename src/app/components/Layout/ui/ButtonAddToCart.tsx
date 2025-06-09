@@ -29,6 +29,7 @@ const ButtonAddToCart = ({ product }: { product: TypeGetProduct }) => {
         quantity: itemCount,
         images: images?.[0]?.secure_url,
         product: {
+          id , 
           name,
           price,
           images: images || [],

@@ -1,13 +1,21 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { CircleUserRound } from "lucide-react";
 import LogoMeepoGear from "@/app/components/logoSvg/LogoMeepoGear";
 import SignOutBtn from "@/app/components/Layout/ui/SignOutBtn";
 import { useSession } from "next-auth/react";
+import { useRef, useState } from "react";
+import AdminBtn from "@/app/components/Layout/ui/AdminBtn";
+import {motion , AnimatePresence} from "motion/react";
+
 
 const NavbarDash = () => {
-
-const { data:session } = useSession();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [onToggle, setOnToggle] = useState(false);
+  const toggleMenu = () => {
+    setOnToggle((prev) => !prev);
+  };
+  const { data: session } = useSession();
 
   return (
     <div className="main-container fixed top-0 left-0 z-50 w-full">
@@ -19,47 +27,80 @@ const { data:session } = useSession();
         </Link>
 
         <div className="nav-con flex items-center gap-3">
-
           {/* button Login Logout- Register */}
-          { session?.user ? 
-          (
+          {session?.user ? (
             <>
-              <p className="text-white font-bold text-sm">{session?.user?.email}</p>
-              <SignOutBtn /> 
+              <p className="text-white font-bold text-sm">
+                {session?.user?.email}
+              </p>
+              <SignOutBtn className="bg-black w-[95px] h-[30px] rounded-full flex justify-center items-center cursor-pointer border-2 border-lime-300" />
             </>
-          ) 
-          : 
-          (
+          ) : (
             <>
-            <div className="flex gap-2">
-            <Link href={"/auth/sign-in"}>
-              <div className="bg-[#9AE600] w-[95px] h-[30px] rounded-full flex justify-center items-center">
-                <span className="text-sm text-black italic font-semibold">
-                  Login
-                </span>
-              </div>
-            </Link>
+              <div className="flex gap-2">
+                <Link href={"/auth/sign-in"}>
+                  <div className="bg-[#9AE600] w-[95px] h-[30px] rounded-full flex justify-center items-center">
+                    <span className="text-sm text-black italic font-semibold">
+                      Login
+                    </span>
+                  </div>
+                </Link>
 
-            <Link href={"/auth/sign-up"}>
-              <div className="bg-white w-[95px] h-[30px] rounded-full flex justify-center items-center">
-                <span className="text-sm text-black italic font-semibold">
-                  SignUp
-                </span>
+                <Link href={"/auth/sign-up"}>
+                  <div className="bg-white w-[95px] h-[30px] rounded-full flex justify-center items-center">
+                    <span className="text-sm text-black italic font-semibold">
+                      SignUp
+                    </span>
+                  </div>
+                </Link>
               </div>
-            </Link>
-          </div>
-          </>
-          )}  
+            </>
+          )}
 
-          {/* button Cart */}
-          <div className="flex gap-2">
-            <CircleUserRound className="text-white w-6 h-6" />
-          </div>
+               {/* Icon Menu Profile */}
+            <div className={`reative flex`}>
+              <CircleUserRound
+                onClick={toggleMenu}
+                className="text-white w-6 h-6"
+              />
+              <AnimatePresence>
+                {onToggle && (
+                  <motion.div
+                    ref={menuRef}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className={` flex flex-col border-2 border-lime-300 items-center gap-2 min-w-50 h-70 absolute bg-black/90 backdrop-blur-xs z-60 top-18 right-0 rounded-2xl p-4 
+                }`}
+                  >
+                    <div className="flex justify-center w-full">
+                      <CircleUserRound
+                        onClick={toggleMenu}
+                        className="w-10 h-10 text-lime-300"
+                      />
+                    </div>
+                    <div className="text-lime-300 font-semibold">{`User Name : ${session?.user?.name}`}</div>
+                    <div className="text-lime-300 font-semibold">{`Email : ${session?.user?.email}`}</div>
+                    <div className="text-lime-300 font-semibold">{`Role : ${session?.user?.role?.toUpperCase()}`}</div>
+                    <div className="text-lime-300 font-semibold">
+                      {`Status : ${
+                        session?.user?.statusUser ? "Enable" : "Disable"
+                      }`}
+                    </div>
+                    <div className="flex justify-center items-center gap-2 w-full my-2">
+                      {session?.user?.role === "admin" && (
+                        <AdminBtn className="bg-lime-300 w-[95px] h-[30px] rounded-full flex justify-center items-center cursor-pointer  border-2 border-lime-300" />
+                      )}
+                      <SignOutBtn className="bg-black w-[95px] h-[30px] rounded-full flex justify-center items-center cursor-pointer border-2 border-lime-300" />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
         </div>
       </div>
       {/* Menu Bar */}
-
-      
     </div>
   );
 };

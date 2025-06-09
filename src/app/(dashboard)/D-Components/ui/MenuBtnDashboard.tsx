@@ -8,9 +8,14 @@ interface MenuBtnDashboardProps {
   onDeleteSuccess: (id: string) => void;
 }
 
-const MenuBtnDashboard = ({id , public_id, onDeleteSuccess,}: MenuBtnDashboardProps) => {
-  
+const MenuBtnDashboard = ({
+  id,
+  public_id,
+  onDeleteSuccess,
+}: MenuBtnDashboardProps) => {
+
   const handleDelete = async () => {
+    
     try {
       const response = await axios.delete(`/api/category/${id}`, {
         data: { public_id },

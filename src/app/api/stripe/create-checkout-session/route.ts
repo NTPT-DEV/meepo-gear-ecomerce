@@ -7,7 +7,7 @@ import { auth } from "@/auth";
 export async function POST(req: NextRequest) {
   const sessionUser = await auth();
   const userId = sessionUser?.user.id;
-  const origin = process.env.NEXT_PUBLIC_BASE_URL;
+  const origin = process.env.NEXT_PUBLIC_BASE_URL_LOCAL;
 
   if (!userId) {
     return NextResponse.json({ message: "No user ID" }, { status: 401 });
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       order = await prisma.order.create({
         data: {
           userId: userId,
-          cartTotal: cart.reduce(
+          cartTotalPrice: cart.reduce(
             (acc: number, item: CartItem) =>
               acc + item.product.price * item.quantity,
             0
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
           },
         },
       });
-       if (order) {
+      if (order) {
         console.log("Order new updated");
       }
     }
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
       order = await prisma.order.create({
         data: {
           userId: userId,
-          cartTotal: cart.reduce(
+          cartTotalPrice: cart.reduce(
             (acc: number, item: CartItem) =>
               acc + item.product.price * item.quantity,
             0
@@ -83,6 +83,13 @@ export async function POST(req: NextRequest) {
       if (order) {
         console.log("New order created");
       }
+    }
+
+    if (!order?.id) {
+      return NextResponse.json(
+        { message: "Order creation failed" },
+        { status: 500 }
+      );
     }
 
     // CREATE SESSION

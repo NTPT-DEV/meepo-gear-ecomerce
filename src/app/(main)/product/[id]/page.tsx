@@ -17,6 +17,7 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const [showMore, setShowMore] = useState<boolean>(false);
 
   const { id } = use(params);
+
   useEffect(() => {
     const fetchProductbyId = async () => {
       try {
@@ -109,12 +110,15 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
               {getProduct?.title}
             </div>
 
-            <div className="text-4xl font-bold mt-5">฿{getProduct?.price}</div>
+            <div className="text-4xl font-bold my-3">฿{getProduct?.price}</div>
             <div className="flex justify-between items-center gap-3 w-full pr-3">
-              <div className="flex items-center gap-5">
-                <span className="font-semibold text-sm">
+              <div className="flex items-center gap-8">
+                <div className="flex flex-col gap-1">
+                  <span className="font-semibold text-sm">
                   Quantity : {getProduct?.quantity}
                 </span>
+                <span className="font-semibold text-sm">Sold : {getProduct?.sold}</span>
+                </div>
                 {/* Button Quantity */}
                 <QuantityButton />
               </div>

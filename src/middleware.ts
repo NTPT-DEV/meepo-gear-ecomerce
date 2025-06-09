@@ -3,7 +3,6 @@ import NextAuth from "next-auth";
 import { privateRoutes } from "./utils/routesUrl";
 import { getToken } from "next-auth/jwt";
 
-
 const { auth } = NextAuth(authConfig);
 
 export default auth(async function middleware(req) {
@@ -16,7 +15,7 @@ export default auth(async function middleware(req) {
   const isLoggedIn = !!req.auth;
   // reqquest URL
   const { nextUrl } = req;
-  const url = "http://localhost:3000";
+  const url = process.env.NEXT_PUBLIC_BASE_URL_LOCAL as string;
 
   const isPrivateRoute = privateRoutes.includes(nextUrl.pathname);
   const isAuthRoute = nextUrl.pathname.includes("/auth");

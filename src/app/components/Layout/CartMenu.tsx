@@ -7,8 +7,11 @@ import ItemOnCart from "./ItemOnCart";
 import { useCartStore } from "@/store/cartStore";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+
 
 const CartMenu = () => {
+  const { data : session ,status } = useSession()
   const menuCart = useMenuCartStore((state) => state.menuCart);
   const cart = useCartStore((state) => state.cart);
   const toggleMenuCart = useMenuCartStore((state) => state.toggleMenuCart);
@@ -18,9 +21,10 @@ const CartMenu = () => {
   const router = useRouter();
 
   // Update feachCart Item
-  useEffect(() => {
-    fetchCart();
-  }, [fetchCart]);
+useEffect(() => {
+  if (!session || status !== "authenticated") return;
+  fetchCart();
+}, [session, status, fetchCart]);
 
   const handleClearCart = async () => {
     try {

@@ -4,7 +4,7 @@ import { firstTextUppercase } from "@/lib/utils";
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import MenuBtnDashboard from "./MenuBtnDashboard";
+import MenuBtnDashboard from "./ui/MenuBtnDashboard";
 import { motion } from "motion/react";
 import Link from "next/link";
 

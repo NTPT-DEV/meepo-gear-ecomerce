@@ -1,7 +1,7 @@
 
 import { SessionProvider } from "next-auth/react";
 import "../globals.css";
-import MenuDashBoard from "./D-Components/MenuDashBoard";
+import MenuDashBoard from "./D-Components/ui/MenuDashBoard";
 import NavbarDash from "./D-Components/NavBarDash";
 
 
