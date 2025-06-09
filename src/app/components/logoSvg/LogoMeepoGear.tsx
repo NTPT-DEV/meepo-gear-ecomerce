@@ -7,7 +7,7 @@ const LogoMeepoGear = ({className} : {className? : string}) => (
   viewBox="0 0 1469.5 196.9"
  
 >
-  <style>{".st0{fill:#fff}.st1{fill:#d9ff00}"}</style>
+  <style>{".st0{fill:#fff}.st1{fill:#BBF451}"}</style>
   <path
     d="M948.9 170.3V197c-17.7-.8-35.1-.6-52.2-2.7-12.8-1.6-19.9-11.6-22.6-23.6-2.2-9.9-3.9-20.1-3.8-30.2.1-34.6-.2-69.4 2.1-103.9 1.8-27.4 16.4-37.4 45.8-35v154.8c0 13.2.6 13.8 14.1 13.8 5.2.1 10.4.1 16.6.1z"
     className="st0"

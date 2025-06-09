@@ -12,7 +12,7 @@ const ReturnPage = () => {
   const searchParams = useSearchParams()
   const sessionId = searchParams.get("session_id")
   const [paymentStatus , setPaymentStatus ] = useState<string | null>(null)
-  console.log(sessionId);
+ 
 
 useEffect(() => {
   const fetchSession = async () => {
@@ -27,7 +27,6 @@ useEffect(() => {
   };
   fetchSession();
 }, [sessionId , clearCart]);
-console.log(paymentStatus);
     
   return (
     <motion.div 

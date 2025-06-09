@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { CircleUserRound } from "lucide-react";
 import LogoMeepoGear from "@/app/components/logoSvg/LogoMeepoGear";
-import SignOutBtn from "@/app/components/Layout/SignOutBtn";
+import SignOutBtn from "@/app/components/Layout/ui/SignOutBtn";
 import { useSession } from "next-auth/react";
 
 const NavbarDash = () => {

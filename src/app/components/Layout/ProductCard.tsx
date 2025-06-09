@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import BtnProductCard from "./BtnProductCard";
+
 import { motion} from "motion/react"
 import {ProductCardProps} from "@/types/typesStore";
+import BtnProductCard from "./ui/BtnProductCard";
 
 const animateProductVar = {
   initial : {
@@ -37,7 +38,7 @@ const ProductCard = ({ products }: ProductCardProps) => {
           <Link href={`/product/${item.id}`}>
             <div className="flex justify-center items-center w-full p-5">
               <Image
-                src={item.images[0].secure_url}
+                src={item.images[0]?.secure_url}
                 alt=""
                 width={300}
                 height={300}

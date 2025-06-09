@@ -4,6 +4,7 @@ import {
   EmbeddedCheckout,
   EmbeddedCheckoutProvider,
 } from "@stripe/react-stripe-js";
+
 import { loadStripe } from "@stripe/stripe-js";
 import { useSearchParams } from "next/navigation";
 

@@ -8,7 +8,7 @@ import { SignInSchema } from "schemas/formSchemas";
 import type { SignInTypeSchema } from "schemas/formSchemas";
 import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
-import ButtonGoogle from "./ButtonGoogle";
+import ButtonGoogle from "./ui/ButtonGoogle";
 import { loginAction } from "@/app/(main)/actions/auth/login";
 
 

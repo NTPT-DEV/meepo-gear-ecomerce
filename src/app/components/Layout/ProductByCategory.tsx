@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
-import BtnProductCard from "./BtnProductCard";
+import BtnProductCard from "./ui/BtnProductCard";
 
 // interface ProductCardProps {
 //   products: TypeGetProduct[];

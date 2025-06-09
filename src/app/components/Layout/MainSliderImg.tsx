@@ -10,7 +10,7 @@ import "swiper/css/pagination";
 const MainSliderImg = () => {
   return (
     <div className="container flex justify-center items-center max-w-[1440px] h-auto my-5 mx-auto">
-      <div className="flex items-center justify-center w-full h-auto bg-red-600 rounded-3xl mx-4 overflow-hidden">
+      <div className="flex items-center justify-center w-full h-auto rounded-3xl mx-4 overflow-hidden">
         <Swiper 
         modules={[Autoplay, Navigation , Pagination]}
         pagination={{ clickable: true }}

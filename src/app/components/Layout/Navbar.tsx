@@ -2,14 +2,15 @@
 import Link from "next/link";
 import LogoMeepoGear from "../logoSvg/LogoMeepoGear";
 import { CircleUserRound, ShoppingBag } from "lucide-react";
-import SignOutBtn from "./SignOutBtn";
+import SignOutBtn from "./ui/SignOutBtn";
 import { useSession } from "next-auth/react";
-import AdminBtn from "./AdminBtn";
+import AdminBtn from "./ui/AdminBtn";
 import SearchProduct from "./SearchProduct";
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react"
 import CartMenu from "./CartMenu";
 import { useMenuCartStore } from "@/store/menuCart";
+import { useCartStore } from "@/store/cartStore";
 
 // import AdminBtn from "./AdminBtn";
 
@@ -17,6 +18,7 @@ const Navbar = () => {
   const { data: session } = useSession();
   const [onToggle, setOnToggle] = useState(false);
   const  menuRef =  useRef<HTMLDivElement>(null)
+  const cart = useCartStore(state => state.cart)
   const toggleMenuCart  = useMenuCartStore(state => state.toggleMenuCart)
 
   const toggleMenu = () => {
@@ -42,7 +44,7 @@ const Navbar = () => {
 
           {/* button Login LogOut - Register */}
           <div className="flex justify-center items-center gap-3 max-md:hidden">
-            {session?.user ? (
+            {session && session?.user ? (
               <>
                 <p className="text-white font-bold text-sm font-[outfit]">
                   {session?.user?.email}
@@ -82,10 +84,11 @@ const Navbar = () => {
             onClick={toggleMenuCart}
             className="relative">
               <ShoppingBag 
+
               className="text-white w-6 relative" />
               <div className=" bg-lime-300 absolute -top-1 -right-1 w-4 h-4 rounded-full flex justify-center items-center">
                 <span className="rounded-full text-[12px] text-black font-bold font-[Outfit]">
-                  0
+                  {cart?.reduce((acc, item) => acc + item.quantity , 0) || 0}
                 </span>
               </div>
             </div>

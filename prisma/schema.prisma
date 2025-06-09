@@ -91,7 +91,7 @@ model CategoryImage {
 model Order {
   id          String           @id @default(auto()) @map("_id") @db.ObjectId
   products    ProductOnOrder[]
-  cartTotal   Float
+  cartTotal   Float?
   orderStatus String           @default("pending")
   user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String           @db.ObjectId

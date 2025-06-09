@@ -6,18 +6,16 @@ import { AnimatePresence, motion } from "motion/react";
 import ItemOnCart from "./ItemOnCart";
 import { useCartStore } from "@/store/cartStore";
 import axios from "axios";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 const CartMenu = () => {
   const menuCart = useMenuCartStore((state) => state.menuCart);
-  const toggleMenuCart = useMenuCartStore((state) => state.toggleMenuCart);
-
   const cart = useCartStore((state) => state.cart);
+  const toggleMenuCart = useMenuCartStore((state) => state.toggleMenuCart);
   const fetchCart = useCartStore((state) => state.fetchCart);
   const clearCart = useCartStore((state) => state.clearCart);
-  const removeFromCart = useCartStore((state) => state.removeFromCart)
-  const router = useRouter()
-
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
+  const router = useRouter();
 
   // Update feachCart Item
   useEffect(() => {
@@ -25,26 +23,29 @@ const CartMenu = () => {
   }, [fetchCart]);
 
   const handleClearCart = async () => {
-    clearCart();
+    try {
+      clearCart();
+      await axios.delete("/api/order/delete-pending");
+      console.log('deleted');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleRemoveCartItem = async (cartItemId: string) => {
-    removeFromCart(cartItemId)
-  }
+    removeFromCart(cartItemId);
+  };
 
-const handleCheckOut = async () => {
-  try { 
-    const res = await axios.post("/api/stripe/create-checkout-session", cart)
-    const { clientSecret } = res.data
-    console.log('Session ID from API checkout :', clientSecret);
-    toggleMenuCart()
-    router.push(`/checkout?clientSecret=${clientSecret}`)
-
-
-  } catch(err) { 
-    console.log(err);
-  }
-}
+  const handleCheckOut = async () => {
+    try {
+      const res = await axios.post("/api/stripe/create-checkout-session", cart);
+      const clientSecret = res.data.clientSecret;
+      toggleMenuCart();
+      router.push(`/checkout?clientSecret=${clientSecret}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -70,18 +71,22 @@ const handleCheckOut = async () => {
         <div className="flex flex-col gap-3 mt-5 max-h-[65vh] mb-5 overflow-y-auto no-scrollbar ">
           {/* CART ITEM COMPONENT */}
           <div className="flex flex-col gap-3">
-            <AnimatePresence mode='sync'>
-            {cart?.map((item, index) => (              
-              <motion.div 
-              initial={{ opacity : 0 , y : -5 , scale : 0.95}}
-              animate={{opacity : 1 , y : 0 , scale : 1}}
-              exit={{opacity : 0 , y : 5 }}
-              transition={{duration : 0.3 }}
-              key={ index}
-              >
-                <ItemOnCart item={item} index={index} handleRemoveCartItem={handleRemoveCartItem} />
-              </motion.div>
-            ))}
+            <AnimatePresence mode="sync">
+              {cart?.map((item, index) => (
+                <motion.div
+                  initial={{ opacity: 0, y: -5, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  transition={{ duration: 0.3 }}
+                  key={index}
+                >
+                  <ItemOnCart
+                    item={item}
+                    index={index}
+                    handleRemoveCartItem={handleRemoveCartItem}
+                  />
+                </motion.div>
+              ))}
             </AnimatePresence>
           </div>
         </div>
@@ -92,21 +97,30 @@ const handleCheckOut = async () => {
               <div className="flex flex-col">
                 <div className="font-bold text-xl">Total</div>
                 <div>
-                  Quantity : <span>{cart?.reduce((acc, item) => acc + item.quantity , 0)}</span> item
+                  Quantity :{" "}
+                  <span>
+                    {cart?.reduce((acc, item) => acc + item.quantity, 0)}
+                  </span>{" "}
+                  item
                 </div>
               </div>
 
               <div className="text-2xl font-bold font-[outfit]">
-                {cart?.reduce((acc , item) => acc + item.price * item.quantity , 0)}
+                {cart?.reduce(
+                  (acc, item) => acc + item.price * item.quantity,
+                  0
+                )}
                 ฿
               </div>
             </div>
-            <div className="flex w-full justify-center items-center gap-3 mt-4
+            <div
+              className="flex w-full justify-center items-center gap-3 mt-4
             max-[500px]:flex-col
-            ">
+            "
+            >
               {/* CHECKOUT */}
               <button
-              onClick={handleCheckOut}
+                onClick={handleCheckOut}
                 className="z-60 w-full h-auto text-white bg-zinc-900 py-2 rounded-3xl font-bold
             active:scale-95 transition-all duration-200 cursor-pointer"
               >
@@ -124,15 +138,18 @@ const handleCheckOut = async () => {
             </div>
           </div>
         ) : (
-          <motion.div 
-          initial={{ opacity : 0 , y : -5}}
-          animate={{opacity : 1 , y : 0}}
-          transition={{duration : 0.3 , delay : 0.5 }}
-          className="flex flex-col justify-center items-center gap-3 absolute rounded-full top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.5 }}
+            className="flex flex-col justify-center items-center gap-3 absolute rounded-full top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          >
             <div className=" border-4 border-lime-300 p-7 pr-9 rounded-full flex justify-center items-center animate-bounce">
               <ShoppingCart className="text-lime-300 w-20 h-auto" />
             </div>
-            <h1 className="text-lime-300 text-4xl font-bold font-[outfit] text-nowrap">EMPTHY CART</h1>
+            <h1 className="text-lime-300 text-4xl font-bold font-[outfit] text-nowrap">
+              EMPTHY CART
+            </h1>
           </motion.div>
         )}
         <Gamepad2 className="text-lime-300 w-[70%] rotate-[10deg] left-50 bottom-0 right-50 h-auto font-bold absolute opacity-5" />
