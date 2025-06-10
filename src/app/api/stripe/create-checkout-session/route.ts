@@ -7,7 +7,7 @@ import { auth } from "@/auth";
 export async function POST(req: NextRequest) {
   const sessionUser = await auth();
   const userId = sessionUser?.user.id;
-  const origin = process.env.NEXT_PUBLIC_BASE_URL_LOCAL;
+  const origin = process.env.NEXT_PUBLIC_BASE_URL;
 
   if (!userId) {
     return NextResponse.json({ message: "No user ID" }, { status: 401 });
