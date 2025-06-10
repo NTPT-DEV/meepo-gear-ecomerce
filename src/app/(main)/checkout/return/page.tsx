@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 
 const ReturnPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense>
       <ReturnPageContent />;
     </Suspense>
 

@@ -4,7 +4,7 @@ import CheckoutPageContent from "./CheckoutPageContent";
 
 const CheckoutPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense>
       <CheckoutPageContent />
     </Suspense>
   );
