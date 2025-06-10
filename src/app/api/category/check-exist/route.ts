@@ -5,7 +5,11 @@ export async function POST(req : NextRequest) {
     const body = await req.json();
     const { nameCategory } = body;
     
-    if(!nameCategory) return null 
+    if(!nameCategory){
+        return NextResponse.json({
+            message : 'This name category is available'
+        })
+    }
 
    const existingCategory = await prisma.category.findFirst({
         where : {
