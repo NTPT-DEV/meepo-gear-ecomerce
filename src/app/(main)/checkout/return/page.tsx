@@ -7,7 +7,17 @@ import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
+export const dynamic = 'force-dynamic'
+
 const ReturnPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ReturnPageContent />
+    </Suspense>
+  );
+};
+
+const ReturnPageContent = () => {
   const clearCart = useCartStore((state) => state.clearCart);
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
