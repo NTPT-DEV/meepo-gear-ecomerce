@@ -7,7 +7,11 @@ const { auth } = NextAuth(authConfig);
 
 export default auth(async function middleware(req) {
   // GET all data from token
-  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
+  const token = await getToken({ 
+    req,
+    secret: process.env.AUTH_SECRET , 
+    cookieName: "__Secure-authjs.session-token", });
+    
   const roleUser = token?.role;
 
   const testAuthSecretCheck  = process.env.AUTH_SECRET
