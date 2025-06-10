@@ -1,6 +1,5 @@
 import authConfig from "@/auth.config";
 import NextAuth from "next-auth";
-import { privateRoutes } from "./utils/routesUrl";
 import { getToken } from "next-auth/jwt";
 
 const { auth } = NextAuth(authConfig);
@@ -18,27 +17,31 @@ export default auth(async function middleware(req) {
   const isLoggedIn = !!req.auth;
   const { nextUrl } = req;
 
-  const url = process.env.NEXT_PUBLIC_BASE_URL as string;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL as string;
   
-  const isPrivateRoute = privateRoutes.includes(nextUrl.pathname);
-  const isAuthRoute = nextUrl.pathname.includes("/auth");
+
+  const isAuthPage = nextUrl.pathname.includes("/auth");
   const isApiRoute = nextUrl.pathname.includes("/api");
-  const idDashBoard = nextUrl.pathname.includes("/dashboard");
-
-  if (isApiRoute && roleUser !== "admin") {
-    return Response.redirect(`${url}`);
+  const isDashBoard = nextUrl.pathname.includes("/dashboard");
+  
+  if (isLoggedIn && isAuthPage) {
+    return Response.redirect(`${baseUrl}`);
   }
 
-  if (isLoggedIn && isAuthRoute) {
-    return Response.redirect(`${url}`);
+  if (!isLoggedIn && isApiRoute || isLoggedIn && isApiRoute && roleUser !== "admin") {
+    return Response.redirect(`${baseUrl}`);
   }
 
-  if (isPrivateRoute && !isLoggedIn) {
-    return Response.redirect(`${url}/auth/sign-in`);
+  if (!isLoggedIn && isDashBoard ) {
+    return Response.redirect(`${baseUrl}/auth/sign-in`);
   }
 
-  if(isLoggedIn && idDashBoard && roleUser !== 'admin') {
-    return Response.redirect(`${url}`);
+  if (isLoggedIn && isDashBoard && roleUser !== "admin") {
+    return Response.redirect(`${baseUrl}`);
+  }
+
+  if(isDashBoard && roleUser !== 'admin') {
+    return Response.redirect(`${baseUrl}`);
   }
 });
 
