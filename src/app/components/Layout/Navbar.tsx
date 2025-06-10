@@ -147,7 +147,7 @@ const Navbar = () => {
                   className="text-white w-6 h-6"
                 />
               </motion.div>
-              {onToggle && (
+              {onToggle && session?.user && (
                 <motion.div
                   ref={menuRef}
                   initial={{ opacity: 0 }}

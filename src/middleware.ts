@@ -1,23 +1,14 @@
 import authConfig from "@/auth.config";
 import NextAuth from "next-auth";
 import { privateRoutes } from "./utils/routesUrl";
-import { getToken } from "next-auth/jwt";
+// import { getToken } from "next-auth/jwt";
 
 const { auth } = NextAuth(authConfig);
 
 export default auth(async function middleware(req) {
   // GET all data from token 
-  const token = await getToken({ req , secret : process.env.AUTH_SECRET });
-  const roleUser = token?.role;
-
-    // Log the AUTH_SECRET being used (partially for security)
-  console.log(`[MIDDLEWARE] AUTH_SECRET on server: ${process.env.AUTH_SECRET ? `Exists, length: ${process.env.AUTH_SECRET.length}` : 'NOT SET or empty'}`);
-  if (process.env.AUTH_SECRET && process.env.AUTH_SECRET.length < 32) {
-    console.warn("[MIDDLEWARE] AUTH_SECRET is set but might be too short for production security.");
-  }
-
-  
-
+  // const token = await getToken({ req , secret : process.env.AUTH_SECRET });
+  const roleUser = req.auth?.user.role
   const isLoggedIn = !!req.auth;
 
   const { nextUrl } = req;
