@@ -6,6 +6,6 @@ interface ZMenuDashBoradStoreStore {
 }
 
 export const useMenuDashBoradStore = create<ZMenuDashBoradStoreStore>((set) => ({
-    selectedMenu : "Orders" ,
+    selectedMenu : "List Product" ,
     setSelectedMenu : (menu) => set(()=> ({selectedMenu : menu})),
 }))
