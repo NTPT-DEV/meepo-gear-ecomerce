@@ -29,7 +29,6 @@ const ReturnPageContent = () => {
   }, [sessionId, clearCart]);
 
   return (
-    
       <motion.div
         initial={{ opacity: 0, y: 5 }}
         animate={{ opacity: 1, y: 0 }}
