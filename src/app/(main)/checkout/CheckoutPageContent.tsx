@@ -11,7 +11,7 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 
-const CheckoutPage = () => {
+const CheckoutPageContent = () => {
   const searchParams = useSearchParams();
   const clientSecretData = searchParams.get("clientSecret");
 
@@ -28,4 +28,4 @@ const CheckoutPage = () => {
     
   );
 };
-export default CheckoutPage;
+export default CheckoutPageContent;
