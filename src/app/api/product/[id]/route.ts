@@ -35,13 +35,11 @@ export async function GET(
 }
 
 // Delete product
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } }
+export async function DELETE(req: NextRequest,{ params }: { params: Promise<{ id: string }>}
 ) {
   try {
+    const { id } = await params;
     const { public_id } = await req.json();
-    const { id } = params;
 
     if (!id || !public_id) {
       console.log('"Product ID or Public ID is required"');
