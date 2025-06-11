@@ -5,7 +5,7 @@
    - Products 
    - Cart
    - Search Product
-   - Payment
+   - Payment & Trigger event & update stock and sold
    - Dashboard for Admin
    - Manage Users
 
