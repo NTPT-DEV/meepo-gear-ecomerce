@@ -48,7 +48,7 @@ const Navbar = () => {
             initial={{ opacity: 0, x: -2 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.8 }}
-            viewport={{once : true}}
+            viewport={{ once: true }}
           >
             <SearchProduct />
           </motion.div>
@@ -58,12 +58,12 @@ const Navbar = () => {
             initial={{ opacity: 0, x: -2 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.7 }}
-            viewport={{once : true}}
-            className="flex justify-center items-center gap-3 max-md:hidden"
+            viewport={{ once: true }}
+            className="flex justify-center items-center gap-3"
           >
             {session && session?.user ? (
               <>
-                <p className="text-white font-bold text-sm font-[outfit]">
+                <p className="text-white font-bold text-sm font-[outfit] max-md:hidden">
                   {session?.user?.email}
                 </p>
                 {/* {session?.user?.role === "admin" && <AdminBtn />} */}
@@ -75,7 +75,7 @@ const Navbar = () => {
                   initial={{ opacity: 0, x: -2 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 1, delay: 0.7 }}
-                  viewport={{once : true}}
+                  viewport={{ once: true }}
                   className="text-white font-bold text-sm max-sm:hidden"
                 >
                   Guest
@@ -84,7 +84,7 @@ const Navbar = () => {
                   initial={{ opacity: 0, x: -2 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 1, delay: 0.8 }}
-                  viewport={{once : true}}
+                  viewport={{ once: true }}
                   className="flex gap-2"
                 >
                   <Link href={"/auth/sign-in"}>
@@ -92,8 +92,8 @@ const Navbar = () => {
                       initial={{ opacity: 0, x: -2 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 1, delay: 0.8 }}
-                      viewport={{once : true}}
-                      className="bg-[#9AE600] w-[95px] h-[30px] rounded-full flex justify-center items-center"
+                      viewport={{ once: true }}
+                      className="bg-[#9AE600] w-[95px]  max-md:w-[80px] h-[30px] rounded-full flex justify-center items-center"
                     >
                       <span className="text-sm text-black italic font-semibold">
                         Login
@@ -102,7 +102,7 @@ const Navbar = () => {
                   </Link>
 
                   <Link href={"/auth/sign-up"}>
-                    <div className="bg-white w-[95px] h-[30px] rounded-full flex justify-center items-center">
+                    <div className="bg-white w-[95px] max-md:w-[80px] h-[30px] rounded-full flex justify-center items-center">
                       <span className="text-sm text-black italic font-semibold">
                         SignUp
                       </span>
@@ -119,7 +119,7 @@ const Navbar = () => {
               initial={{ opacity: 0, x: -2 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.8 }}
-              viewport={{once : true}}
+              viewport={{ once: true }}
               onClick={toggleMenuCart}
               className="relative"
             >
@@ -140,7 +140,7 @@ const Navbar = () => {
                 initial={{ opacity: 0, x: -2 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 1, delay: 0.9 }}
-                viewport={{once : true}}
+                viewport={{ once: true }}
               >
                 <CircleUserRound
                   onClick={toggleMenu}

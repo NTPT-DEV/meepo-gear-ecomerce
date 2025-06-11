@@ -141,22 +141,23 @@ const FormCategory = ({ setUpdateAddCategory }: TypeUpdateAddCategory) => {
         className=" w-full h-full bg-white border border-zinc-200 rounded-lg py-5 mb-2 shadow-lg shadow-lime-50 overflow-hidden"
       >
         <div className="flex justify-center items-end w-full gap-2 ">
-          <div className="flex items-center gap-2 italic relative">
-            <button className="font-bold text-black bg-zinc-900 w-[200px] h-full rounded-lg absolute">
-              <span className="text-lime-300 text-md hover:scale-95 transition-all duration-300">
-                Upload Images
-              </span>
-            </button>
+          <div className="flex items-center gap-2 italic relative group">
             <input
               {...register("categoryImage", {
                 required: "Category image is required",
               })}
               onChange={onFileChange}
-              className="pointer-events-none text-sm border border-zinc-200 cursor-pointer opacity-0 w-[200px] h-auto px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-300 focus:border-lime-300 text-black transition-all duration-200"
+              className="text-sm border border-zinc-200 cursor-pointer opacity-0 w-[200px] h-auto px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-300 focus:border-lime-300 text-black transition-all duration-200"
               type="file"
               accept="image/*"
               // multiple
             />
+            <button className="flex justify-center items-center font-bold text-black bg-zinc-900 w-[200px] h-full 
+            rounded-lg absolute group-active:scale-90 pointer-events-none transition-all duration-200">
+              <span className="text-lime-300 text-md transition-all duration-300">
+                Upload Images
+              </span>
+            </button>
           </div>
 
           <div className="flex flex-col items-center gap-1 ">

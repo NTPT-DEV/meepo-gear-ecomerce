@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import { prisma } from "@/lib/prisma";
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
+const endpointSecretLocal = process.env.STRIPE_WEBHOOK_SECRET as string;
 
 export const config = {
   api: {
@@ -27,15 +28,19 @@ export async function POST(req: NextRequest) {
   let event: Stripe.Event;
 
   try {
-    event = stripe.webhooks.constructEvent(body, signature, endpointSecret);
+    event = stripe.webhooks.constructEvent(
+      body,
+      signature,
+      process.env.NODE_ENV === "development"? 
+      endpointSecretLocal : endpointSecret
+    );
 
     const session = event.data.object as Stripe.Checkout.Session;
-    const orderId = session.metadata?.orderId 
+    const orderId = session.metadata?.orderId;
 
-    if(!orderId) {
-      console.log('No order id');
+    if (!orderId) {
+      console.log("No order id");
       return NextResponse.json({ message: "No order id" }, { status: 400 });
-    
     }
 
     if (event.type === "checkout.session.completed") {
@@ -46,51 +51,60 @@ export async function POST(req: NextRequest) {
 
       if (!payment) {
         console.log("payment not found");
-        return NextResponse.json({ message: "Payment not found" }, { status: 404 });
+        return NextResponse.json(
+          { message: "Payment not found" },
+          { status: 404 }
+        );
       }
 
-    const updateOrderStatus =  await prisma.order.update({
-        where : { 
-          id : orderId
-        } , 
-        data : {
-          orderStatus : 'paid'
-        }
-      })
+      const updateOrderStatus = await prisma.order.update({
+        where: {
+          id: orderId,
+        },
+        data: {
+          orderStatus: "paid",
+        },
+      });
 
-      if(!updateOrderStatus) { 
-        console.log('order status not updated or pending');
-        return NextResponse.json({ message: "order status not updated or pending" }, { status: 400 });
+      if (!updateOrderStatus) {
+        console.log("order status not updated or pending");
+        return NextResponse.json(
+          { message: "order status not updated or pending" },
+          { status: 400 }
+        );
       }
 
       const order = await prisma.order.findUnique({
-        where : { 
-          id : orderId
-        } , 
-        include : {
-          products : true
-        }
-      })
+        where: {
+          id: orderId,
+        },
+        include: {
+          products: true,
+        },
+      });
 
-      if(!order) {
+      if (!order) {
         console.log(order);
-        return NextResponse.json({ message: "order not found" }, { status: 404 });
+        return NextResponse.json(
+          { message: "order not found" },
+          { status: 404 }
+        );
       }
 
-      for( const item of order.products ) { 
+      for (const item of order.products) {
         await prisma.product.update({
-          where : {
-            id  : item.productId
-          } , 
-          data : {
-            quantity : {
-              decrement : item.quantity
-            }, 
-            sold : {
-              increment : item.quantity
-            }
-          }
-        })
+          where: {
+            id: item.productId,
+          },
+          data: {
+            quantity: {
+              decrement: item.quantity,
+            },
+            sold: {
+              increment: item.quantity,
+            },
+          },
+        });
       }
     }
     return NextResponse.json({ message: "Success" }, { status: 200 });

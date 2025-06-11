@@ -11,7 +11,9 @@ export default auth(async function middleware(req) {
   const token = await getToken({ 
     req,
     secret: process.env.AUTH_SECRET , 
-    cookieName: "__Secure-authjs.session-token", }); 
+     cookieName: process.env.NODE_ENV === "production" ? 
+     "__Secure-authjs.session-token" : "authjs.session-token"          
+  }); 
 
   const roleUser = token?.role;
   const isLoggedIn = !!req.auth;
