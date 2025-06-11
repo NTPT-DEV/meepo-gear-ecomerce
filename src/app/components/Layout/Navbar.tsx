@@ -25,9 +25,11 @@ const Navbar = () => {
 
   return (
     <div className="main-container">
-      <div className="bg-black flex justify-between items-center w-full h-22 px-10 rounded-b-[40px] 
+      <div
+        className="bg-black flex justify-between items-center w-full h-22 px-10 rounded-b-[40px] 
       max-sm:px-5
-      ">
+      "
+      >
         {/* Logo Main */}
 
         <motion.div
@@ -38,13 +40,14 @@ const Navbar = () => {
           <Link href="/">
             <LogoMeepoGear
               className="text-white w-36 h-auto 
-          max-[475px]:w-30 max-[375px]:w-28 
+          max-[475px]:w-30 
           "
             />
           </Link>
         </motion.div>
 
-        <div className="nav-con flex items-center gap-3 max-[475px]:gap-1 cursor-pointer group">
+        <div className="nav-con flex items-center cursor-pointer group 
+        gap-0 min-[478px]:gap-1 md:gap-3">
           {/* search bar */}
           <motion.div
             initial={{ opacity: 0, x: -2 }}
@@ -65,11 +68,12 @@ const Navbar = () => {
           >
             {session && session?.user ? (
               <>
-                <p className="text-white font-bold text-sm font-[outfit] max-md:hidden">
+                <p className="text-white font-bold text-sm font-[outfit] max-sm:hidden">
                   {session?.user?.email}
                 </p>
-                {/* {session?.user?.role === "admin" && <AdminBtn />} */}
-                <SignOutBtn className="bg-black w-[95px] max-sm:w-[80px] h-[30px] rounded-full flex justify-center items-center cursor-pointer border-2 border-lime-300" />
+
+                <SignOutBtn className="bg-black w-[95px] max-sm:w-[80px] h-[30px] rounded-full flex justify-center items-center
+                 max-sm:hidden cursor-pointer border-2 border-lime-300" />
               </>
             ) : (
               <>
@@ -156,7 +160,8 @@ const Navbar = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2 }}
-                  className={` flex flex-col border-2 border-lime-300 items-center gap-2 min-w-50 h-70 absolute bg-black/70 backdrop-blur-xs z-60 top-22 right-4 rounded-2xl p-4 
+                  className={` flex flex-col border-2 border-lime-300 items-center gap-2 min-w-50 h-auto absolute
+                               bg-black/70 backdrop-blur-xs z-60 top-22 right-4 rounded-2xl p-4 
                 }`}
                 >
                   <div className="flex justify-center w-full">
@@ -165,19 +170,47 @@ const Navbar = () => {
                       className="w-10 h-10 text-lime-300"
                     />
                   </div>
-                  <div className="text-lime-300 font-semibold">{`User Name : ${session?.user?.name}`}</div>
-                  <div className="text-lime-300 font-semibold">{`Email : ${session?.user?.email}`}</div>
-                  <div className="text-lime-300 font-semibold">{`Role : ${session?.user?.role?.toUpperCase()}`}</div>
+                  <div className="text-lime-300 font-semibold">{`User Name : ${
+                    session?.user?.name ? session?.user?.name : "Guest"
+                  }`}</div>
+                  <div className="text-lime-300 font-semibold">{`Email : ${
+                    session?.user?.name ? session?.user?.name : "Guest"
+                  }`}</div>
+                  <div className="text-lime-300 font-semibold">{`Role : ${
+                    session?.user?.role
+                      ? session?.user?.role?.toUpperCase()
+                      : "Guest"
+                  }`}</div>
                   <div className="text-lime-300 font-semibold">
-                    {`Status : ${
-                      session?.user?.statusUser ? "Enable" : "Disable"
-                    }`}
+                    {`Status : ${!session ? "Guest" : session?.user?.statusUser ? "Enable" : "Disable"}`}
                   </div>
                   <div className="flex justify-center items-center gap-2 w-full my-2">
                     {session?.user?.role === "admin" && (
                       <AdminBtn className="bg-lime-300 w-[95px] h-[30px] rounded-full flex justify-center items-center cursor-pointer  border-2 border-lime-300" />
                     )}
-                    <SignOutBtn className="bg-black w-[95px] h-[30px] rounded-full flex justify-center items-center cursor-pointer border-2 border-lime-300" />
+                    {session?.user ? (
+                      <SignOutBtn className="bg-black w-[95px] h-[30px] rounded-full flex justify-center items-center cursor-pointer border-2 border-lime-300" />
+                    ) : (
+                      <div className="flex flex-col gap-1 w-full h-full justify-center items-center pb-2">
+                        <Link href={"/auth/sign-in"}>
+                          <div
+                            className="bg-[#9AE600] w-[95px] max-md:w-[80px] h-[30px] rounded-full flex justify-center items-center"
+                          >
+                            <span className="text-sm text-black italic font-semibold">
+                              Login
+                            </span>
+                          </div>
+                        </Link>
+
+                        <Link href={"/auth/sign-up"}>
+                          <div className="bg-white w-[95px] max-md:w-[80px] h-[30px] rounded-full flex justify-center items-center">
+                            <span className="text-sm text-black italic font-semibold">
+                              SignUp
+                            </span>
+                          </div>
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               )}

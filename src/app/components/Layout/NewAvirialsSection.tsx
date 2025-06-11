@@ -22,7 +22,9 @@ useEffect(() => {
 
   return (
     <div className="container max-w-[1440px] flex flex-col justify-center items-center px-5 gap-y-10 mx-auto">
-    <h1 className="px-10 py-3 rounded-full min-w-1/3 text-4xl text-center font-semibold italic bg-black text-lime-300">
+    <h1 className="px-10 py-3 rounded-full min-w-1/3 text-4xl text-center font-semibold italic bg-black text-lime-300
+    max-[648px]:text-3xl
+    ">
       สินค้าใหม่<span className="w-6 h-6 animate-pulse">🔥</span>
     </h1>
     <div className="flex flex-wrap justify-center items-center gap-5 w-full h-auto ">

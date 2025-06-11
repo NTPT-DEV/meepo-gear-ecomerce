@@ -71,7 +71,7 @@ const ProductByCategory = ({ categoryId }: { categoryId: string }) => {
 
   return (
     <div className="flex flex-col w-full min-h-screen my-2">
-      <div className="flex w-full p-5 justify-center items-center text-2xl font-[outfit] font-black bg-black rounded-tl-full rounded-tr-full shadow-md shadow-black/20">
+      <div className="flex w-full h-auto p-5 justify-center items-center text-2xl font-[outfit] font-black bg-black rounded-tl-full rounded-tr-full shadow-md shadow-black/20">
         <motion.h1
           initial={{ opacity: 0, y: -5 }}
           animate={{
@@ -80,7 +80,7 @@ const ProductByCategory = ({ categoryId }: { categoryId: string }) => {
             transition: { duration: 0.5, delay: 0.8, ease: "easeInOut" },
           }}
           viewport={{ once: true }}
-          className="text-lime-300"
+          className="text-lime-300 text-center text-wrap px-3"
         >
           {getProducts.length === 0 ? (
             showEmptyMessage ? (

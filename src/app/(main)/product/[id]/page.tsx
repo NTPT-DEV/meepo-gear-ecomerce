@@ -9,7 +9,7 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, use } from "react";
-import {motion} from 'motion/react'
+import { motion } from "motion/react";
 
 const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const [getProduct, setGetProduct] = useState<TypeGetProduct | null>(null);
@@ -36,7 +36,7 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
   };
 
   return (
-    <div className="product-main-con flex flex-col flex-1 w-full max-w-[1440px] h-screen mx-auto px-10 gap-10">
+    <div className="product-main-con flex flex-col flex-1 w-full max-w-[1440px] h-screen mx-auto px-10 gap-5">
       {/* Memu Navigation */}
       <div className="flex items-center w-full h-auto text-gray-400 text-sm gap-2 mt-5 font-[Outfit]">
         <Link
@@ -54,11 +54,12 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
       </div>
 
       {getProduct && (
-        <motion.div 
-        initial={{opacity : 0}}
-        animate={{opacity : 1}}
-        transition={{duration : 0.8 , delay : 0.03 , ease : "easeInOut"}}
-        className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full h-auto py-10">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.03, ease: "easeInOut" }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full h-auto py-10"
+        >
           {/* Image Products */}
 
           <div className="flex flex-col items-center mb-5 gap-5">
@@ -79,14 +80,14 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
 
             {/* More Image */}
 
-            <div className="flex justify-between max-w-[500px] gap-3 px-8 py-2">
+            <div className="flex justify-center items-center gap-3 w-full h-auto py-2 flex-wrap">
               {getProduct?.images.map((img, index) => (
                 <div
                   key={index}
                   onClick={() => setMainImage(img.secure_url)}
-                  className={`flex justify-center items-center w-full max-w-[150px] h-auto 
-                 aspect-square rounded-2xl overflow-hidden bg-white 
-                 shadow-sm hover:shadow-md transition-all duration-200 p-2
+                  className={`flex justify-center items-center w-[75px] h-auto  max-[768px]:w-[90px]
+                  aspect-square rounded-2xl overflow-hidden bg-white 
+                  shadow-sm hover:shadow-md transition-all duration-200 p-2
             ${mainImage === img.secure_url ? "ring-2 ring-lime-300" : ""}`}
                 >
                   <Image
@@ -110,21 +111,28 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
               {getProduct?.title}
             </div>
 
-            <div className="text-4xl font-bold my-3">฿{getProduct?.price}</div>
+            <div className="flex items-center justify-between w-full">
+              <div className="text-4xl font-bold my-3 ">
+                ฿{getProduct?.price}
+              </div>
+              <AddWishList />
+            </div>
             <div className="flex justify-between items-center gap-3 w-full pr-3">
-              <div className="flex items-center gap-8">
+              <div className="flex items-center justify-between w-full">
                 <div className="flex flex-col gap-1">
+                  <span className="w-full font-semibold text-sm flex-nowrap text-nowrap">
+                    Quantity : {getProduct?.quantity}
+                  </span>
                   <span className="font-semibold text-sm">
-                  Quantity : {getProduct?.quantity}
-                </span>
-                <span className="font-semibold text-sm">Sold : {getProduct?.sold}</span>
+                    Sold : {getProduct?.sold}
+                  </span>
                 </div>
+
                 {/* Button Quantity */}
                 <QuantityButton />
               </div>
 
               {/* Add Wishlist */}
-              <AddWishList />
             </div>
             {/* Button Add to Cart and But Now */}
             {getProduct && (

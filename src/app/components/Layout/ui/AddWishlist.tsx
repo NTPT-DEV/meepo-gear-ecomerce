@@ -12,7 +12,8 @@ const AddWishList = () => {
   return (
     <button
       onClick={handleClick}
-      className="flex justify-center items-center bg-white rounded-full shadow-sm w-10 h-10 active:scale-90 transition-all duration-100 cursor-pointer"
+      className="flex justify-center items-center bg-white rounded-full shadow-sm w-10 h-10 
+      active:scale-90 transition-all duration-100 cursor-pointer"
     >
       {isClick ? (
         <IoHeartOutline className="w-6 h-6 text-red-600" />
