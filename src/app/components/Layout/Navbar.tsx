@@ -25,7 +25,9 @@ const Navbar = () => {
 
   return (
     <div className="main-container">
-      <div className="bg-black flex justify-between items-center w-full h-22 px-10 rounded-b-[40px] ">
+      <div className="bg-black flex justify-between items-center w-full h-22 px-10 rounded-b-[40px] 
+      max-sm:px-5
+      ">
         {/* Logo Main */}
 
         <motion.div
@@ -35,14 +37,14 @@ const Navbar = () => {
         >
           <Link href="/">
             <LogoMeepoGear
-              className="text-white w-36 h-auto
-          max-sm:w-30
+              className="text-white w-36 h-auto 
+          max-[475px]:w-30 max-[375px]:w-28 
           "
             />
           </Link>
         </motion.div>
 
-        <div className="nav-con flex items-center gap-3 cursor-pointer group">
+        <div className="nav-con flex items-center gap-3 max-[475px]:gap-1 cursor-pointer group">
           {/* search bar */}
           <motion.div
             initial={{ opacity: 0, x: -2 }}
@@ -67,7 +69,7 @@ const Navbar = () => {
                   {session?.user?.email}
                 </p>
                 {/* {session?.user?.role === "admin" && <AdminBtn />} */}
-                <SignOutBtn className="bg-black w-[95px] h-[30px] rounded-full flex justify-center items-center cursor-pointer border-2 border-lime-300" />
+                <SignOutBtn className="bg-black w-[95px] max-sm:w-[80px] h-[30px] rounded-full flex justify-center items-center cursor-pointer border-2 border-lime-300" />
               </>
             ) : (
               <>
@@ -93,7 +95,7 @@ const Navbar = () => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 1, delay: 0.8 }}
                       viewport={{ once: true }}
-                      className="bg-[#9AE600] w-[95px]  max-md:w-[80px] h-[30px] rounded-full flex justify-center items-center"
+                      className="bg-[#9AE600] w-[95px] max-md:w-[80px] max-[475px]:hidden h-[30px] rounded-full flex justify-center items-center"
                     >
                       <span className="text-sm text-black italic font-semibold">
                         Login
@@ -102,7 +104,7 @@ const Navbar = () => {
                   </Link>
 
                   <Link href={"/auth/sign-up"}>
-                    <div className="bg-white w-[95px] max-md:w-[80px] h-[30px] rounded-full flex justify-center items-center">
+                    <div className="bg-white w-[95px] max-md:w-[80px] max-[475px]:hidden h-[30px] rounded-full flex justify-center items-center">
                       <span className="text-sm text-black italic font-semibold">
                         SignUp
                       </span>
@@ -147,7 +149,7 @@ const Navbar = () => {
                   className="text-white w-6 h-6"
                 />
               </motion.div>
-              {onToggle && session?.user && (
+              {onToggle && (
                 <motion.div
                   ref={menuRef}
                   initial={{ opacity: 0 }}
