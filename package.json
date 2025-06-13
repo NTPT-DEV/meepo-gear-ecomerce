@@ -13,6 +13,8 @@
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.0.1",
     "@prisma/client": "^6.6.0",
+    "@splinetool/react-spline": "^4.0.0",
+    "@splinetool/runtime": "^1.10.4",
     "@stripe/react-stripe-js": "^3.7.0",
     "@stripe/stripe-js": "^7.3.1",
     "axios": "^1.9.0",

@@ -1,6 +1,7 @@
-'use client'
+"use client";
 import { Clock1, ShieldCheck, Truck } from "lucide-react";
-import { motion } from "motion/react"
+import { motion } from "motion/react";
+import Robot from "../element3D/Robot";
 interface disclaimerDataType {
   icon: React.ReactElement;
   title: string;
@@ -25,31 +26,40 @@ const disclaimerData: disclaimerDataType[] = [
   },
 ];
 
-
 const DisclaimerSection = () => {
-    return (
-      <div className="container flex w-full  mx-auto justify-center items-center py-5 gap-5 my-10 flex-wrap 
-      max-[576px]:grid max-[576px]:grid-cols-1 max-[576px]:gap-5 max-[576px]:place-items-center max-[576px]:mt-0">
+  return (
+    <>
+    <Robot />
+      <div
+        className="container flex w-full  mx-auto justify-center items-center gap-5 mb-10 flex-wrap 
+      max-[576px]:grid max-[576px]:grid-cols-1 max-[576px]:gap-5 max-[576px]:place-items-center max-[576px]:mt-0"
+      >
         {disclaimerData.map((item, index) => {
           return (
             <motion.div
-              initial={{ opacity: 0 , y : 5 }}
-              whileInView={{ opacity: 1 , y : 0}}
-              transition={{ duration: 0.5 , delay : index * 0.2 }}
+              initial={{ opacity: 0, y: 5 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
               className="flex justify-center bg-white gap-2 items-center w-[250px] h-auto px-4 py-5 rounded-3xl shadow-sm"
               key={index}
             >
+              
               <div className="flex justify-center items-center w-8 h-8 bg-gray-50 text-zinc-600 rounded-full animate-pulse">
                 {item.icon}
               </div>
               <div className="flex flex-col text-zinc-700 -space-y-0.5 ">
-                <h1 className="text-xl font-semibold text-nowrap">{item.title}</h1>
-                <p className="text-sm text-zinc-500 text-nowrap">{item.description}</p>
+                <h1 className="text-xl font-semibold text-nowrap">
+                  {item.title}
+                </h1>
+                <p className="text-sm text-zinc-500 text-nowrap">
+                  {item.description}
+                </p>
               </div>
             </motion.div>
           );
         })}
       </div>
-    );
-  };
+    </>
+  );
+};
 export default DisclaimerSection;
